@@ -24,6 +24,13 @@ npx skills add xusnitdinov/uzbek-humanizer
 Or the branded CLI:
 
 ```bash
+npm i -g uzbek-humanizer-cli
+uzhumanizer init --ai all --global
+```
+
+From source:
+
+```bash
 git clone https://github.com/xusnitdinov/uzbek-humanizer.git
 cd uzbek-humanizer/cli
 npm install -g .

@@ -25,7 +25,7 @@ jobs:
           node-version: "22"
           registry-url: https://registry.npmjs.org
 
-      # Uses npm Trusted Publishing (OIDC). No long-lived NPM_TOKEN required
-      # after the GitHub repo is linked on npmjs.com for this package.
       - name: Publish uzbek-humanizer-cli
         run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

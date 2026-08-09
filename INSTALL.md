@@ -6,7 +6,13 @@
 npx skills add xusnitdinov/uzbek-humanizer
 ```
 
-## Option B - branded installer
+## Option B - branded installer (npm)
+
+```bash
+npm i -g uzbek-humanizer-cli
+uzhumanizer init --ai cursor
+uzhumanizer init --ai all --global
+```
 
 From this repo:
 
