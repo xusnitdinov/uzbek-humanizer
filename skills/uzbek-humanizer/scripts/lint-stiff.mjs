@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
  * Stiff-copy / AI-tell linter for Uzbek Latin drafts.
- * Flags orthography spam, EN calques, register mix hints, and textbook mush.
  *
  * Usage:
  *   node lint-stiff.mjs <file>
@@ -10,16 +9,19 @@
  */
 import fs from "node:fs";
 
+/** Back vowels that should take -lar not -ler */
+const BACK = "aouoʻAOOUÓ";
+
 const RULES = [
   {
-    id: "ascii-apostrophe",
-    re: /[OoGg]'|[OoGg]'|[Tt]o'[gG]|[Gg]'[aA]/,
-    tip: "Use oʻ/gʻ with ʻ (U+02BB), not ASCII '",
+    id: "ascii-o-g",
+    re: /[OoGg]['\u2018\u2019]/,
+    tip: "Use oʻ/gʻ with ʻ (U+02BB), not ASCII/curly quotes",
   },
   {
     id: "ascii-apostrophe-any",
-    re: /[A-Za-z]'[A-Za-z]/,
-    tip: "Likely ASCII apostrophe in a word - check oʻ/gʻ/ʼ",
+    re: /[A-Za-z]['\u2018\u2019][A-Za-z]/,
+    tip: "Likely bad apostrophe in a word - check oʻ/gʻ/ʼ",
   },
   {
     id: "en-select",
@@ -52,6 +54,11 @@ const RULES = [
     tip: "AI cosplay phrase - rewrite",
   },
   {
+    id: "hard-mode",
+    re: /\bhard\s+mode\b/i,
+    tip: "Fake EN cool - ban",
+  },
+  {
     id: "check-qil",
     re: /\bcheck\s+qil/i,
     tip: "Prefer tekshiring / koʻrib chiqing",
@@ -72,8 +79,18 @@ const RULES = [
     tip: "Stiff AI filler - soften or cut",
   },
   {
+    id: "hurmatli-foydalanuvchi",
+    re: /\bHurmatli\s+foydalanuvchi\b/i,
+    tip: "Brochure AI opener - cut for product marketing",
+  },
+  {
+    id: "innovatsion",
+    re: /\b(innovatsion\s+yechim|imkoniyatlar\s+olami|maksimal\s+darajada)\b/i,
+    tip: "Hype brochure stack - rewrite plain",
+  },
+  {
     id: "men-yoqtiraman",
-    re: /\bmen\b.{0,40}\byoqtiraman\b/i,
+    re: /\bMen\s+(?:haqiqatan\s+ham\s+)?(?:bu\s+)?\w{0,20}\s*yoqtiraman\b/i,
     tip: "Often stiff - prefer menga yoqadi / yoqdi",
   },
   {
@@ -84,26 +101,24 @@ const RULES = [
   {
     id: "morph-berdimga",
     re: /\bberdimga\b/i,
-    tip: "Broken morphology - berdim / berdim (+ dative on noun)",
+    tip: "Broken morphology - berdim (+ dative on noun)",
   },
   {
-    id: "morph-ler",
-    re: /\b\w+ler(imiz|ingiz|i)?\b/i,
-    tip: "Possible vowel-harmony fail (-lar not -ler for back vowels)",
+    id: "morph-ler-back",
+    re: new RegExp(
+      `\\b[A-Za-z${"ʻʼ"}]*[${BACK}][A-Za-z${"ʻʼ"}]*ler(?:imiz|ingiz|i)?\\b`,
+      "i"
+    ),
+    tip: "Back-vowel stem with -ler - prefer -lar (e.g. kitoblarimiz)",
   },
   {
-    id: "place-tashkent",
-    re: /\bTashkent\b/,
-    tip: "In UZ text use Toshkent",
-  },
-  {
-    id: "place-samarkand",
-    re: /\bSamarkand\b/,
-    tip: "In UZ text use Samarqand",
+    id: "place-en",
+    re: /\b(Tashkent|Samarkand|Bukhara|Fergana|Andijan|Khiva|Kokand|Termez|Urgench)\b/i,
+    tip: "EN place name in UZ text - use Toshkent/Samarqand/Buxoro/…",
   },
   {
     id: "register-mix-hint",
-    re: /\b(Siz|Hurmatli)\b[\s\S]{0,80}\b(yaxshisan|kelasan|qilasan)\b/i,
+    re: /\b(Siz|Hurmatli)\b[\s\S]{0,80}\b\w+(?:san|asan)\b/i,
     tip: "Possible Siz + -san mix",
   },
   {
@@ -139,6 +154,10 @@ if (!arg) {
 
 let text;
 if (arg === "--stdin") {
+  if (process.stdin.isTTY) {
+    console.error("No piped input on stdin (TTY). Pipe text or pass a file path.");
+    process.exit(1);
+  }
   text = fs.readFileSync(0, "utf8");
 } else {
   if (!fs.existsSync(arg)) {
@@ -159,5 +178,3 @@ for (const f of findings) {
   console.error(`- [${f.id}] "${f.match}" → ${f.tip}`);
 }
 process.exit(2);
-
-export { lint, RULES };

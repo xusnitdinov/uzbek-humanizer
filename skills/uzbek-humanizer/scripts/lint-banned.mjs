@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
  * Lint banned EN calques / discourse RU in Uzbek copy drafts.
- * Prefer lint-stiff.mjs for fuller AI-tell checks; this stays fast/simple.
  */
 import fs from "node:fs";
 
@@ -11,19 +10,19 @@ const BANNED = [
   /\bportladi\b/i,
   /\bteammate\b/i,
   /\bsystems\s+brain\b/i,
-  /\bhard mode\b/i,
+  /\bhard\s+mode\b/i,
   /\bkaroche\b/i,
   /\bnormalni\b/i,
   /\bkruto\b/i,
   /\bchotki\b/i,
-  /\bcheck qil/i,
-  /\bsupport qil/i,
-  /\bupdate qil/i,
-  /\bselect qil/i,
-  /\bhaqiqatan ham\b/i,
-  /\bchelakni tepdi\b/i,
-  /\bTashkent\b/,
-  /\bSamarkand\b/,
+  /\bcheck\s+qil/i,
+  /\bsupport\s+qil/i,
+  /\bupdate\s+qil/i,
+  /\bselect\s+qil/i,
+  /\bhaqiqatan\s+ham\b/i,
+  /\bchelakni\s+tepdi\b/i,
+  /\bHurmatli\s+foydalanuvchi\b/i,
+  /\b(Tashkent|Samarkand|Bukhara|Fergana)\b/i,
 ];
 
 const file = process.argv[2];

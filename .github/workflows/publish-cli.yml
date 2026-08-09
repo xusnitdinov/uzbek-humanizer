@@ -1,4 +1,4 @@
-name: Publish CLI to npm
+name: Publish CLI
 
 on:
   release:
@@ -8,24 +8,86 @@ on:
 permissions:
   contents: read
   id-token: write
+  packages: write
 
 jobs:
-  publish:
+  publish-npmjs:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: cli
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
           registry-url: https://registry.npmjs.org
 
-      - name: Publish uzbek-humanizer-cli
+      - name: Sync + assert skill payload
+        run: |
+          node scripts/sync-skill.mjs
+          test -f skill/SKILL.md
+          npm pack --dry-run | grep -q 'skill/SKILL.md'
+
+      - name: Skip if version already on npmjs
+        id: check
+        run: |
+          VER=$(node -p "require('./package.json').version")
+          if npm view "uzbek-humanizer-cli@$VER" version >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "uzbek-humanizer-cli@$VER already published - skip"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to npmjs
+        if: steps.check.outputs.exists != 'true'
         run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-gh-packages:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cli
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: https://npm.pkg.github.com
+          scope: "@xusnitdinov"
+
+      - name: Sync skill + scope package name
+        run: |
+          node scripts/sync-skill.mjs
+          test -f skill/SKILL.md
+          node <<'NODE'
+          const fs = require('fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          pkg.name = '@xusnitdinov/uzbek-humanizer-cli';
+          pkg.publishConfig = { registry: 'https://npm.pkg.github.com' };
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          NODE
+
+      - name: Skip if version already on GitHub Packages
+        id: check
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VER=$(node -p "require('./package.json').version")
+          if npm view "@xusnitdinov/uzbek-humanizer-cli@$VER" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "already published - skip"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to GitHub Packages
+        if: steps.check.outputs.exists != 'true'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

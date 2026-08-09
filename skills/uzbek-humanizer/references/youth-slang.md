@@ -16,7 +16,7 @@ Otherwise stick to clean spoken product Uzbek. Do not inject slang to "sound loc
 | Item | Sense |
 |---|---|
 | gap yoʻq | awesome / no words |
-| zoʻr | cool / great |
+| zoʻr | cool / great - also light spoken glue in `particles.md` sense; fine for soft peer praise, not product UI spam |
 | qotdim | died laughing |
 | katta gap | big talk / hype |
 | yoqdi | liked it |
@@ -29,7 +29,6 @@ Otherwise stick to clean spoken product Uzbek. Do not inject slang to "sound loc
 | tinchmi | you good? / all calm? |
 | joyida | solid / on point |
 | yomon emas | not bad (understated like) |
-| zajeb (soft) | avoid in product; peer-only if user wants rough |
 | gapirsa boʻladi | fair / makes sense |
 | ha a | yeah / affirming filler |
 | voy | mild surprise |
@@ -42,6 +41,12 @@ Otherwise stick to clean spoken product Uzbek. Do not inject slang to "sound loc
 | charchadim | I'm done / exhausted |
 | keyinroq | later |
 | yozib qoʻy | message me / drop a text |
+
+## Rough / vulgar (strong warning)
+
+| Item | Sense |
+|---|---|
+| zajeb | rough / vulgar - **not soft**. Peer-only if user explicitly wants rough talk. Never product, never bank/medical/legal, never default "youth flavor." Prefer softer praise (`zoʻr`, `gap yoʻq`) unless user asked for vulgar. |
 
 ## RU / mix (only if youth mode)
 
@@ -59,6 +64,8 @@ Otherwise stick to clean spoken product Uzbek. Do not inject slang to "sound loc
 | nu ladno | alright then |
 
 Use sparsely. Soup of every particle = fake.
+
+Default clean mode bans these discourse RU items - see `rusizmlar.md`. Youth mix only when asked.
 
 ## Chat abbreviations
 
@@ -87,3 +94,9 @@ Fake EN cool: `ship`, `vibe`, `portladi`, `Systems brain`, `teammate` as swagger
 ## Formal / UI / bank / medical / legal
 
 Never. Keep those packs clean.
+
+## Output holat
+
+- Light peer slang on request, still clean enough for chat: often `final` if orthography/register OK
+- Heavy slang, vulgar tier (`zajeb`), or RU discourse soup: `draft/native_review_required`
+- Never ship youth slang into UI / bank / medical / legal packs

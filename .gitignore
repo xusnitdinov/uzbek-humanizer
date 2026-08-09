@@ -8,3 +8,15 @@ dist/
 *.tgz
 .cli-link-test/
 cli/skill/
+.cursor/
+.agents/
+.claude/
+.windsurf/
+.cline/
+.roo/
+.goose/
+.trae/
+.kilocode/
+.opencode/
+.continue/
+.github/skills/

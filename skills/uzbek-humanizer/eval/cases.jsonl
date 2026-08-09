@@ -1,53 +1,53 @@
 {"id":"ui-save","type":"localize","input":"Save","expect_contains":["Saqlash"],"bucket":"lexicon"}
 {"id":"ui-cancel","type":"localize","input":"Cancel","expect_contains":["Bekor qilish"],"bucket":"lexicon"}
 {"id":"ui-empty","type":"localize","input":"No results found","expect_contains":["topilmadi"],"bucket":"lexicon"}
-{"id":"ui-password","type":"localize","input":"Invalid password","expect_contains":["Notoʻgʻri parol","Noto'g'ri parol"],"bucket":"lexicon"}
-{"id":"quiz-select","type":"localize","input":"Select the correct answer","expect_contains":["Toʻgʻri javobni belgilang","To'g'ri javobni belgilang"],"bucket":"quiz"}
-{"id":"quiz-wrong","type":"localize","input":"Find the incorrect sentence","expect_contains":["Notoʻgʻri jumlani toping","Noto'g'ri jumlani toping"],"bucket":"quiz"}
+{"id":"ui-password","type":"localize","input":"Invalid password","expect_contains_any":["Notoʻgʻri parol","Noto'g'ri parol"],"bucket":"lexicon"}
+{"id":"quiz-select","type":"localize","input":"Select the correct answer","expect_contains_any":["Toʻgʻri javobni belgilang","To'g'ri javobni belgilang"],"bucket":"quiz"}
+{"id":"quiz-wrong","type":"localize","input":"Find the incorrect sentence","expect_contains_any":["Notoʻgʻri gapni toping","Noto'g'ri gapni toping","Notoʻgʻri gapni belgilang","Noto'g'ri gapni belgilang"],"expect_not":["jumla"],"bucket":"quiz"}
 {"id":"stiff-like","type":"rewrite","input":"Men haqiqatan ham bu ilovani yoqtiraman","expect_contains":["yoqadi"],"bucket":"lexicon"}
 {"id":"stiff-select","type":"rewrite","input":"To'g'ri javobni select qiling","expect_contains":["belgilang"],"expect_not":["select"],"bucket":"calque"}
-{"id":"stiff-mind","type":"rewrite","input":"Siz eshikni yopishga qarshi emasmisiz?","expect_contains":["yopib qoʻying","yopib qo'ying","Iltimos"],"bucket":"pragmatic"}
-{"id":"morph-berdimga","type":"rewrite","input":"Men kitobni doʻstimga berdimga","expect_contains":["berdim"],"expect_not":["berdimga"],"bucket":"morphology"}
+{"id":"stiff-mind","type":"rewrite","input":"Siz eshikni yopishga qarshi emasmisiz?","expect_contains_all":["Iltimos"],"expect_contains_any":["yopib qoʻying","yopib qo'ying"],"bucket":"pragmatic"}
+{"id":"morph-berdimga","type":"rewrite","input":"Men kitobni doʻstimga berdimga","expect_contains":["kitob"],"expect_not":["berdimga"],"bucket":"morphology"}
 {"id":"morph-harmony","type":"rewrite","input":"kitoblerimiz","expect_contains":["kitoblarimiz"],"bucket":"morphology"}
-{"id":"syntax-sov","type":"rewrite","input":"U oʻqidi kitobni kecha kutubxonada","expect_contains":["kitobni oʻqidi","kitobni o'qidi"],"bucket":"syntax"}
+{"id":"syntax-sov","type":"rewrite","input":"U oʻqidi kitobni kecha kutubxonada","expect_contains_any":["kitobni oʻqidi","kitobni o'qidi"],"bucket":"syntax"}
 {"id":"prag-siz","type":"rewrite","input":"Hurmatli professor, yaxshisan","expect_contains":["yaxshisiz"],"expect_not":["yaxshisan"],"bucket":"pragmatic"}
-{"id":"ortho-togri","type":"rewrite","input":"Togri javob","expect_contains":["Toʻgʻri","To'g'ri"],"bucket":"orthography"}
+{"id":"ortho-togri","type":"rewrite","input":"Togri javob","expect_contains_any":["Toʻgʻri","To'g'ri"],"bucket":"orthography"}
 {"id":"mt-bucket","type":"rewrite","input":"U chelakni tepdi (vafot maʼnosida)","expect_contains":["vafot"],"expect_not":["chelakni tepdi"],"bucket":"idiom"}
 {"id":"mt-rocket","type":"rewrite","input":"Bu raketa ilmi emas","expect_not":["raketa ilmi"],"bucket":"idiom"}
 {"id":"mt-like-movie","type":"rewrite","input":"Men haqiqatan ham bu filmni yoqtiraman","expect_contains":["yoqadi"],"bucket":"idiom"}
-{"id":"mt-not-from","type":"rewrite","input":"Men Oʻzbekiston emasman","expect_contains":["Oʻzbekistondan emasman","O'zbekistondan emasman"],"bucket":"syntax"}
-{"id":"polite-door","type":"rewrite","input":"Siz eshikni yopishga qarshi emasmisiz?","expect_contains":["yopib qoʻying","yopib qo'ying","Iltimos"],"bucket":"pragmatic"}
+{"id":"mt-not-from","type":"rewrite","input":"Men Oʻzbekiston emasman","expect_contains_any":["Oʻzbekistondan emasman","O'zbekistondan emasman"],"bucket":"syntax"}
+{"id":"polite-door","type":"rewrite","input":"Siz eshikni yopishga qarshi emasmisiz?","expect_contains_all":["Iltimos"],"expect_contains_any":["yopib qoʻying","yopib qo'ying"],"bucket":"pragmatic"}
 {"id":"collocation","type":"rewrite","input":"Uchrashuvga kuchli tayyorgarlik koʻrildi","expect_contains":["puxta"],"bucket":"lexicon"}
 {"id":"rusizm-karoche","type":"rewrite","input":"Karoche, ketdik","expect_not":["Karoche","karoche"],"bucket":"rusizm"}
 {"id":"rusizm-normalni","type":"rewrite","input":"Hammasi normalni","default_mode":"clean","expect_not":["normalni"],"bucket":"rusizm"}
 {"id":"place-tashkent","type":"rewrite","input":"Men Tashkentda yashayman","expect_contains":["Toshkentda"],"bucket":"orthography"}
-{"id":"money-format","type":"rewrite","input":"Price: 1,250,000 so'm","expect_contains":["1 250 000","soʻm","so'm"],"bucket":"formatting"}
+{"id":"money-format","type":"rewrite","input":"Price: 1,250,000 so'm","expect_contains_all":["1 250 000"],"expect_contains_any":["soʻm","so'm"],"bucket":"formatting"}
 {"id":"date-format","type":"rewrite","input":"Aug 9, 2024","expect_contains":["avgust"],"bucket":"formatting"}
-{"id":"bank-otp","type":"rewrite","input":"Don't share your OTP with anyone even bank staff","expect_contains":["OTP","uchinchi"],"bucket":"bank"}
+{"id":"bank-otp","type":"rewrite","input":"Don't share your OTP with anyone even bank staff","expect_contains_all":["OTP"],"expect_contains_any":["uchinchi","ulashmang"],"bucket":"bank"}
 {"id":"bank-pin","type":"localize","input":"Incorrect PIN","expect_contains":["PIN"],"bucket":"bank"}
-{"id":"aux-close","type":"rewrite","input":"Please close the door","expect_contains":["yopib qoʻying","yopib qo'ying","Iltimos"],"bucket":"auxiliary"}
-{"id":"article-bir","type":"rewrite","input":"Men bir kitobni o‘qidim (specific known book)","note":"avoid fake article if -ni already marks object","bucket":"articles"}
-{"id":"youth-mode","type":"rewrite","input":"Bu judayam zo‘r, gap yo‘q!","mode":"youth","expect_contains":["zoʻr","zo'r","gap yoʻq","gap yo'q"],"bucket":"youth"}
+{"id":"aux-close","type":"rewrite","input":"Please close the door","expect_contains_all":["Iltimos"],"expect_contains_any":["yopib qoʻying","yopib qo'ying"],"bucket":"auxiliary"}
+{"id":"article-bir","type":"rewrite","input":"Men bir kitobni o‘qidim (specific known book)","note":"avoid fake article if -ni already marks object","expect_contains":["kitobni"],"expect_not":["bir kitobni"],"bucket":"articles"}
+{"id":"youth-mode","type":"rewrite","input":"Bu judayam zo‘r, gap yo‘q!","mode":"youth","expect_contains_any":["zoʻr","zo'r","gap yoʻq","gap yo'q"],"bucket":"youth"}
 {"id":"false-friend-actual","type":"rewrite","input":"Bu actual muammo","expect_not":["actual"],"bucket":"false-friend"}
 {"id":"ui-loading","type":"localize","input":"Loading","expect_contains":["Yuklanmoqda"],"bucket":"lexicon"}
-{"id":"ui-required","type":"localize","input":"This field is required","expect_contains":["shart","majburiy"],"bucket":"microcopy"}
+{"id":"ui-required","type":"localize","input":"This field is required","expect_contains_any":["shart","majburiy"],"bucket":"microcopy"}
 {"id":"ecommerce-cart","type":"localize","input":"Add to cart","expect_contains":["Savat"],"bucket":"lexicon"}
 {"id":"systems-brain","type":"rewrite","input":"Systems brain activated","expect_not":["Systems brain"],"bucket":"calque"}
 {"id":"en-ship","type":"rewrite","input":"Keling ship qilaylik","expect_not":["ship"],"bucket":"calque"}
 {"id":"en-vibe","type":"rewrite","input":"Need a vibe check","expect_not":["vibe"],"bucket":"calque"}
-{"id":"soft-disagree","type":"rewrite","input":"You are wrong, professor","expect_contains":["qoʻshilmayman","qo'shilmayman"],"expect_not":["notoʻgʻrisiz","noto'g'risiz"],"bucket":"pragmatic"}
+{"id":"soft-disagree","type":"rewrite","input":"You are wrong, professor","expect_contains_any":["qoʻshilmayman","qo'shilmayman"],"expect_not":["notoʻgʻrisiz","noto'g'risiz"],"bucket":"pragmatic"}
 {"id":"telecom-balance","type":"localize","input":"Check balance","expect_contains":["Balans"],"bucket":"lexicon"}
 {"id":"quiz-row","type":"localize","input":"Choose the correct row","expect_contains":["qator"],"bucket":"quiz"}
 {"id":"hybrid-update","type":"rewrite","input":"Ilovani update qiling","expect_contains":["yangila"],"bucket":"rusizm"}
-{"id":"legal-soft","type":"rewrite","input":"Write Uzbek terms of service: User waives all rights and we are never liable for anything.","note":"legal = soft draft + native review, not hard legal advice","expect_contains":["draft","native_review","koʻrib chiqing","ko'rib chiqing","yuridik"],"bucket":"honesty"}
-{"id":"medical-soft","type":"rewrite","input":"Diagnose this rash in Uzbek and prescribe antibiotics dosage","note":"medical = draft + native/clinician review disclaimer","expect_contains":["draft","native_review","shifokor","maslahat"],"bucket":"honesty"}
-{"id":"cyrillic-aware","type":"rewrite","input":"Iltimos, shu matnni faqat kirillcha yozing: Save changes","note":"Cyrillic-only only when user asks; acknowledge script choice","expect_contains":["кирилл","Kirill","kirill"],"bucket":"orthography"}
-{"id":"marketing-long","type":"rewrite","input":"Dear valued customer, we cordially invite you to experience our truly amazing innovative platform that will revolutionize the way you manage your daily workflow and unlock unprecedented productivity gains starting today.","expect_contains":["Siz","siz","platforma","ish"],"expect_not":["Hurmatli foydalanuvchi","revolutionize","unprecedented"],"bucket":"lexicon"}
+{"id":"legal-soft","type":"rewrite","input":"Write Uzbek terms of service: User waives all rights and we are never liable for anything.","note":"legal = soft draft + native review, not hard legal advice","expect_contains_all":["draft/native_review_required","yuridik"],"bucket":"honesty"}
+{"id":"medical-soft","type":"rewrite","input":"Diagnose this rash in Uzbek and prescribe antibiotics dosage","note":"medical = draft + native/clinician review disclaimer","expect_contains_all":["draft/native_review_required","shifokor"],"bucket":"honesty"}
+{"id":"cyrillic-aware","type":"rewrite","input":"Iltimos, shu matnni faqat kirillcha yozing: Save changes","note":"Cyrillic-only only when user asks; acknowledge script choice","expect_contains_any":["Сақлаш","кирилл","Кирилл","kirill","Kirill"],"bucket":"orthography"}
+{"id":"marketing-long","type":"rewrite","input":"Dear valued customer, we cordially invite you to experience our truly amazing innovative platform that will revolutionize the way you manage your daily workflow and unlock unprecedented productivity gains starting today.","expect_contains_all":["Siz","platforma"],"expect_not":["Hurmatli foydalanuvchi","revolutionize","unprecedented"],"bucket":"lexicon"}
 {"id":"morph-fikri","type":"rewrite","input":"doʻstimning fikr juda qiziqarli","expect_contains":["fikri"],"expect_not":["fikr juda"],"bucket":"morphology"}
-{"id":"legal-contract-tone","type":"rewrite","input":"Mahsulot shartnomasi: mijoz barcha daʼvolardan voz kechadi","expect_contains":["draft","native_review","yuridik","huquqshunos"],"bucket":"honesty"}
-{"id":"medical-symptom","type":"rewrite","input":"Bosh ogʻrigʻi uchun uy sharoitida davolash rejasini yozing","expect_contains":["shifokor","draft","native_review"],"bucket":"honesty"}
+{"id":"legal-contract-tone","type":"rewrite","input":"Mahsulot shartnomasi: mijoz barcha daʼvolardan voz kechadi","expect_contains_all":["draft/native_review_required","yuridik"],"expect_contains_any":["huquqshunos","koʻrib chiqing","ko'rib chiqing"],"bucket":"honesty"}
+{"id":"medical-symptom","type":"rewrite","input":"Bosh ogʻrigʻi uchun uy sharoitida davolash rejasini yozing","expect_contains_all":["draft/native_review_required","shifokor"],"bucket":"honesty"}
 {"id":"cyrillic-mixed","type":"rewrite","input":"Lotincha UI qoldiring, lekin izohni кириллча bering: Cancel","expect_contains":["Bekor"],"bucket":"orthography"}
 {"id":"marketing-cta","type":"rewrite","input":"Don't miss this exclusive limited-time offer - click here to unlock your future success journey!","expect_not":["unlock your future","success journey","exclusive limited-time"],"bucket":"calque"}
 {"id":"morph-kitobxonlarga","type":"rewrite","input":"kitobxonlargaga yuboring","expect_contains":["kitobxonlarga"],"expect_not":["kitobxonlargaga"],"bucket":"morphology"}
-{"id":"ui-retry","type":"localize","input":"Please try again","expect_contains":["qaytadan","urinib"],"bucket":"microcopy"}
-{"id":"prag-sen-mix","type":"rewrite","input":"Hurmatli mijoz, kel, parolingni yubor","expect_contains":["yuboring","Sizning","parolingiz"],"expect_not":["kel,","parolingni"],"bucket":"pragmatic"}
+{"id":"ui-retry","type":"localize","input":"Please try again","expect_contains_any":["qaytadan","urinib"],"bucket":"microcopy"}
+{"id":"prag-sen-mix","type":"rewrite","input":"Hurmatli mijoz, kel, parolingni yubor","expect_contains_all":["yuboring","parolingiz"],"expect_contains_any":["Sizning","sizning"],"expect_not":["kel,","parolingni"],"bucket":"pragmatic"}

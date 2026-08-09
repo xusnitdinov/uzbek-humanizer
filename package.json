@@ -4,8 +4,10 @@
   "description": "uzbek-humanizer Agent Skill - natural Latin Uzbek for AI assistants",
   "license": "MIT",
   "scripts": {
-    "test:eval": "node skills/uzbek-humanizer/scripts/run-eval.mjs"
+    "test:eval": "node skills/uzbek-humanizer/scripts/run-eval.mjs",
+    "lint:examples": "node skills/uzbek-humanizer/scripts/run-eval.mjs"
   },
+
   "repository": {
     "type": "git",
     "url": "https://github.com/xusnitdinov/uzbek-humanizer"

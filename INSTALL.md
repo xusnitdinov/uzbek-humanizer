@@ -6,28 +6,36 @@
 npx skills add xusnitdinov/uzbek-humanizer
 ```
 
-## Option B - branded installer (npmjs)
+## Option B - branded installer (npmjs) - preferred
 
 ```bash
-npm i -g uzbek-humanizer-cli
+npm i -g uzbek-humanizer-cli@1.2.0
 uzhumanizer init --ai cursor
 uzhumanizer init --ai all --global
 ```
 
 Package: https://www.npmjs.com/package/uzbek-humanizer-cli
 
-## Option C - GitHub Packages
-
-Scoped mirror of the same CLI. Configure npm for `npm.pkg.github.com` (GitHub token with `read:packages`), then:
+Uninstall:
 
 ```bash
-npm i -g @xusnitdinov/uzbek-humanizer-cli --registry=https://npm.pkg.github.com
+uzhumanizer uninstall --ai cursor
+uzhumanizer uninstall --ai all --global
+npm uninstall -g uzbek-humanizer-cli
+```
+
+## Option C - GitHub Packages (optional mirror)
+
+Scoped package `@xusnitdinov/uzbek-humanizer-cli`. Needs a GitHub token with `read:packages`. CI publishes this too so the repo Packages sidebar stays filled.
+
+```bash
+npm i -g @xusnitdinov/uzbek-humanizer-cli@1.2.0 --registry=https://npm.pkg.github.com
 uzhumanizer init --ai all --global
 ```
 
 Package: https://github.com/xusnitdinov/uzbek-humanizer/pkgs/npm/uzbek-humanizer-cli
 
-Prefer **npmjs** for normal installs. GitHub Packages is mainly so the repo Packages sidebar stays honest.
+Prefer **npmjs** for normal installs.
 
 From this repo:
 
@@ -35,7 +43,6 @@ From this repo:
 cd cli
 npm install -g .
 uzhumanizer init --ai cursor
-uzhumanizer init --ai all --global
 ```
 
 Or without global link:
@@ -46,18 +53,18 @@ node cli/bin/uzhumanizer.js init --ai cursor
 
 ### `--ai` values
 
-`cursor` | `claude` | `codex` | `copilot` | `windsurf` | `cline` | `roo` | `amp` | `goose` | `trae` | `kilo` | `opencode` | `continue` | `agents` | `all`
+`cursor` | `claude` | `codex` | `copilot` | `windsurf` | `cline` | `roo` | `amp` | `goose` | `trae` | `kilo` | `opencode` | `continue` | `gemini-cli` | `antigravity` | `agents` | `all`
 
-Unknown agents: use `agents` (writes `.agents/skills/uzbek-humanizer`) or copy manually.
+Unknown agents: use `agents` (project `.agents/skills`, global XDG `agents/skills`) or copy manually.
 
 ### Project vs global
 
-- default: project folders (`.cursor/skills/uzbek-humanizer`, `.windsurf/skills/…`, …)
-- `--global`: home directories (`~/.cursor/skills/…`, `~/.codeium/windsurf/skills/…`, `~/.agents/skills/…`, …)
+- default: project folders (`.cursor/skills/…`, `.agents/skills/…`, …)
+- `--global`: agent-native home dirs (`~/.cursor/skills`, `~/.codex/skills`, `~/.copilot/skills`, `~/.codeium/windsurf/skills`, XDG `~/.config/…` on Unix / `%APPDATA%\…` on Windows)
 
 ## Manual
 
-Copy `skills/uzbek-humanizer/` into your agent's skills directory. Folder name must stay `uzbek-humanizer` to match `SKILL.md` name. Prefer also installing under `.agents/skills/` for cross-client discovery.
+Copy `skills/uzbek-humanizer/` into your agent's skills directory. Folder name must stay `uzbek-humanizer`. Prefer also installing under `.agents/skills/` for cross-client discovery.
 
 ## Verify
 
@@ -72,6 +79,9 @@ From the repo:
 ```bash
 npm run test:eval
 node skills/uzbek-humanizer/scripts/lint-stiff.mjs path/to/draft.txt
+node skills/uzbek-humanizer/scripts/normalize-apostrophe.mjs --check path/to/draft.txt
 ```
 
-Native bakeoff protocol: `skills/uzbek-humanizer/eval/bakeoff-rubric.md`
+Native bakeoff: `skills/uzbek-humanizer/eval/bakeoff-rubric.md`
+
+Changelog: [CHANGELOG.md](./CHANGELOG.md)

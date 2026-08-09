@@ -2,14 +2,16 @@
 name: uzbek-humanizer
 description: >-
   Use when writing, rewriting, reviewing, or localizing Uzbek Latin copy
-  (UI, product, quiz, marketing, chat). Fixes AI-sounding Uzbek, English
-  calques, morphology, oʻ/gʻ orthography, and Siz/sen register. Trigger for
-  o'zbekcha, o‘zbek, Uzbek copy, humanize Uzbek, matnni tabiiylashtirish,
-  uzbek-humanizer, even if the user does not say the skill name.
+  (UI, product, quiz, marketing, chat, bank/OTP, consent/ToS, symptom/health).
+  Fixes AI-sounding Uzbek, English calques, morphology, oʻ/gʻ orthography,
+  and Siz/sen register. Trigger for o'zbekcha, o‘zbek, Uzbek copy, humanize
+  Uzbek, matnni tabiiylashtirish, uzbek-humanizer, bank OTP SMS, rozilik /
+  shartlar / ToS, alomat / sogʻliq / symptom, kirill / Cyrillic, DTM / quiz,
+  Telegram / yoshlarcha, even if the user does not say the skill name.
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.0.0"
+  version: "1.2.0"
 ---
 
 # uzbek-humanizer
@@ -24,6 +26,10 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 - Fix stiff MT or LLM Uzbek (calques, wrong suffixes, missing oʻ/gʻ)
 - Localize EN (or other) into natural Uzbek
 - Review existing Uzbek copy for AI tells
+- Bank / OTP / SMS security copy
+- Legal soft UI (consent, ToS, disclaimers) - draft + native review
+- Medical soft UI (appointment, symptom prompts) - draft; never diagnose
+- Cyrillic output when the user explicitly asks for кирилл / Cyrillic
 
 ## When not to use
 
@@ -32,34 +38,44 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 - Pure grammar-theory essay with no rewrite task
 - User style guide explicitly overrides this skill - follow the user
 
-## Scenario → Start From
+## Router
 
-| Scenario | Trigger examples | Start |
+| Scenario | Trigger examples | Load |
 |---|---|---|
-| Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `microcopy.md` |
-| Quiz / test | DTM stems, "belgilang" | `references/quiz-glossary.md` |
-| Rewrite bad AI UZ | stiff calques, EN order, broken suffixes | `banned-calques.md` + `before-after.md` |
-| Marketing / landing | warm human tone, long paragraphs | `register.md` + `voice.md` + `marketing-long.md` |
-| Youth chat | slang, Telegram vibe | `youth-slang.md` (draft label; only when asked) |
-| Bank / OTP / SMS | security copy | `bank-sms.md` + `politeness.md` |
-| Legal soft UI | ToS, consent, disclaimers | `legal-copy.md` (draft label) |
-| Medical soft UI | appointment, symptom prompts | `medical-copy.md` (draft label; never diagnose) |
-| Cyrillic ask | кирилл, Cyrillic output | `cyrillic.md` (Latin default otherwise) |
-| Orthography mess | apostrophes, oʻ/gʻ | `orthography.md` + run normalize script |
+| Bad AI rewrite | stiff calques, EN order, broken suffixes | `references/banned-calques.md` + `references/before-after.md` + `references/ai-patterns.md` |
+| Marketing / landing | warm human tone, long paragraphs | `references/register.md` + `references/voice.md` + `references/marketing-long.md` + `examples/marketing.md` |
+| Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `references/microcopy.md` + `examples/product-ui.md` |
+| Quiz / test | DTM stems, "belgilang" | `references/quiz-glossary.md` + `examples/quiz.md` |
+| Youth chat | slang, Telegram vibe, yoshlarcha | `references/youth-slang.md` (draft label; only when asked) |
+| Bank / OTP / SMS | security copy, OTP, SMS | `references/bank-sms.md` + `references/politeness.md` |
+| Legal soft UI | ToS, consent, disclaimers | `references/legal-copy.md` (draft label) |
+| Medical soft UI | appointment, symptom prompts | `references/medical-copy.md` (draft label; never diagnose) |
+| Cyrillic ask | кирилл, Cyrillic output | `references/cyrillic.md` (Latin default otherwise) |
+| Orthography mess | apostrophes, oʻ/gʻ | `references/orthography.md` + run normalize script |
+| Literal idioms / MT mush | idiom calques, EN mush | `references/mt-failures.md` + `references/phraseology-rules.md` |
+| Stiff verbs / aspect | aspect, modality | `references/aspect-modality.md` + `references/auxiliaries.md` |
+| Spoken glue / particles | particles, voice | `references/particles.md` + `references/voice.md` |
+| Siz/sen / soft replies | address, politeness | `references/politeness.md` |
+| Money / dates / phones | soʻm, dates, +998 | `references/formatting.md` |
+| RU discourse / hybrids | rusizmlar, false friends | `references/rusizmlar.md` + `references/false-friends.md` |
+| Morphology weirdness | cases, plurals, harmony | `references/morphology-checks.md` |
+| Worked demos | examples beyond the row above | `examples/` |
+| Sources | citations / provenance | `references/sources.md` |
 
 ## Workflow
 
 1. **Detect task** - write / rewrite / review / localize. Default register: spoken clear product/student Latin Uzbek.
 2. **Respect user style** - if they give voice/glossary, it wins.
-3. **Load refs** - use the routing table below. One hop only.
+3. **Load refs** - use the Router table. One hop only.
 4. **Rewrite** - natural UZ, not literal EN. Prefer real verbs and light auxiliaries over calques.
 5. **Validate** - run scripts when available:
    - `node scripts/normalize-apostrophe.mjs <file>`
    - `node scripts/lint-banned.mjs <file>`
    - `node scripts/lint-stiff.mjs <file>` (AI-tell / stiff-copy patterns)
-   - `node scripts/run-eval.mjs` (schema + example lint; optional `--answers`)
-6. **Checklist** - complete the post-rewrite checklist.
-7. **Output** - use the template. Do not overwrite project files unless the user asks.
+6. **Fix lint findings then re-lint before final** - do not ship until lints are clean or residual issues are labeled in Holat.
+7. **Holat gate** - before output, if legal / medical / youth: set `Holat` to `draft/native_review_required`.
+8. **Checklist** - complete the post-rewrite checklist.
+9. **Output** - use the template. Do not overwrite project files unless the user asks.
 
 ## Gotchas
 
@@ -75,16 +91,21 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 10. Heavy slang / legal / medical = `draft/native_review_required`.
 11. Do not inject `karoche` / `normalni` / `kruto` to "sound local" unless youth mode was requested.
 12. Check morphology before shipping - suffix order and vowel harmony (`kitoblarimiz` not `kitoblerimiz`).
+13. Never diagnose or prescribe - medical soft UI is prompts and navigation only.
+14. Never invent binding legal fine print or statutes - legal soft UI stays draft.
+15. Cyrillic only when asked - Latin is the default.
+16. Invented bank / OTP / SMS copy = draft (`draft/native_review_required`).
 
 ## Post-rewrite checklist
 
 - [ ] Orthography: oʻ/gʻ/ʼ correct; no ASCII apostrophe spam
 - [ ] Morphology: no broken cases/plurals/possessives
 - [ ] Syntax: natural SOV; no EN word-order mush
-- [ ] Lexicon: no banned EN calques; idioms remapped or plain
+- [ ] Lexicon: no banned EN calques; idioms remapped or plain; no invented maqol
 - [ ] Pragmatics: one address lane (Siz or sen); register matches task
 - [ ] Formatting: soʻm / dates / +998 if relevant
-- [ ] Honesty: slang-heavy labeled draft if needed
+- [ ] Cyrillic digraph check when Cyrillic is used
+- [ ] Honesty: legal / medical / slang-heavy / invented bank SMS → `draft/native_review_required`
 
 ## Output template
 
@@ -100,41 +121,25 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 final | draft/native_review_required
 ```
 
-## Reference routing
-
-| If task involves... | Load |
-|---|---|
-| Bad AI / EN slang / calques | `references/banned-calques.md`, `references/ai-patterns.md` |
-| Literal idioms / MT mush | `references/mt-failures.md`, `references/phraseology-rules.md` |
-| Buttons / errors / empty | `references/ui-glossary.md`, `references/microcopy.md` |
-| Quiz / DTM stems | `references/quiz-glossary.md` |
-| Apostrophes / Latin chaos | `references/orthography.md` |
-| Stiff verbs / aspect | `references/aspect-modality.md`, `references/auxiliaries.md` |
-| Spoken glue / particles | `references/particles.md`, `references/voice.md` |
-| Siz/sen / soft replies | `references/politeness.md` |
-| Money / dates / phones | `references/formatting.md` |
-| RU discourse / hybrids | `references/rusizmlar.md`, `references/false-friends.md` |
-| Youth Telegram tone | `references/youth-slang.md` (only when asked; draft) |
-| Bank / OTP / SMS | `references/bank-sms.md` |
-| Legal soft / consent | `references/legal-copy.md` (draft) |
-| Medical soft / health UI | `references/medical-copy.md` (draft; never diagnose) |
-| Cyrillic / script convert | `references/cyrillic.md` (Latin default) |
-| Long marketing / landing | `references/marketing-long.md`, `examples/marketing.md` |
-| Morphology weirdness | `references/morphology-checks.md` |
-| Worked demos | `examples/` |
-| Self-test | `eval/cases.jsonl` |
-| Sources | `references/sources.md` |
-
 ## Defaults
 
-- Script: Latin
+- Script: Latin; Cyrillic only when asked
 - Register: spoken clear product/student
 - Address: `Siz` for UI / strangers / elders; `sen` only for peer/friend when context is clear
 - Prefer clean standard Uzbek over code-switch
-- Allowed sparingly: Wi‑Fi, foto, laptop, gadjet, parol, kod, brand names
+- Particles: OK in chat; almost never in product UI
+- Allowed sparingly: Wi-Fi (ASCII hyphen), foto, laptop, gadjet, parol, kod, brand names
 
 ## Seed rewrite (always remember)
 
 Bad: `Men haqiqatan ham bu ilovani yoqtiraman. To'g'ri javobni select qiling.`
 
 Good: `Bu ilova menga juda yoqadi. Toʻgʻri javobni belgilang.`
+
+## Maintainer / self-test
+
+For skill maintainers only (not part of per-draft validate):
+
+- `eval/cases.jsonl`
+- `eval/bakeoff-rubric.md`
+- `eval/trigger-queries.json`

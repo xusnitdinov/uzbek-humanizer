@@ -46,12 +46,17 @@ uzhumanizer init --ai all --global
 
 | Flag | Meaning |
 |---|---|
-| `--ai cursor\|claude\|codex\|copilot\|windsurf\|cline\|roo\|amp\|goose\|trae\|kilo\|opencode\|continue\|agents\|all` | where to install |
+| `--ai cursor\|claude\|codex\|copilot\|windsurf\|cline\|roo\|amp\|goose\|trae\|kilo\|opencode\|continue\|gemini-cli\|antigravity\|agents\|all` | where to install |
 | `--global` | home skills dir instead of project |
 
-Quality check from repo root: `npm run test:eval`
+```bash
+uzhumanizer uninstall --ai cursor
+npm uninstall -g uzbek-humanizer-cli
+```
 
-More detail: [INSTALL.md](./INSTALL.md) · bakeoff: `skills/uzbek-humanizer/eval/bakeoff-rubric.md`
+Quality check from repo root: `npm run test:eval` (scores goldens + lints examples)
+
+More detail: [INSTALL.md](./INSTALL.md) · [CHANGELOG.md](./CHANGELOG.md) · bakeoff: [`skills/uzbek-humanizer/eval/bakeoff-rubric.md`](./skills/uzbek-humanizer/eval/bakeoff-rubric.md)
 
 ---
 
@@ -155,10 +160,11 @@ This is a **workflow package**:
 - Gotchas live in `SKILL.md` (not buried)
 - Explicit `Load references/X.md when Y`
 - Validate loop via `scripts/`
-- `eval/cases.jsonl` for quality iteration
-- `eval/trigger-queries.json` for description tuning
+- [`skills/uzbek-humanizer/eval/cases.jsonl`](./skills/uzbek-humanizer/eval/cases.jsonl) for quality iteration
+- [`skills/uzbek-humanizer/eval/trigger-queries.json`](./skills/uzbek-humanizer/eval/trigger-queries.json) for description tuning
+- [`skills/uzbek-humanizer/eval/bakeoff-rubric.md`](./skills/uzbek-humanizer/eval/bakeoff-rubric.md) for native bakeoff
 
-See `references/sources.md` for research links.
+See [`skills/uzbek-humanizer/references/sources.md`](./skills/uzbek-humanizer/references/sources.md) for research links.
 
 ---
 

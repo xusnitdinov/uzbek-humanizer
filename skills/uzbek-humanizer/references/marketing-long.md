@@ -8,13 +8,14 @@ Landing paragraphs, hero support lines, feature sections - warm human Latin Uzbe
 - Hero + support + soft CTA blocks
 - Rewrite of stiff "Hurmatli foydalanuvchi… ajoyib mahsulot" slop
 - Pair with `register.md` + `voice.md`; short demos in `examples/marketing.md`
+- Also load `banned-calques.md` + `ai-patterns.md` when the draft smells like EN pitch or LLM brochure
 
 ## Structure (one job per block)
 
 1. **Open** - welcome or concrete promise (no "Hurmatli foydalanuvchi")
 2. **One benefit** - what they actually get
 3. **Proof light** - how it works in plain verbs (optional)
-4. **CTA** - soft direct request (`roʻyxatdan oʻting`, `boshlash`)
+4. **CTA** - soft direct request (`Roʻyxatdan oʻting`, `boshlash`)
 
 Keep paragraphs short. One idea per sentence. No noun-stack essays.
 
@@ -25,7 +26,16 @@ Keep paragraphs short. One idea per sentence. No noun-stack essays.
 | Real verbs: `yordam beradi`, `tejaydi`, `tushuntiradi` | Abstract stacks: `taʼminlash imkoniyati yechimi` |
 | `Siz` + soft invite | Presidential decree tone |
 | Concrete: time, steps, result | Empty: `ajoyib`, `innovatsion`, `yunikal` spam |
-| Spoken clarity | EN pitch calques: uplift, ship, vibe |
+| Spoken clarity | EN pitch calques: uplift, ship, vibe, unlock journey |
+
+## Banned brochure stacks
+
+Rewrite on sight:
+
+- `maksimal darajada`
+- `innovatsion yechim`
+- `imkoniyatlar olami`
+- `unlock … journey` / `success journey` calques
 
 ## Before / after
 
@@ -37,12 +47,12 @@ Bizning innovatsion yechimimiz sizning samaradorligingizni maksimal darajada osh
 Iltimos, hozir ro'yxatdan o'tishga qarshi emasmisiz?
 ```
 
-**Human**
+**Human (tighter)**
 
 ```
-Xush kelibsiz. Mahsulotimiz kundalik ishni soddalashtirish uchun yaratilgan.
-Kerakli joyda qisqa yoʻl - ortiqcha shovqinsiz.
-Iltimos, hozir roʻyxatdan oʻting.
+Ishni soddalashtiramiz - ortiqcha shovqin yoʻq.
+Kerakli qadamlar aniq, natija tez koʻrinadi.
+Roʻyxatdan oʻting.
 ```
 
 ## Longer landing sample (tone only)
@@ -59,6 +69,8 @@ Tayyor boʻlsangiz - boshlang.
 - [ ] No "Hurmatli foydalanuvchi" opener on consumer landings
 - [ ] No Would-you-mind calque (`qarshi emasmisiz`) - use soft direct CTA
 - [ ] No triple `ajoyib` / `innovatsion` / `yunikal` stack
+- [ ] No `maksimal darajada` / `innovatsion yechim` / `imkoniyatlar olami` / unlock-journey paste
+- [ ] CTA uses `Roʻyxatdan oʻting` (not admin `Roʻyxatga olish`)
 - [ ] Apostrophes: oʻ / gʻ / ʼ correct
 - [ ] One CTA idea - not five competing buttons in prose
 - [ ] If hype slang creeps in - drop it unless user asked youth mode
