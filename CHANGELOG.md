@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0
+
+- Add slash companion skill `/uzbek-humanize <prompt>` (`disable-model-invocation: true`)
+- CLI installs both `uzbek-humanizer` and `uzbek-humanize` into agent skills dirs
+- Pack layout: `cli/skills/*` (+ legacy `cli/skill` flat copy)
+
 ## 1.2.1
 
 - CLI: `update`, `versions`, friendly `--ai` aliases (`gemini`, `roocode`, `kilocode`, `universal`)

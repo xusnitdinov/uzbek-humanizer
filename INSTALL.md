@@ -9,9 +9,15 @@ npx skills add xusnitdinov/uzbek-humanizer
 ## Option B - branded installer (npmjs) - preferred
 
 ```bash
-npm i -g uzbek-humanizer-cli@1.2.0
+npm i -g uzbek-humanizer-cli@1.3.0
 uzhumanizer init --ai cursor
 uzhumanizer init --ai all --global
+```
+
+Then in Agent chat:
+
+```text
+/uzbek-humanize Men haqiqatan ham bu ilovani yoqtiraman
 ```
 
 Package: https://www.npmjs.com/package/uzbek-humanizer-cli

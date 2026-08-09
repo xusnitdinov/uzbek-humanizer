@@ -28,7 +28,9 @@ jobs:
         run: |
           node scripts/sync-skill.mjs
           test -f skill/SKILL.md
-          npm pack --dry-run 2>&1 | grep -E 'skill/SKILL\.md'
+          test -f skills/uzbek-humanizer/SKILL.md
+          test -f skills/uzbek-humanize/SKILL.md
+          npm pack --dry-run 2>&1 | grep -E 'skills/uzbek-humanize/SKILL\.md'
 
       - name: Skip if version already on npmjs
         id: check

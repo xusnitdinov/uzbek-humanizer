@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 /**
- * Copy skills/uzbek-humanizer → cli/skill so npm pack/publish ships the skill.
- * Hard-fails if source is missing (never silently ships a stale bundle).
+ * Sync skills/* → cli/skills/* so npm pack ships every skill
+ * (uzbek-humanizer + uzbek-humanize slash companion, …).
+ * Hard-fails if sources are missing.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const src = path.resolve(__dirname, "../../skills/uzbek-humanizer");
-const dest = path.resolve(__dirname, "../skill");
+const srcRoot = path.resolve(__dirname, "../../skills");
+const destRoot = path.resolve(__dirname, "../skills");
+const legacyDest = path.resolve(__dirname, "../skill");
 
 function rmDir(dir) {
   if (!fs.existsSync(dir)) return;
@@ -32,18 +34,36 @@ function copyDirSafe(from, to) {
   }
 }
 
-if (!fs.existsSync(path.join(src, "SKILL.md"))) {
-  console.error(`Missing skill source at ${src}`);
-  console.error("Publish/pack must run from the monorepo checkout (skills/uzbek-humanizer present).");
+function listSkillDirs(root) {
+  if (!fs.existsSync(root)) return [];
+  return fs
+    .readdirSync(root, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name)
+    .filter((name) => fs.existsSync(path.join(root, name, "SKILL.md")));
+}
+
+const names = listSkillDirs(srcRoot);
+if (!names.includes("uzbek-humanizer")) {
+  console.error(`Missing skills/uzbek-humanizer under ${srcRoot}`);
+  process.exit(1);
+}
+if (!names.includes("uzbek-humanize")) {
+  console.error(`Missing skills/uzbek-humanize (slash companion) under ${srcRoot}`);
   process.exit(1);
 }
 
-rmDir(dest);
-copyDirSafe(src, dest);
+rmDir(destRoot);
+rmDir(legacyDest);
+fs.mkdirSync(destRoot, { recursive: true });
 
-if (!fs.existsSync(path.join(dest, "SKILL.md"))) {
-  console.error("Sync produced no SKILL.md - abort");
-  process.exit(1);
+for (const name of names) {
+  const from = path.join(srcRoot, name);
+  const to = path.join(destRoot, name);
+  copyDirSafe(from, to);
+  console.log(`Synced ${name} → ${to}`);
 }
 
-console.log(`Synced skill → ${dest}`);
+// Backward-compatible flat copy of the main skill for older tooling
+copyDirSafe(path.join(srcRoot, "uzbek-humanizer"), legacyDest);
+console.log(`Synced legacy flat skill → ${legacyDest}`);

@@ -85,6 +85,12 @@ uzhumanizer uninstall --ai all --global
 
 Package: [npmjs.com/package/uzbek-humanizer-cli](https://www.npmjs.com/package/uzbek-humanizer-cli)
 
+After install, open a **new** Agent chat and try:
+
+```text
+/uzbek-humanize Localize Save / Cancel / Retry to Uzbek
+```
+
 <details>
 <summary>GitHub Packages mirror (optional)</summary>
 
@@ -113,19 +119,31 @@ More detail: [INSTALL.md](./INSTALL.md) · [CONTRIBUTING.md](./CONTRIBUTING.md) 
 
 ---
 
-## How to invoke (no special slash product required)
+## How to invoke
 
-This skill activates from **natural language** via its `description` triggers. You do **not** need a dedicated slash command for it to work.
+### Slash (recommended when you want it on demand)
 
-Just ask things like:
+In Cursor Agent chat (and other agents that list skills under `/`):
+
+```text
+/uzbek-humanize Men haqiqatan ham bu ilovani yoqtiraman
+/uzbek-humanize Localize: Save, Cancel, Retry
+/uzbek-humanize Would you mind closing the door?
+```
+
+That loads the **`uzbek-humanize`** skill (slash-first). Put your text or task after the command.
+
+You can also slash the main skill: `/uzbek-humanizer` - broader auto+manual skill for any Uzbek copy work.
+
+### Natural language (no slash)
+
+Just ask - the main skill still auto-triggers:
 
 ```text
 Humanize this Uzbek: ...
 matnni tabiiylashtirish
 Localize these buttons to o'zbekcha
 ```
-
-If your agent lists installed skills as slash picks, you may also see `/uzbek-humanizer` - that is agent UI sugar, not a separate feature we ship. Saying the skill name works too: `use uzbek-humanizer on this copy`.
 
 ---
 
@@ -188,8 +206,9 @@ final | draft/native_review_required
 
 | Piece | Job |
 |---|---|
-| `SKILL.md` | Lean agent brain - triggers, router, gotchas, Holat gate |
-| `references/` | On-demand packs: orthography, morphology, UI, quiz, bank, legal, medical, marketing, slang… |
+| `SKILL.md` (`uzbek-humanizer`) | Auto + slash brain - triggers, router, gotchas |
+| `SKILL.md` (`uzbek-humanize`) | Slash-first `/uzbek-humanize <prompt>` humanize/translate |
+| `references/` | On-demand packs under the main skill |
 | `scripts/` | Apostrophe normalize, banned + stiff linters, eval runner |
 | `examples/` | Product UI, quiz, marketing rewrites |
 | `eval/` | 53 golden cases, trigger queries, native bakeoff rubric |
@@ -293,12 +312,9 @@ Use **npmjs** for normal installs. GitHub Packages needs a token with `read:pack
 
 ```text
 uzbek-humanizer/
-├── skills/uzbek-humanizer/   ← the skill
-│   ├── SKILL.md
-│   ├── references/
-│   ├── examples/
-│   ├── eval/
-│   └── scripts/
+├── skills/
+│   ├── uzbek-humanizer/      ← main skill (auto + /uzbek-humanizer)
+│   └── uzbek-humanize/       ← slash companion (/uzbek-humanize …)
 ├── cli/                      ← uzhumanizer (npm)
 ├── .github/workflows/
 ├── INSTALL.md

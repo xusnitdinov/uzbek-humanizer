@@ -5,17 +5,43 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-/** Bundled with the npm package. */
-const BUNDLED_SKILL = path.resolve(__dirname, "../skill");
-/** Monorepo checkout - preferred when present so local edits win. */
-const REPO_SKILL = path.resolve(__dirname, "../../skills/uzbek-humanizer");
+const BUNDLED_SKILLS = path.resolve(__dirname, "../skills");
+const BUNDLED_LEGACY = path.resolve(__dirname, "../skill");
+const REPO_SKILLS = path.resolve(__dirname, "../../skills");
 
-function resolveSkillRoot() {
-  if (fs.existsSync(path.join(REPO_SKILL, "SKILL.md"))) return REPO_SKILL;
-  if (fs.existsSync(path.join(BUNDLED_SKILL, "SKILL.md"))) return BUNDLED_SKILL;
+function listSkillPacks(root) {
+  if (!fs.existsSync(root)) return [];
+  return fs
+    .readdirSync(root, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => ({ name: e.name, root: path.join(root, e.name) }))
+    .filter((p) => fs.existsSync(path.join(p.root, "SKILL.md")));
+}
+
+/**
+ * Prefer monorepo skills/, then bundled cli/skills/, then legacy cli/skill flat.
+ * @returns {{ name: string, root: string }[]}
+ */
+function resolveSkillPacks() {
+  const fromRepo = listSkillPacks(REPO_SKILLS);
+  if (fromRepo.some((p) => p.name === "uzbek-humanizer")) return fromRepo;
+
+  const fromBundled = listSkillPacks(BUNDLED_SKILLS);
+  if (fromBundled.some((p) => p.name === "uzbek-humanizer")) return fromBundled;
+
+  if (fs.existsSync(path.join(BUNDLED_LEGACY, "SKILL.md"))) {
+    return [{ name: "uzbek-humanizer", root: BUNDLED_LEGACY }];
+  }
+
   throw new Error(
     "Skill payload not found. Reinstall uzbek-humanizer-cli or clone the repo and run from source."
   );
+}
+
+function resolveSkillRoot() {
+  const packs = resolveSkillPacks();
+  const main = packs.find((p) => p.name === "uzbek-humanizer") || packs[0];
+  return main.root;
 }
 
 const HOME = os.homedir();
@@ -33,76 +59,75 @@ const CODEX_HOME = process.env.CODEX_HOME || path.join(HOME, ".codex");
 const CLAUDE_HOME = process.env.CLAUDE_CONFIG_DIR || path.join(HOME, ".claude");
 
 /**
- * Install destinations aligned with vercel-labs/skills agents.ts conventions.
+ * Base skills directories (skill folders are created inside these).
  */
 const TARGETS = {
   cursor: {
-    project: [".cursor/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".cursor/skills/uzbek-humanizer")],
+    project: [".cursor/skills", ".agents/skills"],
+    global: [path.join(HOME, ".cursor/skills")],
   },
   claude: {
-    project: [".claude/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(CLAUDE_HOME, "skills/uzbek-humanizer")],
+    project: [".claude/skills", ".agents/skills"],
+    global: [path.join(CLAUDE_HOME, "skills")],
   },
   codex: {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(CODEX_HOME, "skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(CODEX_HOME, "skills")],
   },
   copilot: {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".copilot/skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(HOME, ".copilot/skills")],
   },
   windsurf: {
-    project: [".windsurf/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".codeium/windsurf/skills/uzbek-humanizer")],
+    project: [".windsurf/skills", ".agents/skills"],
+    global: [path.join(HOME, ".codeium/windsurf/skills")],
   },
   cline: {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".agents/skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(HOME, ".agents/skills")],
   },
   roo: {
-    project: [".roo/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".roo/skills/uzbek-humanizer")],
+    project: [".roo/skills", ".agents/skills"],
+    global: [path.join(HOME, ".roo/skills")],
   },
   amp: {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(XDG, "agents/skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(XDG, "agents/skills")],
   },
   goose: {
-    project: [".goose/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(XDG, "goose/skills/uzbek-humanizer")],
+    project: [".goose/skills", ".agents/skills"],
+    global: [path.join(XDG, "goose/skills")],
   },
   trae: {
-    project: [".trae/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".trae/skills/uzbek-humanizer")],
+    project: [".trae/skills", ".agents/skills"],
+    global: [path.join(HOME, ".trae/skills")],
   },
   kilo: {
-    project: [".kilocode/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".kilocode/skills/uzbek-humanizer")],
+    project: [".kilocode/skills", ".agents/skills"],
+    global: [path.join(HOME, ".kilocode/skills")],
   },
   opencode: {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(XDG, "opencode/skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(XDG, "opencode/skills")],
   },
   continue: {
-    project: [".continue/skills/uzbek-humanizer", ".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".continue/skills/uzbek-humanizer")],
+    project: [".continue/skills", ".agents/skills"],
+    global: [path.join(HOME, ".continue/skills")],
   },
   "gemini-cli": {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".gemini/skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(HOME, ".gemini/skills")],
   },
   antigravity: {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(HOME, ".gemini/antigravity/skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(HOME, ".gemini/antigravity/skills")],
   },
   agents: {
-    project: [".agents/skills/uzbek-humanizer"],
-    global: [path.join(XDG, "agents/skills/uzbek-humanizer")],
+    project: [".agents/skills"],
+    global: [path.join(XDG, "agents/skills")],
   },
 };
 
-/** Friendly aliases (uipro-style names → our keys). */
 const ALIASES = {
   gemini: "gemini-cli",
   roocode: "roo",
@@ -120,7 +145,6 @@ function isSymlink(p) {
   }
 }
 
-/** Copy tree without following symlinks. Skip symlink entries. */
 function copyDirSafe(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
@@ -145,7 +169,6 @@ function rmDir(dir) {
 function assertContained(root, target) {
   const rootReal = fs.realpathSync(root);
   let check = target;
-  // Walk up until an existing ancestor, then realpath
   while (!fs.existsSync(check)) {
     const parent = path.dirname(check);
     if (parent === check) break;
@@ -179,7 +202,7 @@ function resolveTargets(ai, globalInstall) {
     for (const p of list) {
       if (seen.has(p)) continue;
       seen.add(p);
-      out.push({ ai: key, dest: p });
+      out.push({ ai: key, base: p });
     }
   }
   return out;
@@ -189,7 +212,6 @@ function prepareDest(dest, { globalInstall }) {
   if (!globalInstall) {
     const cwd = process.cwd();
     assertContained(cwd, dest);
-    // Reject if any path component under cwd is a symlink escaping intent
     const parts = path.resolve(dest).split(path.sep);
     let acc = parts[0] === "" ? path.sep : parts[0] + path.sep;
     for (let i = 1; i < parts.length; i++) {
@@ -210,61 +232,67 @@ function prepareDest(dest, { globalInstall }) {
 }
 
 export async function init({ ai, globalInstall }) {
-  const skillRoot = resolveSkillRoot();
+  const packs = resolveSkillPacks();
   const targets = resolveTargets(ai, globalInstall);
   for (const t of targets) {
-    const dest = path.isAbsolute(t.dest) ? t.dest : path.resolve(process.cwd(), t.dest);
-    prepareDest(dest, { globalInstall });
-    copyDirSafe(skillRoot, dest);
-    console.log(`Installed uzbek-humanizer for ${t.ai} → ${dest}`);
+    const base = path.isAbsolute(t.base) ? t.base : path.resolve(process.cwd(), t.base);
+    for (const pack of packs) {
+      const dest = path.join(base, pack.name);
+      prepareDest(dest, { globalInstall });
+      copyDirSafe(pack.root, dest);
+      console.log(`Installed ${pack.name} for ${t.ai} → ${dest}`);
+    }
   }
-  console.log(`\nSkill source: ${skillRoot}`);
-  console.log("Done. Open a new agent chat and ask for Uzbek copy help.");
+  const names = packs.map((p) => p.name).join(", ");
+  console.log(`\nSkill source packs: ${names}`);
+  console.log("Done. New chat → try /uzbek-humanize <your text> or ask for Uzbek copy.");
 }
 
 export async function uninstall({ ai, globalInstall }) {
+  const packs = resolveSkillPacks();
   const targets = resolveTargets(ai, globalInstall);
   for (const t of targets) {
-    const dest = path.isAbsolute(t.dest) ? t.dest : path.resolve(process.cwd(), t.dest);
-    if (!globalInstall) {
-      try {
-        assertContained(process.cwd(), dest);
-      } catch (e) {
-        console.warn(`Skip unsafe path: ${dest} (${e.message})`);
-        continue;
+    const base = path.isAbsolute(t.base) ? t.base : path.resolve(process.cwd(), t.base);
+    for (const pack of packs) {
+      const dest = path.join(base, pack.name);
+      if (!globalInstall) {
+        try {
+          assertContained(process.cwd(), dest);
+        } catch (e) {
+          console.warn(`Skip unsafe path: ${dest} (${e.message})`);
+          continue;
+        }
       }
-    }
-    if (fs.existsSync(dest)) {
-      rmDir(dest);
-      console.log(`Removed ${t.ai} → ${dest}`);
-    } else {
-      console.log(`Missing (ok) ${t.ai} → ${dest}`);
+      if (fs.existsSync(dest)) {
+        rmDir(dest);
+        console.log(`Removed ${pack.name} (${t.ai}) → ${dest}`);
+      } else {
+        console.log(`Missing (ok) ${pack.name} (${t.ai}) → ${dest}`);
+      }
     }
   }
   console.log("\nUninstall done.");
 }
 
-/** Refresh installed skill files from the bundled/monorepo skill (same as init). */
 export async function update({ ai, globalInstall }) {
-  console.log("Refreshing uzbek-humanizer from packaged skill...\n");
+  console.log("Refreshing skills from packaged payload...\n");
   await init({ ai, globalInstall });
 }
 
 export function versions() {
   const pkgPath = path.resolve(__dirname, "../package.json");
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
-  let skillVer = "(missing)";
-  try {
-    const skillRoot = resolveSkillRoot();
-    const raw = fs.readFileSync(path.join(skillRoot, "SKILL.md"), "utf8");
-    const m = raw.match(/version:\s*"([^"]+)"/);
-    if (m) skillVer = m[1];
-  } catch {
-    /* ignore */
-  }
   console.log(`uzbek-humanizer-cli  ${pkg.version}`);
-  console.log(`skill metadata       ${skillVer}`);
+  try {
+    for (const pack of resolveSkillPacks()) {
+      const raw = fs.readFileSync(path.join(pack.root, "SKILL.md"), "utf8");
+      const m = raw.match(/version:\s*"([^"]+)"/);
+      console.log(`skill ${pack.name.padEnd(16)} ${m ? m[1] : "?"}`);
+    }
+  } catch (e) {
+    console.log(`skill packs         (unavailable: ${e.message})`);
+  }
   console.log(`npm package          https://www.npmjs.com/package/uzbek-humanizer-cli`);
 }
 
-export { TARGETS, ALIASES, resolveSkillRoot };
+export { TARGETS, ALIASES, resolveSkillRoot, resolveSkillPacks };
