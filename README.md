@@ -21,10 +21,17 @@ MIT. Honest quality bar: **much more natural**. Heavy slang / legal / medical st
 npx skills add xusnitdinov/uzbek-humanizer
 ```
 
-Or the branded CLI:
+Or the branded CLI ([npmjs](https://www.npmjs.com/package/uzbek-humanizer-cli)):
 
 ```bash
 npm i -g uzbek-humanizer-cli
+uzhumanizer init --ai all --global
+```
+
+Same CLI on [GitHub Packages](https://github.com/xusnitdinov/uzbek-humanizer/pkgs/npm/uzbek-humanizer-cli) (needs a GitHub token with `read:packages`):
+
+```bash
+npm i -g @xusnitdinov/uzbek-humanizer-cli --registry=https://npm.pkg.github.com
 uzhumanizer init --ai all --global
 ```
 
@@ -39,10 +46,12 @@ uzhumanizer init --ai all --global
 
 | Flag | Meaning |
 |---|---|
-| `--ai cursor\|claude\|codex\|copilot\|all` | where to install |
+| `--ai cursor\|claude\|codex\|copilot\|windsurf\|cline\|roo\|amp\|goose\|trae\|kilo\|opencode\|continue\|agents\|all` | where to install |
 | `--global` | home skills dir instead of project |
 
-More detail: [INSTALL.md](./INSTALL.md)
+Quality check from repo root: `npm run test:eval`
+
+More detail: [INSTALL.md](./INSTALL.md) · bakeoff: `skills/uzbek-humanizer/eval/bakeoff-rubric.md`
 
 ---
 
@@ -52,10 +61,10 @@ More detail: [INSTALL.md](./INSTALL.md)
 |---|---|
 | `skills/uzbek-humanizer/SKILL.md` | Lean agent brain - triggers, workflow, gotchas, output template |
 | `references/` | On-demand packs: orthography, morphology, UI, quiz, bank SMS, slang… |
-| `scripts/` | Apostrophe normalize + banned-calque lint |
+| `scripts/` | Apostrophe normalize, banned + stiff linters, eval runner |
 | `examples/` | Product UI, quiz, marketing rewrites |
-| `eval/` | Quality cases + skill-trigger queries |
-| `cli/` | `uzhumanizer` multi-agent installer |
+| `eval/` | Quality cases, trigger queries, native bakeoff rubric |
+| `cli/` | `uzhumanizer` multi-agent installer (bundles the skill) |
 
 Progressive disclosure (Agent Skills spec):
 
@@ -158,10 +167,12 @@ See `references/sources.md` for research links.
 - Default voice: spoken clear **product / student** Latin Uzbek
 - Not a presidential speech generator
 - Not a full slang dictionary
-- Not “native-perfect forever”
+- Not "native-perfect forever"
 - Invented idioms are banned on purpose
+- Legal / medical / slang-heavy → `draft/native_review_required`
+- Native bakeoff protocol: `skills/uzbek-humanizer/eval/bakeoff-rubric.md`
 
-If you need youth Telegram mix, ask for it - the skill will label `draft/native_review_required`.
+If you need youth Telegram mix, ask for it - the skill will label draft.
 
 ---
 

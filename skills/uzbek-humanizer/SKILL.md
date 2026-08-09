@@ -39,9 +39,12 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 | Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `microcopy.md` |
 | Quiz / test | DTM stems, "belgilang" | `references/quiz-glossary.md` |
 | Rewrite bad AI UZ | stiff calques, EN order, broken suffixes | `banned-calques.md` + `before-after.md` |
-| Marketing / landing | warm human tone | `register.md` + `voice.md` |
-| Youth chat | slang, Telegram vibe | `youth-slang.md` (draft label) |
+| Marketing / landing | warm human tone, long paragraphs | `register.md` + `voice.md` + `marketing-long.md` |
+| Youth chat | slang, Telegram vibe | `youth-slang.md` (draft label; only when asked) |
 | Bank / OTP / SMS | security copy | `bank-sms.md` + `politeness.md` |
+| Legal soft UI | ToS, consent, disclaimers | `legal-copy.md` (draft label) |
+| Medical soft UI | appointment, symptom prompts | `medical-copy.md` (draft label; never diagnose) |
+| Cyrillic ask | кирилл, Cyrillic output | `cyrillic.md` (Latin default otherwise) |
 | Orthography mess | apostrophes, oʻ/gʻ | `orthography.md` + run normalize script |
 
 ## Workflow
@@ -53,6 +56,8 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 5. **Validate** - run scripts when available:
    - `node scripts/normalize-apostrophe.mjs <file>`
    - `node scripts/lint-banned.mjs <file>`
+   - `node scripts/lint-stiff.mjs <file>` (AI-tell / stiff-copy patterns)
+   - `node scripts/run-eval.mjs` (schema + example lint; optional `--answers`)
 6. **Checklist** - complete the post-rewrite checklist.
 7. **Output** - use the template. Do not overwrite project files unless the user asks.
 
@@ -109,8 +114,12 @@ final | draft/native_review_required
 | Siz/sen / soft replies | `references/politeness.md` |
 | Money / dates / phones | `references/formatting.md` |
 | RU discourse / hybrids | `references/rusizmlar.md`, `references/false-friends.md` |
-| Youth Telegram tone | `references/youth-slang.md` |
+| Youth Telegram tone | `references/youth-slang.md` (only when asked; draft) |
 | Bank / OTP / SMS | `references/bank-sms.md` |
+| Legal soft / consent | `references/legal-copy.md` (draft) |
+| Medical soft / health UI | `references/medical-copy.md` (draft; never diagnose) |
+| Cyrillic / script convert | `references/cyrillic.md` (Latin default) |
+| Long marketing / landing | `references/marketing-long.md`, `examples/marketing.md` |
 | Morphology weirdness | `references/morphology-checks.md` |
 | Worked demos | `examples/` |
 | Self-test | `eval/cases.jsonl` |

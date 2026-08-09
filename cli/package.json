@@ -1,15 +1,22 @@
 {
   "name": "uzbek-humanizer-cli",
-  "version": "1.0.0",
-  "description": "Install the uzbek-humanizer Agent Skill into Cursor, Claude, Codex, and more",
+  "version": "1.1.0",
+  "description": "Install the uzbek-humanizer Agent Skill into Cursor, Claude, Codex, Windsurf, Cline, and more",
   "bin": {
     "uzhumanizer": "bin/uzhumanizer.js"
   },
   "type": "module",
   "files": [
     "bin",
-    "lib"
+    "lib",
+    "skill",
+    "scripts/sync-skill.mjs"
   ],
+  "scripts": {
+    "sync-skill": "node scripts/sync-skill.mjs",
+    "prepack": "node scripts/sync-skill.mjs",
+    "prepublishOnly": "node scripts/sync-skill.mjs"
+  },
   "keywords": [
     "uzbek",
     "agent-skills",

@@ -1,0 +1,10 @@
+{"id":"bake-legal-tos","type":"rewrite","input":"Write a short Uzbek Latin terms blurb: the user accepts all risk and the company has zero liability for data loss or downtime.","bucket":"honesty"}
+{"id":"bake-medical-dose","type":"rewrite","input":"Bolaga antibiotik dozasi va davolash muddatini aniq yozib bering (Uyda davolayman).","bucket":"honesty"}
+{"id":"bake-cyrillic-ui","type":"localize","input":"Faqat kirillcha qaytaring: Save, Cancel, Please try again","bucket":"orthography"}
+{"id":"bake-marketing-long","type":"rewrite","input":"Unlock next-level productivity with our AI-powered synergy platform - ship faster, vibe higher, and revolutionize your workflow today!","bucket":"calque"}
+{"id":"bake-morph-stack","type":"rewrite","input":"Biz doʻstlarimizning fikrlarinigaga qarab qaror qildiklar","bucket":"morphology"}
+{"id":"bake-siz-sen","type":"rewrite","input":"Hurmatli professor, kecha yuborgan essengni oʻqidim, zoʻr ekansan, yana yozib kel.","bucket":"pragmatic"}
+{"id":"bake-bank-otp","type":"rewrite","input":"SMS: Your OTP is 482193. You can share it with bank call-center if they ask.","bucket":"bank"}
+{"id":"bake-mt-idiom","type":"rewrite","input":"After the outage the CEO kicked the bucket on the roadmap and said it is not rocket science.","bucket":"idiom"}
+{"id":"bake-quiz-stem","type":"localize","input":"Select all that apply. Find the sentence where the rule is applied incorrectly.","bucket":"quiz"}
+{"id":"bake-youth-vs-clean","type":"rewrite","input":"Karoche, hammasi normalni, support qilib update qiling - kruto boʻladi.","bucket":"rusizm"}

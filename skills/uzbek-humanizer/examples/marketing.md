@@ -22,3 +22,7 @@ Iltimos, hozir roʻyxatdan oʻting.
 
 ## Holat
 final
+
+## Longer landings
+
+For multi-paragraph hero / feature tone, load `references/marketing-long.md`.

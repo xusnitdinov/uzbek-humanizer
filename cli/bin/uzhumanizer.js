@@ -1,18 +1,20 @@
 #!/usr/bin/env node
-import { init } from "../lib/init.js";
+import { init, TARGETS } from "../lib/init.js";
 
 const args = process.argv.slice(2);
 const cmd = args[0];
+const aiList = ["all", ...Object.keys(TARGETS)].join("|");
 
 function help() {
   console.log(`uzhumanizer - install uzbek-humanizer Agent Skill
 
 Usage:
-  uzhumanizer init --ai <cursor|claude|codex|copilot|all> [--global]
+  uzhumanizer init --ai <${aiList}> [--global]
   uzhumanizer --help
 
 Examples:
   uzhumanizer init --ai cursor
+  uzhumanizer init --ai windsurf
   uzhumanizer init --ai all --global
 `);
 }

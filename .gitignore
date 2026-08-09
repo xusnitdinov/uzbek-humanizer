@@ -7,3 +7,4 @@ dist/
 .env.*
 *.tgz
 .cli-link-test/
+cli/skill/
