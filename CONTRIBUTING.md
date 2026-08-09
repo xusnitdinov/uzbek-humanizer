@@ -30,6 +30,8 @@ node /path/to/uzbek-humanizer/cli/bin/uzhumanizer.js init --ai cursor
 
 Node **18+**. No build step for the skills themselves.
 
+AI agents editing this repo: see [AGENTS.md](./AGENTS.md) for a short always-on checklist.
+
 ## Repo map
 
 ```text
