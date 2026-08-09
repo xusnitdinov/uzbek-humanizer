@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Install the uzbek-humanizer Agent Skill into Cursor, Claude, Codex, and more",
   "bin": {
-    "uzhumanizer": "./bin/uzhumanizer.js"
+    "uzhumanizer": "bin/uzhumanizer.js"
   },
   "type": "module",
   "files": [
@@ -21,8 +21,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xusnitdinov/uzbek-humanizer.git"
+    "url": "git+https://github.com/xusnitdinov/uzbek-humanizer.git"
   },
+  "bugs": {
+    "url": "https://github.com/xusnitdinov/uzbek-humanizer/issues"
+  },
+  "homepage": "https://github.com/xusnitdinov/uzbek-humanizer#readme",
   "engines": {
     "node": ">=18"
   }
