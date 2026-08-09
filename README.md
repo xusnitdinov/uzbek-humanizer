@@ -88,7 +88,7 @@ Package: [npmjs.com/package/uzbek-humanizer-cli](https://www.npmjs.com/package/u
 After install, open a **new** Agent chat and try:
 
 ```text
-/uzbek-humanize Localize Save / Cancel / Retry to Uzbek
+/uzbek-humanize add Uzbek language to this web app - natural Latin Uzbek UI
 ```
 
 <details>
@@ -121,19 +121,19 @@ More detail: [INSTALL.md](./INSTALL.md) · [CONTRIBUTING.md](./CONTRIBUTING.md) 
 
 ## How to invoke
 
-### Slash (recommended when you want it on demand)
+### Slash (website / app → natural Uzbek)
 
-In Cursor Agent chat (and other agents that list skills under `/`):
+In Agent chat, type `/uzbek-humanize` then your task - e.g. add Uzbek to an English site:
 
 ```text
-/uzbek-humanize Men haqiqatan ham bu ilovani yoqtiraman
-/uzbek-humanize Localize: Save, Cancel, Retry
-/uzbek-humanize Would you mind closing the door?
+/uzbek-humanize add Uzbek to this site - translate UI strings and landing to natural o'zbekcha
+/uzbek-humanize create uz.json from en.json (keep keys, natural Latin Uzbek values)
+/uzbek-humanize wire next-intl for uz-UZ and translate the navbar + home hero
 ```
 
-That loads the **`uzbek-humanize`** skill (slash-first). Put your text or task after the command.
+The skill inspects your i18n setup (locale files, next-intl, react-i18next, hardcoded EN, …), then adds / translates **natural Latin Uzbek** - not stiff machine translation.
 
-You can also slash the main skill: `/uzbek-humanizer` - broader auto+manual skill for any Uzbek copy work.
+Also available: `/uzbek-humanizer` for broader Uzbek copy work (auto + slash).
 
 ### Natural language (no slash)
 
@@ -207,7 +207,7 @@ final | draft/native_review_required
 | Piece | Job |
 |---|---|
 | `SKILL.md` (`uzbek-humanizer`) | Auto + slash brain - triggers, router, gotchas |
-| `SKILL.md` (`uzbek-humanize`) | Slash-first `/uzbek-humanize <prompt>` humanize/translate |
+| `SKILL.md` (`uzbek-humanize`) | Slash `/uzbek-humanize` - localize sites/apps into natural Uzbek |
 | `references/` | On-demand packs under the main skill |
 | `scripts/` | Apostrophe normalize, banned + stiff linters, eval runner |
 | `examples/` | Product UI, quiz, marketing rewrites |

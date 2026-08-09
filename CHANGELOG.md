@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Refocus `/uzbek-humanize` on website/app i18n: add Uzbek locale, translate UI/landing naturally, wire existing i18n patterns
+
 ## 1.3.0
 
 - Add slash companion skill `/uzbek-humanize <prompt>` (`disable-model-invocation: true`)

@@ -17,7 +17,7 @@ uzhumanizer init --ai all --global
 Then in Agent chat:
 
 ```text
-/uzbek-humanize Men haqiqatan ham bu ilovani yoqtiraman
+/uzbek-humanize add Uzbek to this site - translate UI + landing into natural o'zbekcha
 ```
 
 Package: https://www.npmjs.com/package/uzbek-humanizer-cli
