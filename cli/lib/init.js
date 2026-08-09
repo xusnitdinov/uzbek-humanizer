@@ -102,6 +102,16 @@ const TARGETS = {
   },
 };
 
+/** Friendly aliases (uipro-style names → our keys). */
+const ALIASES = {
+  gemini: "gemini-cli",
+  roocode: "roo",
+  kilocode: "kilo",
+  universal: "agents",
+  "github-copilot": "copilot",
+  "claude-code": "claude",
+};
+
 function isSymlink(p) {
   try {
     return fs.lstatSync(p).isSymbolicLink();
@@ -151,17 +161,18 @@ function assertContained(root, target) {
 }
 
 function resolveTargets(ai, globalInstall) {
+  const normalized = ALIASES[ai] || ai;
   const keys =
-    ai === "all"
-      ? Object.keys(TARGETS).filter((k) => k !== "agents") // agents paths covered by others
-      : [ai];
+    normalized === "all"
+      ? Object.keys(TARGETS).filter((k) => k !== "agents")
+      : [normalized];
   const out = [];
   const seen = new Set();
   for (const key of keys) {
     const spec = TARGETS[key];
     if (!spec) {
       throw new Error(
-        `Unknown --ai value: ${key}. Use: ${["all", ...Object.keys(TARGETS)].join(", ")}`
+        `Unknown --ai value: ${ai}. Use: ${["all", ...Object.keys(TARGETS), ...Object.keys(ALIASES)].join(", ")}`
       );
     }
     const list = globalInstall ? spec.global : spec.project;
@@ -233,4 +244,27 @@ export async function uninstall({ ai, globalInstall }) {
   console.log("\nUninstall done.");
 }
 
-export { TARGETS, resolveSkillRoot };
+/** Refresh installed skill files from the bundled/monorepo skill (same as init). */
+export async function update({ ai, globalInstall }) {
+  console.log("Refreshing uzbek-humanizer from packaged skill...\n");
+  await init({ ai, globalInstall });
+}
+
+export function versions() {
+  const pkgPath = path.resolve(__dirname, "../package.json");
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+  let skillVer = "(missing)";
+  try {
+    const skillRoot = resolveSkillRoot();
+    const raw = fs.readFileSync(path.join(skillRoot, "SKILL.md"), "utf8");
+    const m = raw.match(/version:\s*"([^"]+)"/);
+    if (m) skillVer = m[1];
+  } catch {
+    /* ignore */
+  }
+  console.log(`uzbek-humanizer-cli  ${pkg.version}`);
+  console.log(`skill metadata       ${skillVer}`);
+  console.log(`npm package          https://www.npmjs.com/package/uzbek-humanizer-cli`);
+}
+
+export { TARGETS, ALIASES, resolveSkillRoot };

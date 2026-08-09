@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+- CLI: `update`, `versions`, friendly `--ai` aliases (`gemini`, `roocode`, `kilocode`, `universal`)
+- README: full agent install list, global/other commands, troubleshooting, marketplace status, Made by line
+- Add CONTRIBUTING.md
+
 ## 1.2.0
 
 - CLI: symlink-safe copy, project cwd containment, wipe-on-install, `uninstall`

@@ -9,7 +9,7 @@
 
 > AI is fluent. Latin Uzbek from models is still weirdly stiff - wrong apostrophes, English word order, broken suffixes, `Siz` mixed with `-san`, and calques nobody in Toshkent says.
 
-**uzbek-humanizer** is a real [Agent Skill](https://agentskills.io) (not a README cosplay). Install once. Cursor, Claude, Codex, Windsurf, Copilot and friends load it when you ask for Uzbek copy - then rewrite like a human.
+**uzbek-humanizer** is a real [Agent Skills](https://agentskills.io) skill (not a README cosplay). Install once. Cursor, Claude, Codex, Windsurf, Copilot and friends load it when you ask for Uzbek copy - then rewrite like a human.
 
 ```text
 Before                         After
@@ -32,21 +32,55 @@ Honest bar: **much more natural**. Heavy slang / legal / medical still needs a n
 npx skills add xusnitdinov/uzbek-humanizer
 ```
 
-### Option B - branded CLI (npmjs, preferred)
+### Option B - branded CLI (npmjs, recommended)
 
-Bundles the full skill. Works without cloning the repo.
+Package name: **`uzbek-humanizer-cli`** (bin: `uzhumanizer`).
 
 ```bash
-npm i -g uzbek-humanizer-cli
-uzhumanizer init --ai cursor          # this project
-uzhumanizer init --ai all --global    # every supported agent
+# Install CLI globally
+npm install -g uzbek-humanizer-cli
+
+# Go to your project
+cd /path/to/your/project
+
+# Install for your AI assistant
+uzhumanizer init --ai claude        # Claude Code
+uzhumanizer init --ai cursor        # Cursor
+uzhumanizer init --ai windsurf      # Windsurf
+uzhumanizer init --ai antigravity   # Antigravity
+uzhumanizer init --ai copilot       # GitHub Copilot
+uzhumanizer init --ai kilo          # Kilo Code (alias: kilocode)
+uzhumanizer init --ai codex         # Codex CLI
+uzhumanizer init --ai roo           # Roo Code (alias: roocode)
+uzhumanizer init --ai gemini-cli    # Gemini CLI (alias: gemini)
+uzhumanizer init --ai trae          # Trae
+uzhumanizer init --ai opencode      # OpenCode
+uzhumanizer init --ai continue      # Continue
+uzhumanizer init --ai cline         # Cline
+uzhumanizer init --ai amp           # Amp
+uzhumanizer init --ai goose         # Goose
+uzhumanizer init --ai agents        # universal .agents/skills (alias: universal)
+uzhumanizer init --ai all           # every supported target
 ```
 
-Uninstall:
+#### Global install (available for all projects)
 
 ```bash
-uzhumanizer uninstall --ai cursor
-npm uninstall -g uzbek-humanizer-cli
+uzhumanizer init --ai claude --global     # ~/.claude/skills/
+uzhumanizer init --ai cursor --global     # ~/.cursor/skills/
+uzhumanizer init --ai agents --global     # XDG agents/skills (universal)
+uzhumanizer init --ai all --global        # all supported agents
+```
+
+#### Other CLI commands
+
+```bash
+uzhumanizer versions                      # CLI + skill versions
+uzhumanizer update --ai cursor            # refresh skill files from packaged CLI
+uzhumanizer update --ai cursor --global   # refresh global install
+uzhumanizer uninstall --ai cursor         # remove project install
+uzhumanizer uninstall --ai cursor --global
+uzhumanizer uninstall --ai all --global
 ```
 
 Package: [npmjs.com/package/uzbek-humanizer-cli](https://www.npmjs.com/package/uzbek-humanizer-cli)
@@ -75,7 +109,23 @@ uzhumanizer init --ai all --global
 
 </details>
 
-More detail: [INSTALL.md](./INSTALL.md) · changelog: [CHANGELOG.md](./CHANGELOG.md)
+More detail: [INSTALL.md](./INSTALL.md) · [CONTRIBUTING.md](./CONTRIBUTING.md) · [CHANGELOG.md](./CHANGELOG.md)
+
+---
+
+## How to invoke (no special slash product required)
+
+This skill activates from **natural language** via its `description` triggers. You do **not** need a dedicated slash command for it to work.
+
+Just ask things like:
+
+```text
+Humanize this Uzbek: ...
+matnni tabiiylashtirish
+Localize these buttons to o'zbekcha
+```
+
+If your agent lists installed skills as slash picks, you may also see `/uzbek-humanizer` - that is agent UI sugar, not a separate feature we ship. Saying the skill name works too: `use uzbek-humanizer on this copy`.
 
 ---
 
@@ -91,8 +141,6 @@ More detail: [INSTALL.md](./INSTALL.md) · changelog: [CHANGELOG.md](./CHANGELOG
 | Appointment / symptom UI | medical-copy (**draft**, never diagnose) |
 | “Faqat kirillcha yoz” | cyrillic (Latin is default otherwise) |
 | Youth / Telegram tone | youth-slang (**only when asked**) |
-
-After install, just ask. You do not need to say the skill name.
 
 ---
 
@@ -168,40 +216,76 @@ Progressive disclosure ([Agent Skills](https://agentskills.io) style):
 | Fake EN cool (`ship`, `vibe`, `portladi`) | banned |
 | Youth slang by default | **off** unless you ask |
 
-Grounded in published LLM Uzbek error research (morphology is a huge failure bucket) plus product microcopy habits.
-
----
-
-## CLI cheatsheet
-
-```bash
-uzhumanizer init --ai <agent> [--global]
-uzhumanizer uninstall --ai <agent> [--global]
-uzhumanizer --help
-```
-
-`--ai` values: `cursor` · `claude` · `codex` · `copilot` · `windsurf` · `cline` · `roo` · `amp` · `goose` · `trae` · `kilo` · `opencode` · `continue` · `gemini-cli` · `antigravity` · `agents` · `all`
-
 ---
 
 ## Quality / eval
-
-From the repo root:
 
 ```bash
 npm run test:eval
 ```
 
-Scores `eval/goldens.json` against 53 cases, validates trigger queries + bakeoff schema, and lints example Matn.
+Scores goldens, validates triggers + bakeoff schema, lints example Matn.
 
-Native bakeoff protocol (human scoring): [`skills/uzbek-humanizer/eval/bakeoff-rubric.md`](./skills/uzbek-humanizer/eval/bakeoff-rubric.md)
-
-Draft helpers:
+Bakeoff (human): [`skills/uzbek-humanizer/eval/bakeoff-rubric.md`](./skills/uzbek-humanizer/eval/bakeoff-rubric.md)
 
 ```bash
 node skills/uzbek-humanizer/scripts/lint-stiff.mjs path/to/draft.txt
 node skills/uzbek-humanizer/scripts/normalize-apostrophe.mjs --check path/to/draft.txt
 ```
+
+---
+
+## Troubleshooting
+
+### `uzhumanizer: unknown command 'update'` / `'versions'`
+
+Your global CLI is old. Upgrade, then retry:
+
+```bash
+npm install -g uzbek-humanizer-cli@latest
+uzhumanizer versions
+```
+
+### `uzhumanizer uninstall` says missing / nothing removed
+
+Installs are scoped to **project cwd** unless you used `--global`.
+
+```bash
+# Option A - run from the project where you installed
+cd /path/to/your/project
+uzhumanizer uninstall --ai cursor
+
+# Option B - remove global install
+uzhumanizer uninstall --ai cursor --global
+
+# Option C - manual
+#   .cursor/skills/uzbek-humanizer
+#   .claude/skills/uzbek-humanizer
+#   .agents/skills/uzbek-humanizer
+```
+
+### Skill installed but agent ignores Uzbek requests
+
+1. Open a **new** agent chat (skills are often loaded at session start)
+2. Confirm the folder exists: `.cursor/skills/uzbek-humanizer/SKILL.md` (or your agent’s path)
+3. Ask with a clear trigger: `Humanize this Uzbek: …` / `matnni tabiiylashtirish`
+4. Refresh files after upgrading the npm package: `uzhumanizer update --ai cursor`
+
+### `npm publish` / install from GitHub Packages fails auth
+
+Use **npmjs** for normal installs. GitHub Packages needs a token with `read:packages` and an `.npmrc` scope mapping for `@xusnitdinov`.
+
+---
+
+## Marketplaces (honest status)
+
+| Channel | Status |
+|---|---|
+| **npmjs** `uzbek-humanizer-cli` | Live - preferred install |
+| **GitHub Packages** `@xusnitdinov/uzbek-humanizer-cli` | Live mirror |
+| **`npx skills add`** | Live - Agent Skills discovery |
+| **Claude Code plugin marketplace** | Not submitted yet - needs a `.claude-plugin` packaging pass + [submit form](https://platform.claude.com/plugins/submit). Doable next. |
+| **Cursor “marketplace”** | No public Cursor Skills store like Claude’s plugin directory. Distribution is GitHub + `npx skills` + this CLI. |
 
 ---
 
@@ -215,11 +299,16 @@ uzbek-humanizer/
 │   ├── examples/
 │   ├── eval/
 │   └── scripts/
-├── cli/                      ← uzhumanizer (npm package)
+├── cli/                      ← uzhumanizer (npm)
+├── .github/workflows/
 ├── INSTALL.md
+├── CONTRIBUTING.md
 ├── CHANGELOG.md
+├── LICENSE
 └── README.md
 ```
+
+We intentionally **don’t** ship UI/UX Pro Max extras (`gallery/`, `screenshots/`, `stack/`, `CODE_OF_CONDUCT.md`, etc.). Those fit a huge multi-platform design product - not a focused Uzbek copy skill.
 
 ---
 
@@ -228,18 +317,18 @@ uzbek-humanizer/
 - Default voice: spoken clear **product / student** Latin Uzbek
 - Not a presidential speech generator
 - Not a full slang dictionary
-- Not “native-perfect forever”
+- Not "native-perfect forever"
 - Invented idioms / maqollar are banned on purpose
 - Legal / medical / slang-heavy / invented bank SMS → `draft/native_review_required`
 - Cyrillic only when you ask
-
-If you want youth Telegram mix, say so - the skill will label draft.
 
 ---
 
 ## License
 
 [MIT](./LICENSE) © 2026 [xusnitdinov](https://github.com/xusnitdinov)
+
+Made by **Xusnitdinov Azizbek**
 
 ---
 

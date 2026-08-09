@@ -1,6 +1,6 @@
 {
   "name": "uzbek-humanizer-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Install the uzbek-humanizer Agent Skill into Cursor, Claude, Codex, Windsurf, Cline, Gemini CLI, and more",
   "bin": {
     "uzhumanizer": "bin/uzhumanizer.js"
