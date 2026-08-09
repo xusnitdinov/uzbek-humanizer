@@ -4,7 +4,7 @@ Empty states, errors, loading, validation - keep short and human.
 
 | Situation | Natural UZ |
 |---|---|
-| Empty search | `Soʻrovingiz boʻyicha hech nima topilmadi` / `hech narsa topilmadi` |
+| Empty search | `Soʻrovingiz boʻyicha hech narsa topilmadi` |
 | Empty list | `Hali maʼlumot yoʻq` |
 | Loading | `Yuklanmoqda...` |
 | Load failed | `Yuklanmadi` |

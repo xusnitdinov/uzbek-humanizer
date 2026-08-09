@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.2
+
+- Enforce both skill packs on install; uninstall also cleans legacy agent paths
+- Slash skill: stack recipes, ICU/plurals, switcher/SEO, Cyrillic/LTR QA, sister-skill edit contract
+- Main skill Router handoff to `/uzbek-humanize` for site i18n; version align
+- Glossary: nav, language switcher, 404, form validation; cookie CMP lines; empty-state `hech narsa`
+- Eval: `web-i18n` cases/goldens/triggers/bakeoff; drop ASCII apostrophe accepts from expects
+- Lint: teaching-meta skip for `ship`/`vibe`, `--matn-only`, safer normalize lintReport
+- `.claude-plugin/plugin.json` for Claude marketplace submit; publish CI concurrency + 409-as-skip + tag assert
+- Docs: INSTALL pins `1.3.2`, `npx skills add --skill '*'`, Claude submit steps
+
 ## 1.3.1
 
 - Refocus `/uzbek-humanize` on website/app i18n: add Uzbek locale, translate UI/landing naturally, wire existing i18n patterns

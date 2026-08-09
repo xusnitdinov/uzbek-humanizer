@@ -32,6 +32,47 @@ Canonical short labels for product UI (Flutter Material Uzbek + local apps).
 | Notifications | Bildirishnomalar |
 | Reload / Refresh | Qayta yuklash |
 
+## Nav / chrome
+
+| EN | UZ |
+|---|---|
+| Home | Bosh sahifa |
+| About | Biz haqimizda |
+| Contact | Aloqa |
+| Help | Yordam |
+| Language | Til |
+| Menu | Menyu |
+| Privacy | Maxfiylik |
+| Terms | Shartlar |
+| Footer privacy link | Maxfiylik siyosati |
+| Footer terms link | Foydalanish shartlari |
+
+## Language switcher
+
+| EN | UZ |
+|---|---|
+| Uzbek | Oʻzbekcha |
+| English (shown in UZ UI) | Inglizcha |
+| Change language | Tilni oʻzgartirish |
+
+## 404 / not found page
+
+| EN | UZ |
+|---|---|
+| Page not found | Sahifa topilmadi |
+| 404 body | Kechirasiz, bunday sahifa yoʻq |
+| Back to home | Bosh sahifaga qaytish |
+
+## Form validation
+
+| EN | UZ |
+|---|---|
+| Required field | Bu maydon toʻldirilishi shart |
+| Invalid email | Email manzili notoʻgʻri |
+| Passwords do not match | Parollar mos kelmadi |
+| Too short | Juda qisqa |
+| Please try again | Iltimos, qaytadan urinib koʻring |
+
 ## Account / auth microcopy
 
 | Situation | UZ |

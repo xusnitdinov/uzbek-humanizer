@@ -29,7 +29,7 @@ Honest bar: **much more natural**. Heavy slang / legal / medical still needs a n
 ### Option A - skills CLI (portable)
 
 ```bash
-npx skills add xusnitdinov/uzbek-humanizer
+npx skills add xusnitdinov/uzbek-humanizer --skill '*'
 ```
 
 ### Option B - branded CLI (npmjs, recommended)
@@ -303,8 +303,18 @@ Use **npmjs** for normal installs. GitHub Packages needs a token with `read:pack
 | **npmjs** `uzbek-humanizer-cli` | Live - preferred install |
 | **GitHub Packages** `@xusnitdinov/uzbek-humanizer-cli` | Live mirror |
 | **`npx skills add`** | Live - Agent Skills discovery |
-| **Claude Code plugin marketplace** | Not submitted yet - needs a `.claude-plugin` packaging pass + [submit form](https://platform.claude.com/plugins/submit). Doable next. |
+| **Claude Code plugin marketplace** | Manifest ready (`.claude-plugin/plugin.json`). Not in the community catalog yet - validate + submit (see below). |
 | **Cursor “marketplace”** | No public Cursor Skills store like Claude’s plugin directory. Distribution is GitHub + `npx skills` + this CLI. |
+
+### Submit to Claude community marketplace
+
+1. Repo is public (it is) and has `.claude-plugin/plugin.json` + `skills/*/SKILL.md`.
+2. Locally: `claude plugin validate .` (same check the review pipeline runs).
+3. Submit the GitHub URL via one of:
+   - Console (individuals): https://platform.claude.com/plugins/submit
+   - claude.ai Team/Enterprise: https://claude.ai/admin-settings/directory/submissions/plugins/new
+4. After approval, CI pins the plugin in [`anthropics/claude-plugins-community`](https://github.com/anthropics/claude-plugins-community). Updates follow git pushes (bump `version` in `plugin.json` when you want pinned releases).
+5. Note: marketplace install namespaces skills as `uzbek-humanizer:…`. Agent-skills install via `uzhumanizer init` still uses plain `/uzbek-humanize`.
 
 ---
 
@@ -312,6 +322,7 @@ Use **npmjs** for normal installs. GitHub Packages needs a token with `read:pack
 
 ```text
 uzbek-humanizer/
+├── .claude-plugin/plugin.json
 ├── skills/
 │   ├── uzbek-humanizer/      ← main skill (auto + /uzbek-humanizer)
 │   └── uzbek-humanize/       ← slash companion (/uzbek-humanize …)

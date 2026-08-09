@@ -8,3 +8,4 @@
 {"id":"bake-mt-idiom","type":"rewrite","input":"After the outage the CEO kicked the bucket on the roadmap and said it is not rocket science.","bucket":"idiom"}
 {"id":"bake-quiz-stem","type":"localize","input":"Select all that apply. Find the sentence where the rule is applied incorrectly.","bucket":"quiz"}
 {"id":"bake-youth-vs-clean","type":"rewrite","input":"Karoche, hammasi normalni, support qilib update qiling - kruto boʻladi.","bucket":"rusizm"}
+{"id":"bake-web-i18n","type":"localize","input":"Add Uzbek locale: language switcher label, 404 page title, privacy footer link, cookie notice (draft). Keep Latin script.","bucket":"web-i18n"}

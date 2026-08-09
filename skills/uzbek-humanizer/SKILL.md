@@ -11,7 +11,7 @@ description: >-
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.3.0"
+  version: "1.3.2"
 ---
 
 # uzbek-humanizer
@@ -42,6 +42,7 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 
 | Scenario | Trigger examples | Load |
 |---|---|---|
+| **Site / app i18n (slash)** | `/uzbek-humanize`, add Uzbek to Next/Vite, `en.json` → `uz.json`, language switcher | Prefer sister skill `uzbek-humanize` when installed; else this Router + `ui-glossary` / `microcopy` / `legal-copy` |
 | Bad AI rewrite | stiff calques, EN order, broken suffixes | `references/banned-calques.md` + `references/before-after.md` + `references/ai-patterns.md` |
 | Marketing / landing | warm human tone, long paragraphs | `references/register.md` + `references/voice.md` + `references/marketing-long.md` + `examples/marketing.md` |
 | Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `references/microcopy.md` + `examples/product-ui.md` |
@@ -64,7 +65,7 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 
 ## Workflow
 
-1. **Detect task** - write / rewrite / review / localize. Default register: spoken clear product/student Latin Uzbek.
+1. **Detect task** - write / rewrite / review / localize. Default register: spoken clear product/student Latin Uzbek. If the user ran `/uzbek-humanize` or asked to wire site i18n, hand off to sister `uzbek-humanize` when present.
 2. **Respect user style** - if they give voice/glossary, it wins.
 3. **Load refs** - use the Router table. One hop only.
 4. **Rewrite** - natural UZ, not literal EN. Prefer real verbs and light auxiliaries over calques.
@@ -75,7 +76,7 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 6. **Fix lint findings then re-lint before final** - do not ship until lints are clean or residual issues are labeled in Holat.
 7. **Holat gate** - before output, if legal / medical / youth: set `Holat` to `draft/native_review_required`.
 8. **Checklist** - complete the post-rewrite checklist.
-9. **Output** - use the template. Do not overwrite project files unless the user asks.
+9. **Output** - use the template. Do not overwrite project files unless the user asks (site i18n file edits belong to `/uzbek-humanize`).
 
 ## Gotchas
 

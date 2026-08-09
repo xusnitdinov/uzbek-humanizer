@@ -4,6 +4,7 @@
  *
  * Usage:
  *   node lint-stiff.mjs <file>
+ *   node lint-stiff.mjs --matn-only <file>
  *   node lint-stiff.mjs --stdin < text.txt
  * Exit 0 clean, 2 findings, 1 usage/io error.
  */
@@ -11,6 +12,12 @@ import fs from "node:fs";
 
 /** Back vowels that should take -lar not -ler */
 const BACK = "aouoʻAOOUÓ";
+
+const EN_APOS =
+  /\b(?:[Ii]'m|[Ww]e'd|[Yy]ou're|[Tt]hey're|[Ww]on't|[Cc]an't|[Ii]sn't|[Aa]ren't|[Hh]aven't|[Hh]asn't|[Dd]oesn't|[Dd]idn't|[Ss]houldn't|[Ww]ouldn't|[Cc]ouldn't|[Oo]'[Bb]rien|[Oo]'[Cc]onnor)\b/;
+
+const SHIP_META =
+  /\b(?:before|after|to|will|can|should|must|don't|do not|does not|did not|when you|we|you)\s+ship\b/i;
 
 const RULES = [
   {
@@ -22,6 +29,10 @@ const RULES = [
     id: "ascii-apostrophe-any",
     re: /[A-Za-z]['\u2018\u2019][A-Za-z]/,
     tip: "Likely bad apostrophe in a word - check oʻ/gʻ/ʼ",
+    skip: (text) => {
+      const residual = text.replace(new RegExp(EN_APOS.source, "gi"), "");
+      return !/[A-Za-z]['\u2018\u2019][A-Za-z]/.test(residual);
+    },
   },
   {
     id: "en-select",
@@ -32,11 +43,21 @@ const RULES = [
     id: "en-ship",
     re: /\bship\b/i,
     tip: "Fake EN cool - ban",
+    skip: (text, m) => {
+      const i = text.search( /\bship\b/i);
+      const window = text.slice(Math.max(0, i - 24), i + m.length);
+      return SHIP_META.test(window);
+    },
   },
   {
     id: "en-vibe",
     re: /\bvibe\b/i,
     tip: "Fake EN cool - ban",
+    skip: (text, m) => {
+      const i = text.search(/\bvibe\b/i);
+      const window = text.slice(Math.max(0, i - 20), i + m.length + 8);
+      return /\b(?:telegram|akkurat|teaching|mode)\s+vibe\b/i.test(window);
+    },
   },
   {
     id: "en-portladi",
@@ -133,43 +154,75 @@ const RULES = [
   },
 ];
 
+function extractMatn(text) {
+  const blocks = [];
+  const parts = text.split(/^##\s+/m);
+  for (const part of parts) {
+    if (/^Matn\b/i.test(part.trim()) || /^Matn\b/i.test(part)) {
+      blocks.push(part.replace(/^Matn[^\n]*\n?/i, ""));
+    }
+  }
+  return blocks.length ? blocks.join("\n") : text;
+}
+
 function lint(text) {
   const findings = [];
   for (const rule of RULES) {
     const m = text.match(rule.re);
-    if (m) findings.push({ id: rule.id, match: m[0], tip: rule.tip });
+    if (!m) continue;
+    if (rule.skip && rule.skip(text, m[0])) continue;
+    findings.push({ id: rule.id, match: m[0], tip: rule.tip });
   }
   return findings;
 }
 
 function usage() {
-  console.error("Usage: node lint-stiff.mjs <file> | node lint-stiff.mjs --stdin");
+  console.error(
+    "Usage: node lint-stiff.mjs [--matn-only] <file> | node lint-stiff.mjs --stdin"
+  );
 }
 
-const arg = process.argv[2];
-if (!arg) {
-  usage();
-  process.exit(1);
+const args = process.argv.slice(2);
+let matnOnly = false;
+let stdin = false;
+const files = [];
+for (const a of args) {
+  if (a === "--matn-only") matnOnly = true;
+  else if (a === "--stdin") stdin = true;
+  else if (a.startsWith("-")) {
+    usage();
+    process.exit(1);
+  } else files.push(a);
 }
 
 let text;
-if (arg === "--stdin") {
+let label;
+if (stdin) {
   if (process.stdin.isTTY) {
     console.error("No piped input on stdin (TTY). Pipe text or pass a file path.");
     process.exit(1);
   }
   text = fs.readFileSync(0, "utf8");
+  label = "stdin";
 } else {
+  const arg = files[0];
+  if (!arg) {
+    usage();
+    process.exit(1);
+  }
   if (!fs.existsSync(arg)) {
     console.error(`File not found: ${arg}`);
     process.exit(1);
   }
   text = fs.readFileSync(arg, "utf8");
+  label = arg;
 }
+
+if (matnOnly) text = extractMatn(text);
 
 const findings = lint(text);
 if (!findings.length) {
-  console.log(arg === "--stdin" ? "Clean: stdin" : `Clean: ${arg}`);
+  console.log(`Clean: ${label}`);
   process.exit(0);
 }
 

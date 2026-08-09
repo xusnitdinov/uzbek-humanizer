@@ -9,27 +9,51 @@ const BUNDLED_SKILLS = path.resolve(__dirname, "../skills");
 const BUNDLED_LEGACY = path.resolve(__dirname, "../skill");
 const REPO_SKILLS = path.resolve(__dirname, "../../skills");
 
+/** Packs this CLI always installs / removes. */
+const REQUIRED_PACKS = ["uzbek-humanizer", "uzbek-humanize"];
+
 function listSkillPacks(root) {
   if (!fs.existsSync(root)) return [];
+  const allow = new Set(REQUIRED_PACKS);
   return fs
     .readdirSync(root, { withFileTypes: true })
-    .filter((e) => e.isDirectory())
+    .filter((e) => e.isDirectory() && allow.has(e.name))
     .map((e) => ({ name: e.name, root: path.join(root, e.name) }))
     .filter((p) => fs.existsSync(path.join(p.root, "SKILL.md")));
 }
 
+function assertRequiredPacks(packs, sourceLabel) {
+  const names = new Set(packs.map((p) => p.name));
+  const missing = REQUIRED_PACKS.filter((n) => !names.has(n));
+  if (missing.length) {
+    throw new Error(
+      `Incomplete skill payload from ${sourceLabel} (missing: ${missing.join(", ")}). ` +
+        `Reinstall uzbek-humanizer-cli or run sync-skill from the repo.`
+    );
+  }
+  return REQUIRED_PACKS.map((name) => packs.find((p) => p.name === name));
+}
+
 /**
  * Prefer monorepo skills/, then bundled cli/skills/, then legacy cli/skill flat.
+ * Multi-skill installs require both uzbek-humanizer and uzbek-humanize.
  * @returns {{ name: string, root: string }[]}
  */
 function resolveSkillPacks() {
   const fromRepo = listSkillPacks(REPO_SKILLS);
-  if (fromRepo.some((p) => p.name === "uzbek-humanizer")) return fromRepo;
+  if (fromRepo.some((p) => p.name === "uzbek-humanizer")) {
+    return assertRequiredPacks(fromRepo, "skills/");
+  }
 
   const fromBundled = listSkillPacks(BUNDLED_SKILLS);
-  if (fromBundled.some((p) => p.name === "uzbek-humanizer")) return fromBundled;
+  if (fromBundled.some((p) => p.name === "uzbek-humanizer")) {
+    return assertRequiredPacks(fromBundled, "cli/skills/");
+  }
 
   if (fs.existsSync(path.join(BUNDLED_LEGACY, "SKILL.md"))) {
+    console.warn(
+      "Warning: legacy cli/skill only has uzbek-humanizer - slash companion missing. Prefer a full package rebuild."
+    );
     return [{ name: "uzbek-humanizer", root: BUNDLED_LEGACY }];
   }
 
@@ -57,6 +81,18 @@ function configHome() {
 const XDG = configHome();
 const CODEX_HOME = process.env.CODEX_HOME || path.join(HOME, ".codex");
 const CLAUDE_HOME = process.env.CLAUDE_CONFIG_DIR || path.join(HOME, ".claude");
+
+/**
+ * Older CLI layouts wrote into bases TARGETS no longer uses.
+ * Uninstall still cleans these so leftovers do not linger.
+ */
+const LEGACY_UNINSTALL_BASES = {
+  project: [".github/skills", ".cline/skills", ".opencode/skills"],
+  global: [
+    path.join(HOME, ".cline/skills"),
+    path.join(HOME, ".opencode/skills"),
+  ],
+};
 
 /**
  * Base skills directories (skill folders are created inside these).
@@ -245,16 +281,39 @@ export async function init({ ai, globalInstall }) {
   }
   const names = packs.map((p) => p.name).join(", ");
   console.log(`\nSkill source packs: ${names}`);
-  console.log("Done. New chat → try /uzbek-humanize <your text> or ask for Uzbek copy.");
+  console.log(
+    "Done. New chat → try /uzbek-humanize add Uzbek to this site, or ask for natural Uzbek copy."
+  );
+}
+
+function packNamesForUninstall() {
+  // Always remove both known packs, even if resolve fell back to legacy-only.
+  return [...REQUIRED_PACKS];
+}
+
+function uninstallBases({ ai, globalInstall }) {
+  const targets = resolveTargets(ai, globalInstall);
+  const bases = targets.map((t) => ({
+    ai: t.ai,
+    base: path.isAbsolute(t.base) ? t.base : path.resolve(process.cwd(), t.base),
+  }));
+  const legacyList = globalInstall
+    ? LEGACY_UNINSTALL_BASES.global
+    : LEGACY_UNINSTALL_BASES.project;
+  for (const raw of legacyList) {
+    const base = path.isAbsolute(raw) ? raw : path.resolve(process.cwd(), raw);
+    if (bases.some((b) => b.base === base)) continue;
+    bases.push({ ai: "legacy", base });
+  }
+  return bases;
 }
 
 export async function uninstall({ ai, globalInstall }) {
-  const packs = resolveSkillPacks();
-  const targets = resolveTargets(ai, globalInstall);
+  const names = packNamesForUninstall();
+  const targets = uninstallBases({ ai, globalInstall });
   for (const t of targets) {
-    const base = path.isAbsolute(t.base) ? t.base : path.resolve(process.cwd(), t.base);
-    for (const pack of packs) {
-      const dest = path.join(base, pack.name);
+    for (const name of names) {
+      const dest = path.join(t.base, name);
       if (!globalInstall) {
         try {
           assertContained(process.cwd(), dest);
@@ -265,9 +324,9 @@ export async function uninstall({ ai, globalInstall }) {
       }
       if (fs.existsSync(dest)) {
         rmDir(dest);
-        console.log(`Removed ${pack.name} (${t.ai}) → ${dest}`);
-      } else {
-        console.log(`Missing (ok) ${pack.name} (${t.ai}) → ${dest}`);
+        console.log(`Removed ${name} (${t.ai}) → ${dest}`);
+      } else if (t.ai !== "legacy") {
+        console.log(`Missing (ok) ${name} (${t.ai}) → ${dest}`);
       }
     }
   }
@@ -295,4 +354,10 @@ export function versions() {
   console.log(`npm package          https://www.npmjs.com/package/uzbek-humanizer-cli`);
 }
 
-export { TARGETS, ALIASES, resolveSkillRoot, resolveSkillPacks };
+export {
+  TARGETS,
+  ALIASES,
+  REQUIRED_PACKS,
+  resolveSkillRoot,
+  resolveSkillPacks,
+};

@@ -35,6 +35,10 @@ Disclaimers, ToS-ish microcopy, consent checkboxes, soft legal UI. Not full lawy
 | Soft liability | `Xizmat mavjud holatda taqdim etiladi. Zarar uchun kafolat bermaymiz` (draft) |
 | Not legal advice | `Bu matn huquqiy maslahat emas` |
 | Cookie-ish notice | `Sayt ishlashi uchun kerakli cookie fayllardan foydalanamiz` |
+| Cookie accept | `Qabul qilish` |
+| Cookie reject / essential only | `Faqat zarurilari` |
+| Cookie settings | `Cookie sozlamalari` |
+| Cookie CMP short | `Cookie fayllarni boshqarish` |
 
 Avoid awkward `"boricha"` as-is for liability soft lines - prefer the `mavjud holatda` pattern above (still draft).
 

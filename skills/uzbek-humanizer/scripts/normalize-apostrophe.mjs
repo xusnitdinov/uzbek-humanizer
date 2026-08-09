@@ -61,7 +61,9 @@ function normalize(text) {
 
 function lintReport(text) {
   const issues = [];
-  if (/[A-Za-z]'[A-Za-z]/.test(text) && !EN_SKIP.test(text)) {
+  // Fresh RegExp each call - /g on EN_SKIP must not leak lastIndex across tests
+  const residual = text.replace(new RegExp(EN_SKIP.source, "gi"), "");
+  if (/[A-Za-z]'[A-Za-z]/.test(residual)) {
     issues.push("ASCII apostrophe ' found in a word");
   }
   if (/[`\u2018\u2019]/.test(text)) issues.push("curly/grave quote mark found");

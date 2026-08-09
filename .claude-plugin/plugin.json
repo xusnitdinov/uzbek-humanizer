@@ -1,0 +1,13 @@
+{
+  "name": "uzbek-humanizer",
+  "version": "1.3.2",
+  "description": "Natural Latin Uzbek copy + /uzbek-humanize slash for website/app i18n. Fixes AI calques, oʻ/gʻ orthography, and stiff MT.",
+  "author": {
+    "name": "Xusnitdinov Azizbek",
+    "url": "https://github.com/xusnitdinov"
+  },
+  "homepage": "https://github.com/xusnitdinov/uzbek-humanizer",
+  "repository": "https://github.com/xusnitdinov/uzbek-humanizer",
+  "license": "MIT",
+  "keywords": ["uzbek", "i18n", "localization", "humanizer", "skills"]
+}

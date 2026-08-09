@@ -51,5 +51,14 @@
   "marketing-cta": "Chegirma muddati cheklangan. Hozir koʻrib chiqing va kerak boʻlsa, roʻyxatdan oʻting.",
   "morph-kitobxonlarga": "kitobxonlarga yuboring",
   "ui-retry": "Iltimos, qaytadan urinib koʻring",
-  "prag-sen-mix": "Hurmatli mijoz, Sizning parolingizni yuboring"
+  "prag-sen-mix": "Hurmatli mijoz, Sizning parolingizni yuboring",
+  "web-lang-switcher": "Oʻzbekcha",
+  "web-404": "Sahifa topilmadi. Kechirasiz, bunday sahifa yoʻq.",
+  "web-cookie": "Sayt ishlashi uchun kerakli cookie fayllardan foydalanamiz\n\n## Holat\ndraft/native_review_required",
+  "web-privacy-link": "Maxfiylik siyosati",
+  "web-nav-home": "Bosh sahifa",
+  "web-required-field": "Bu maydon toʻldirilishi shart",
+  "web-keep-keys": "{\"save\":\"Saqlash\",\"cancel\":\"Bekor qilish\"}",
+  "web-plural-count": "{count} ta natija topildi",
+  "web-latin-only": "Sozlamalarga xush kelibsiz"
 }

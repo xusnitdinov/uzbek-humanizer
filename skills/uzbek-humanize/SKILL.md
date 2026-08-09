@@ -4,11 +4,12 @@ description: >-
   Slash command to localize websites and apps into natural Latin Uzbek.
   Use when the user runs /uzbek-humanize or asks to add Uzbek language,
   translate the site/UI to o'zbekcha, or wire i18n for Uzbek. Prefer natural
-  product Uzbek over stiff machine translation.
+  product Uzbek over stiff machine translation. Not auto-invoked by the model;
+  user must type /uzbek-humanize.
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.3.1"
+  version: "1.3.2"
 disable-model-invocation: true
 ---
 
@@ -38,15 +39,16 @@ Ship **spoken clear product/student Latin Uzbek** that a real user in Toshkent w
    - i18n libs (next-intl, react-i18next, vue-i18n, …)
    - hardcoded EN strings in components
    - CMS / markdown content
-2. **Match existing patterns** - same file layout, same key names, same plural rules shape the project already uses. Prefer adding `uz` / `uz-UZ` the way `en` already works.
-3. **Load sister skill** - if `uzbek-humanizer` is installed next to this skill, follow its Router, gotchas, Holat gate, and glossaries (`references/ui-glossary.md`, `microcopy.md`, etc.).
-4. **Translate / humanize** - natural UZ:
+2. **Match existing patterns** - same file layout, same key names, same plural / ICU shape the project already uses. Prefer adding `uz` / `uz-UZ` the way `en` already works.
+3. **Load sister skill** - if `uzbek-humanizer` is installed next to this skill, follow its Router, gotchas, Holat gate, and glossaries (`references/ui-glossary.md`, `microcopy.md`, `legal-copy.md`, …). Prefer editing locale files over scattering hardcodes - unless the project has no i18n yet and the user asked you to introduce it.
+4. **Translate / humanize** - natural UZ (keep keys; translate values):
    - Buttons short (`Saqlash`, `Bekor qilish`, `Roʻyxatdan oʻtish`)
    - Errors soft and clear
    - Orthography: oʻ/gʻ with `ʻ`, tutuq with `ʼ` - no ASCII `'`
    - One address lane (`Siz` for product UI)
    - Ban EN cool calques (`select qil`, `ship`, `vibe`, stiff `haqiqatan ham`)
-5. **Wire the language** if asked - locale config, language switcher label (`Oʻzbekcha`), routing (`/uz/...`) only when the stack already supports it or the user asked for wiring.
+   - Latin default - do not ship Cyrillic in the Uzbek site locale unless the user asked
+5. **Wire the language** if asked - locale config, language switcher label (`Oʻzbekcha`), routing (`/uz/...`), `hreflang` only when the stack already supports it or the user asked for wiring.
 6. **Do not invent** whole legal ToS / medical advice - mark `draft/native_review_required`.
 7. **Output** - make the code/file changes the user asked for. Also summarize:
 
@@ -58,6 +60,51 @@ Ship **spoken clear product/student Latin Uzbek** that a real user in Toshkent w
 ## Holat
 final | draft/native_review_required
 ```
+
+## Stack recipes (match what exists)
+
+| Stack | Typical wiring |
+|---|---|
+| **next-intl** | `messages/uz.json` (or `uz-UZ`), add locale to `i18n.ts` / `routing.ts`, middleware matcher, optional `/uz` segment |
+| **next-i18next / react-i18next** | `public/locales/uz/*.json` or `locales/uz/`, add `uz` to `i18n.locales`, keep namespaces |
+| **Vue I18n** | `locales/uz.json`, register in `createI18n({ locale, messages })` |
+| **Vite + custom JSON** | Mirror `en.json` → `uz.json`, swap via context / URL / cookie the way EN already switches |
+| **Hardcoded EN only** | Introduce the project's smallest i18n pattern first, then fill `uz` - do not invent a second framework |
+
+## ICU / plurals
+
+- Keep placeholder shapes: `{name}`, `{{count}}`, `%s`, `{count, plural, ...}` - translate **words**, not braces.
+- If EN uses ICU plural categories, keep the same categories the library expects; fill Uzbek forms that fit (`one` / `other` is often enough for product UZ).
+- Example shape (adapt to the project's ICU dialect):
+
+```text
+{count, plural, one {# ta natija} other {# ta natija}}
+```
+
+- Do not drop `{count}` when localizing.
+
+## Language switcher / SEO
+
+| Surface | UZ |
+|---|---|
+| Switcher label | `Oʻzbekcha` |
+| English option (if shown in UZ UI) | `Inglizcha` / keep `English` if the project uses endonyms |
+| Cookie / locale tip (soft) | `Tilni oʻzgartirish` |
+
+If asked for SEO: add `hreflang="uz"` (and `x-default` if the project already uses it). LTR stays default for Latin Uzbek - do not flip `dir` unless the user has a real RTL locale in the same tree.
+
+## Cyrillic / script QA
+
+- Default site locale: **Latin**.
+- Cyrillic only when the user explicitly asks (кирилл / Cyrillic).
+- Never mix scripts inside one locale file value.
+- Place names in UZ text: `Toshkent`, not Tashkent.
+
+## Sister-skill file-edit contract
+
+- This slash skill **may edit** locale files, i18n config, and UI strings the user pointed at.
+- Sister `uzbek-humanizer` defaults to Matn / Holat output and does **not** overwrite project files unless asked.
+- When both are installed: slash owns wiring + file edits; sister owns natural-copy rules and glossaries.
 
 ## Defaults
 
@@ -79,6 +126,10 @@ final | draft/native_review_required
 | No results found | Soʻrovingiz boʻyicha hech narsa topilmadi |
 | Invalid password | Notoʻgʻri parol |
 | Please try again | Iltimos, qaytadan urinib koʻring |
+| Language | Til |
+| Home | Bosh sahifa |
+| Page not found | Sahifa topilmadi |
+| We use cookies | Sayt ishlashi uchun kerakli cookie fayllardan foydalanamiz |
 
 ## Gotchas
 
@@ -87,3 +138,4 @@ final | draft/native_review_required
 - Place names in UZ text: `Toshkent`, not Tashkent.
 - If the site mixes marketing + legal, legal stays draft.
 - Prefer editing locale files over scattering hardcodes - unless the project has no i18n yet and the user asked you to introduce it.
+- `disable-model-invocation: true` means the model should not auto-load this skill - the user types `/uzbek-humanize`.

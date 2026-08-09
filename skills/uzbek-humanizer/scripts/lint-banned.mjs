@@ -1,40 +1,90 @@
 #!/usr/bin/env node
 /**
  * Lint banned EN calques / discourse RU in Uzbek copy drafts.
+ *
+ * Usage:
+ *   node lint-banned.mjs <file>
+ *   node lint-banned.mjs --matn-only <file>   # only ## Matn blocks
  */
 import fs from "node:fs";
 
+/** Meta English in teaching docs - not UZ cool-slang hits */
+const SHIP_META =
+  /\b(?:before|after|to|will|can|should|must|don't|do not|does not|did not|don't|when you|we|you)\s+ship\b/i;
+
 const BANNED = [
-  /\bship\b/i,
-  /\bvibe\b/i,
-  /\bportladi\b/i,
-  /\bteammate\b/i,
-  /\bsystems\s+brain\b/i,
-  /\bhard\s+mode\b/i,
-  /\bkaroche\b/i,
-  /\bnormalni\b/i,
-  /\bkruto\b/i,
-  /\bchotki\b/i,
-  /\bcheck\s+qil/i,
-  /\bsupport\s+qil/i,
-  /\bupdate\s+qil/i,
-  /\bselect\s+qil/i,
-  /\bhaqiqatan\s+ham\b/i,
-  /\bchelakni\s+tepdi\b/i,
-  /\bHurmatli\s+foydalanuvchi\b/i,
-  /\b(Tashkent|Samarkand|Bukhara|Fergana)\b/i,
+  {
+    id: "ship",
+    re: /\bship\b/i,
+    skip: (text, m) => {
+      const i = text.indexOf(m);
+      const window = text.slice(Math.max(0, i - 24), i + m.length);
+      return SHIP_META.test(window) || /\bship\s+(?:order|date|hygiene)\b/i.test(window);
+    },
+  },
+  {
+    id: "vibe",
+    re: /\bvibe\b/i,
+    skip: (text, m) => {
+      const i = text.indexOf(m);
+      const window = text.slice(Math.max(0, i - 20), i + m.length + 8);
+      return /\b(?:telegram|akkurat|teaching|mode)\s+vibe\b/i.test(window);
+    },
+  },
+  { id: "portladi", re: /\bportladi\b/i },
+  { id: "teammate", re: /\bteammate\b/i },
+  { id: "systems-brain", re: /\bsystems\s+brain\b/i },
+  { id: "hard-mode", re: /\bhard\s+mode\b/i },
+  { id: "karoche", re: /\bkaroche\b/i },
+  { id: "normalni", re: /\bnormalni\b/i },
+  { id: "kruto", re: /\bkruto\b/i },
+  { id: "chotki", re: /\bchotki\b/i },
+  { id: "check-qil", re: /\bcheck\s+qil/i },
+  { id: "support-qil", re: /\bsupport\s+qil/i },
+  { id: "update-qil", re: /\bupdate\s+qil/i },
+  { id: "select-qil", re: /\bselect\s+qil/i },
+  { id: "haqiqatan-ham", re: /\bhaqiqatan\s+ham\b/i },
+  { id: "chelakni-tepdi", re: /\bchelakni\s+tepdi\b/i },
+  { id: "hurmatli", re: /\bHurmatli\s+foydalanuvchi\b/i },
+  { id: "place-en", re: /\b(Tashkent|Samarkand|Bukhara|Fergana)\b/i },
 ];
 
-const file = process.argv[2];
+function extractMatn(text) {
+  const blocks = [];
+  const parts = text.split(/^##\s+/m);
+  for (const part of parts) {
+    if (/^Matn\b/i.test(part.trim()) || /^Matn\b/i.test(part)) {
+      blocks.push(part.replace(/^Matn[^\n]*\n?/i, ""));
+    }
+  }
+  return blocks.length ? blocks.join("\n") : text;
+}
+
+const args = process.argv.slice(2);
+let matnOnly = false;
+const files = [];
+for (const a of args) {
+  if (a === "--matn-only") matnOnly = true;
+  else if (a.startsWith("-")) {
+    console.error("Usage: node lint-banned.mjs [--matn-only] <file>");
+    process.exit(1);
+  } else files.push(a);
+}
+
+const file = files[0];
 if (!file) {
-  console.error("Usage: node lint-banned.mjs <file>");
+  console.error("Usage: node lint-banned.mjs [--matn-only] <file>");
   process.exit(1);
 }
-const text = fs.readFileSync(file, "utf8");
+let text = fs.readFileSync(file, "utf8");
+if (matnOnly) text = extractMatn(text);
+
 const hits = [];
-for (const re of BANNED) {
-  const m = text.match(re);
-  if (m) hits.push(m[0]);
+for (const rule of BANNED) {
+  const m = text.match(rule.re);
+  if (!m) continue;
+  if (rule.skip && rule.skip(text, m[0])) continue;
+  hits.push(m[0]);
 }
 if (hits.length) {
   console.error("Banned patterns found:");

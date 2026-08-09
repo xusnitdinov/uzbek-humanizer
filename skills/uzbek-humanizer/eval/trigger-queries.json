@@ -1,32 +1,130 @@
 [
-  {"query": "Rewrite this Uzbek UI copy so it doesn't sound AI: Men haqiqatan ham bu ilovani yoqtiraman", "should_trigger": true},
-  {"query": "matnni tabiiylashtirish: Savatga qo'shish tugmasi", "should_trigger": true},
-  {"query": "Localize these buttons to o'zbekcha Latin: Save, Cancel, Retry", "should_trigger": true},
-  {"query": "DTM uslubida quiz stem yoz: select the correct answer", "should_trigger": true},
-  {"query": "Fix apostrophes in O'zbekiston / to'g'ri for proper Latin Uzbek", "should_trigger": true},
-  {"query": "Humanize this chatbot reply in Uzbek for a bank OTP warning", "should_trigger": true},
-  {"query": "Make this marketing line sound natural in Uzbek Latin", "should_trigger": true},
-  {"query": "o‘zbekcha UI empty state yozing: no results", "should_trigger": true},
-  {"query": "Review sen/Siz mistakes in this Uzbek email to a professor", "should_trigger": true},
-  {"query": "Translate to natural spoken Uzbek: Would you mind closing the door?", "should_trigger": true},
-  {"query": "Faqat kirillcha yozing: Save, Cancel, Please try again", "should_trigger": true},
-  {"query": "Write soft Uzbek ToS / foydalanish shartlari consent line (draft)", "should_trigger": true},
-  {"query": "Sogʻliq UI: alomat check-in prompt in Uzbek, no diagnosis", "should_trigger": true},
-  {"query": "Telegramcha yoshlarcha qilib yoz: bu zoʻr, gap yoʻq", "should_trigger": true},
-  {"query": "uzbek-humanizer: fix morphology in kitoblerimiz / berdimga", "should_trigger": true},
-  {"query": "Write a Python function that sorts a list", "should_trigger": false},
-  {"query": "Explain how React useEffect works", "should_trigger": false},
-  {"query": "Translate this paragraph into Russian for our Moscow storefront", "should_trigger": false},
-  {"query": "Fix the TypeScript build error in auth.ts", "should_trigger": false},
-  {"query": "Design a logo for a coffee brand", "should_trigger": false},
-  {"query": "What is the capital of France?", "should_trigger": false},
-  {"query": "Optimize this SQL query for Postgres", "should_trigger": false},
-  {"query": "Write Korean subtitles for this trailer", "should_trigger": false},
-  {"query": "Create a GitHub Action to run tests", "should_trigger": false},
-  {"query": "Refactor the Redis cache layer", "should_trigger": false},
-  {"query": "Debug flaky Jest snapshot in Button.test.tsx", "should_trigger": false},
-  {"query": "Draft an English-only press release for a US SaaS launch", "should_trigger": false},
-  {"query": "Tune Kubernetes HPA for the payments microservice", "should_trigger": false},
-  {"query": "Summarize this French novel chapter in English", "should_trigger": false},
-  {"query": "Generate Terraform for an S3 bucket with versioning", "should_trigger": false}
+  {
+    "query": "Rewrite this Uzbek UI copy so it doesn't sound AI: Men haqiqatan ham bu ilovani yoqtiraman",
+    "should_trigger": true
+  },
+  {
+    "query": "matnni tabiiylashtirish: Savatga qo'shish tugmasi",
+    "should_trigger": true
+  },
+  {
+    "query": "Localize these buttons to o'zbekcha Latin: Save, Cancel, Retry",
+    "should_trigger": true
+  },
+  {
+    "query": "DTM uslubida quiz stem yoz: select the correct answer",
+    "should_trigger": true
+  },
+  {
+    "query": "Fix apostrophes in O'zbekiston / to'g'ri for proper Latin Uzbek",
+    "should_trigger": true
+  },
+  {
+    "query": "Humanize this chatbot reply in Uzbek for a bank OTP warning",
+    "should_trigger": true
+  },
+  {
+    "query": "Make this marketing line sound natural in Uzbek Latin",
+    "should_trigger": true
+  },
+  {
+    "query": "o‘zbekcha UI empty state yozing: no results",
+    "should_trigger": true
+  },
+  {
+    "query": "Review sen/Siz mistakes in this Uzbek email to a professor",
+    "should_trigger": true
+  },
+  {
+    "query": "Translate to natural spoken Uzbek: Would you mind closing the door?",
+    "should_trigger": true
+  },
+  {
+    "query": "Faqat kirillcha yozing: Save, Cancel, Please try again",
+    "should_trigger": true
+  },
+  {
+    "query": "Write soft Uzbek ToS / foydalanish shartlari consent line (draft)",
+    "should_trigger": true
+  },
+  {
+    "query": "Sogʻliq UI: alomat check-in prompt in Uzbek, no diagnosis",
+    "should_trigger": true
+  },
+  {
+    "query": "Telegramcha yoshlarcha qilib yoz: bu zoʻr, gap yoʻq",
+    "should_trigger": true
+  },
+  {
+    "query": "uzbek-humanizer: fix morphology in kitoblerimiz / berdimga",
+    "should_trigger": true
+  },
+  {
+    "query": "/uzbek-humanize add Uzbek to this Next.js site - translate UI",
+    "should_trigger": true
+  },
+  {
+    "query": "Localize en.json into uz.json with natural Uzbek for next-intl",
+    "should_trigger": true
+  },
+  {
+    "query": "Write a Python function that sorts a list",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain how React useEffect works",
+    "should_trigger": false
+  },
+  {
+    "query": "Translate this paragraph into Russian for our Moscow storefront",
+    "should_trigger": false
+  },
+  {
+    "query": "Fix the TypeScript build error in auth.ts",
+    "should_trigger": false
+  },
+  {
+    "query": "Design a logo for a coffee brand",
+    "should_trigger": false
+  },
+  {
+    "query": "What is the capital of France?",
+    "should_trigger": false
+  },
+  {
+    "query": "Optimize this SQL query for Postgres",
+    "should_trigger": false
+  },
+  {
+    "query": "Write Korean subtitles for this trailer",
+    "should_trigger": false
+  },
+  {
+    "query": "Create a GitHub Action to run tests",
+    "should_trigger": false
+  },
+  {
+    "query": "Refactor the Redis cache layer",
+    "should_trigger": false
+  },
+  {
+    "query": "Debug flaky Jest snapshot in Button.test.tsx",
+    "should_trigger": false
+  },
+  {
+    "query": "Draft an English-only press release for a US SaaS launch",
+    "should_trigger": false
+  },
+  {
+    "query": "Tune Kubernetes HPA for the payments microservice",
+    "should_trigger": false
+  },
+  {
+    "query": "Summarize this French novel chapter in English",
+    "should_trigger": false
+  },
+  {
+    "query": "Generate Terraform for an S3 bucket with versioning",
+    "should_trigger": false
+  }
 ]

@@ -2,14 +2,22 @@
 
 ## Option A - skills CLI (portable)
 
+Installs **both** skills when you ask for all packs:
+
 ```bash
-npx skills add xusnitdinov/uzbek-humanizer
+npx skills add xusnitdinov/uzbek-humanizer --skill '*'
+```
+
+Or pick them explicitly:
+
+```bash
+npx skills add xusnitdinov/uzbek-humanizer --skill uzbek-humanizer --skill uzbek-humanize
 ```
 
 ## Option B - branded installer (npmjs) - preferred
 
 ```bash
-npm i -g uzbek-humanizer-cli@1.3.0
+npm i -g uzbek-humanizer-cli@1.3.2
 uzhumanizer init --ai cursor
 uzhumanizer init --ai all --global
 ```
@@ -35,7 +43,7 @@ npm uninstall -g uzbek-humanizer-cli
 Scoped package `@xusnitdinov/uzbek-humanizer-cli`. Needs a GitHub token with `read:packages`. CI publishes this too so the repo Packages sidebar stays filled.
 
 ```bash
-npm i -g @xusnitdinov/uzbek-humanizer-cli@1.2.0 --registry=https://npm.pkg.github.com
+npm i -g @xusnitdinov/uzbek-humanizer-cli@1.3.2 --registry=https://npm.pkg.github.com
 uzhumanizer init --ai all --global
 ```
 
@@ -70,7 +78,12 @@ Unknown agents: use `agents` (project `.agents/skills`, global XDG `agents/skill
 
 ## Manual
 
-Copy `skills/uzbek-humanizer/` into your agent's skills directory. Folder name must stay `uzbek-humanizer`. Prefer also installing under `.agents/skills/` for cross-client discovery.
+Copy **both** folders into your agent's skills directory (names must stay exact):
+
+- `skills/uzbek-humanizer/`
+- `skills/uzbek-humanize/`
+
+Prefer also installing under `.agents/skills/` for cross-client discovery.
 
 ## Verify
 

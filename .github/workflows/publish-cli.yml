@@ -5,13 +5,33 @@ on:
     types: [published]
   workflow_dispatch:
 
+concurrency:
+  group: publish-cli-${{ github.event_name == 'release' && github.event.release.tag_name || github.sha }}
+  cancel-in-progress: false
+
 permissions:
   contents: read
   id-token: write
   packages: write
 
 jobs:
+  assert-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag must match cli/package.json (releases only)
+        if: github.event_name == 'release'
+        run: |
+          VER=$(node -p "require('./cli/package.json').version")
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$TAG" != "$VER" ]; then
+            echo "Release tag $GITHUB_REF_NAME does not match cli version $VER"
+            exit 1
+          fi
+          echo "OK tag=$GITHUB_REF_NAME version=$VER"
+
   publish-npmjs:
+    needs: [assert-version]
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -45,11 +65,25 @@ jobs:
 
       - name: Publish to npmjs
         if: steps.check.outputs.exists != 'true'
+        id: publish
+        continue-on-error: true
         run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Treat 409 conflict as already published
+        if: steps.check.outputs.exists != 'true' && steps.publish.outcome == 'failure'
+        run: |
+          VER=$(node -p "require('./package.json').version")
+          if npm view "uzbek-humanizer-cli@$VER" version >/dev/null 2>&1; then
+            echo "Publish raced; $VER is on npmjs - treating as success"
+            exit 0
+          fi
+          echo "Publish failed and version is still missing"
+          exit 1
+
   publish-gh-packages:
+    needs: [assert-version]
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -67,6 +101,9 @@ jobs:
         run: |
           node scripts/sync-skill.mjs
           test -f skill/SKILL.md
+          test -f skills/uzbek-humanizer/SKILL.md
+          test -f skills/uzbek-humanize/SKILL.md
+          npm pack --dry-run 2>&1 | grep -E 'skills/uzbek-humanize/SKILL\.md'
           node <<'NODE'
           const fs = require('fs');
           const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -90,6 +127,21 @@ jobs:
 
       - name: Publish to GitHub Packages
         if: steps.check.outputs.exists != 'true'
+        id: publish
+        continue-on-error: true
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Treat 409 conflict as already published
+        if: steps.check.outputs.exists != 'true' && steps.publish.outcome == 'failure'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VER=$(node -p "require('./package.json').version")
+          if npm view "@xusnitdinov/uzbek-humanizer-cli@$VER" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "Publish raced; $VER is on GH Packages - treating as success"
+            exit 0
+          fi
+          echo "Publish failed and version is still missing"
+          exit 1
