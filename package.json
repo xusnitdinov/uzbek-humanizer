@@ -1,7 +1,7 @@
 {
   "name": "uzbek-humanizer",
   "private": true,
-  "description": "uzbek-copy Agent Skill - natural Latin Uzbek for AI assistants",
+  "description": "uzbek-humanizer Agent Skill - natural Latin Uzbek for AI assistants",
   "license": "MIT",
   "repository": {
     "type": "git",

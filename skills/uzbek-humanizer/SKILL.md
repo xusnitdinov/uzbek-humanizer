@@ -1,18 +1,18 @@
 ---
-name: uzbek-copy
+name: uzbek-humanizer
 description: >-
   Use when writing, rewriting, reviewing, or localizing Uzbek Latin copy
   (UI, product, quiz, marketing, chat). Fixes AI-sounding Uzbek, English
   calques, morphology, oʻ/gʻ orthography, and Siz/sen register. Trigger for
   o'zbekcha, o‘zbek, Uzbek copy, humanize Uzbek, matnni tabiiylashtirish,
-  even if the user does not say "uzbek-copy".
+  uzbek-humanizer, even if the user does not say the skill name.
 license: MIT
 metadata:
   author: xusnitdinov
   version: "1.0.0"
 ---
 
-# uzbek-copy
+# uzbek-humanizer
 
 Make AI-written Uzbek sound like a real person wrote it - clear spoken Latin product/student Uzbek by default.
 
@@ -38,7 +38,7 @@ Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = d
 |---|---|---|
 | Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `microcopy.md` |
 | Quiz / test | DTM stems, "belgilang" | `references/quiz-glossary.md` |
-| Rewrite bad AI UZ | ship/vibe/portladi, stiff EN order | `banned-calques.md` + `before-after.md` |
+| Rewrite bad AI UZ | stiff calques, EN order, broken suffixes | `banned-calques.md` + `before-after.md` |
 | Marketing / landing | warm human tone | `register.md` + `voice.md` |
 | Youth chat | slang, Telegram vibe | `youth-slang.md` (draft label) |
 | Bank / OTP / SMS | security copy | `bank-sms.md` + `politeness.md` |
@@ -126,6 +126,6 @@ final | draft/native_review_required
 
 ## Seed rewrite (always remember)
 
-Bad: `Bu feature portladi, teammate ship qiladi, Systems brain yoqdi.`
+Bad: `Men haqiqatan ham bu ilovani yoqtiraman. To'g'ri javobni select qiling.`
 
-Good: `Bu imkoniyat chiqmadi. Doʻstim, topshiramiz. Tizimni tushunaman.`
+Good: `Bu ilova menga juda yoqadi. Toʻgʻri javobni belgilang.`

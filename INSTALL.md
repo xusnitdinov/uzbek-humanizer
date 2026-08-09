@@ -1,4 +1,4 @@
-# Install uzbek-copy
+# Install uzbek-humanizer
 
 ## Option A - skills CLI (portable)
 
@@ -13,14 +13,14 @@ From this repo:
 ```bash
 cd cli
 npm install -g .
-uzcopy init --ai cursor
-uzcopy init --ai all --global
+uzhumanizer init --ai cursor
+uzhumanizer init --ai all --global
 ```
 
 Or without global link:
 
 ```bash
-node cli/bin/uzcopy.js init --ai cursor
+node cli/bin/uzhumanizer.js init --ai cursor
 ```
 
 ### `--ai` values
@@ -29,17 +29,17 @@ node cli/bin/uzcopy.js init --ai cursor
 
 ### Project vs global
 
-- default: project folders (`.cursor/skills/uzbek-copy`, …)
-- `--global`: home directories (`~/.cursor/skills/uzbek-copy`, …)
+- default: project folders (`.cursor/skills/uzbek-humanizer`, …)
+- `--global`: home directories (`~/.cursor/skills/uzbek-humanizer`, …)
 
 ## Manual
 
-Copy `skills/uzbek-copy/` into your agent's skills directory. Folder name must stay `uzbek-copy` to match `SKILL.md` name.
+Copy `skills/uzbek-humanizer/` into your agent's skills directory. Folder name must stay `uzbek-humanizer` to match `SKILL.md` name.
 
 ## Verify
 
 Ask the agent:
 
-> Rewrite this to natural Uzbek: Bu feature portladi
+> Humanize this Uzbek: Men haqiqatan ham bu ilovani yoqtiraman. To'g'ri javobni select qiling.
 
-You should get something like `Bu imkoniyat chiqmadi` plus a short change list.
+You should get something like `Bu ilova menga juda yoqadi. Toʻgʻri javobni belgilang.` plus a short change list.

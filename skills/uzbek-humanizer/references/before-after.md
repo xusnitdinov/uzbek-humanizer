@@ -6,10 +6,10 @@ Training pairs for agents. Prefer the Good column.
 
 | Bad | Good |
 |---|---|
-| Bu feature portladi | Bu imkoniyat chiqmadi |
-| Teammate ship qiladi | Doʻstim, topshiramiz |
-| Systems brain yoqdi | Tizimni tushunaman |
-| Vibe check qilaylik | Kayfiyatni tekshirib koʻraylik |
+| Men haqiqatan ham bu ilovani yoqtiraman | Bu ilova menga juda yoqadi |
+| To'g'ri javobni select qiling | Toʻgʻri javobni belgilang |
+| Siz eshikni yopishga qarshi emasmisiz? | Iltimos, eshikni yopib qoʻying |
+| Keyinroq urinib ko'ring | Keyinroq qayta urinib koʻring |
 | Hard mode yoqildi | Qiyin rejim yoqildi |
 | Please try again later | Iltimos, keyinroq qayta urinib koʻring |
 | Select the correct answer below | Toʻgʻri javobni belgilang |

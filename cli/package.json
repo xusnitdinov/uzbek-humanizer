@@ -1,9 +1,9 @@
 {
-  "name": "uzbek-copy-cli",
+  "name": "uzbek-humanizer-cli",
   "version": "1.0.0",
-  "description": "Install the uzbek-copy Agent Skill into Cursor, Claude, Codex, and more",
+  "description": "Install the uzbek-humanizer Agent Skill into Cursor, Claude, Codex, and more",
   "bin": {
-    "uzcopy": "./bin/uzcopy.js"
+    "uzhumanizer": "./bin/uzhumanizer.js"
   },
   "type": "module",
   "files": [

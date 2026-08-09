@@ -1,5 +1,5 @@
 [
-  {"query": "Rewrite this Uzbek UI copy so it doesn't sound AI: Bu feature portladi", "should_trigger": true},
+  {"query": "Rewrite this Uzbek UI copy so it doesn't sound AI: Men haqiqatan ham bu ilovani yoqtiraman", "should_trigger": true},
   {"query": "matnni tabiiylashtirish: Savatga qo'shish tugmasi", "should_trigger": true},
   {"query": "Localize these buttons to o'zbekcha Latin: Save, Cancel, Retry", "should_trigger": true},
   {"query": "DTM uslubida quiz stem yoz: select the correct answer", "should_trigger": true},

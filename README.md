@@ -1,14 +1,14 @@
-# uzbek-copy
+# uzbek-humanizer
 
 ### The Agent Skill that makes AI sound like it actually speaks Uzbek
 
-AI assistants are fluent. They are also weirdly stiff in Latin Uzbek - wrong apostrophes, English calques, broken suffixes, `Siz` mixed with `-san`, and vibes like `feature portladi`.
+AI assistants are fluent. They are also weirdly stiff in Latin Uzbek - wrong apostrophes, English word order, broken suffixes, and `Siz` mixed with `-san`.
 
-**uzbek-copy** is a real [Agent Skill](https://agentskills.io) (not a README cosplay). Install it once. Cursor, Claude, Codex, Copilot and friends load it when you ask for Uzbek copy - then rewrite like a human.
+**uzbek-humanizer** is a real [Agent Skill](https://agentskills.io) (not a README cosplay). Install it once. Cursor, Claude, Codex, Copilot and friends load it when you ask for Uzbek copy - then rewrite like a human.
 
 ```text
-Bad:  Bu feature portladi, teammate ship qiladi.
-Good: Bu imkoniyat chiqmadi. Doʻstim, topshiramiz.
+Bad:  Men haqiqatan ham bu ilovani yoqtiraman. To'g'ri javobni select qiling.
+Good: Bu ilova menga juda yoqadi. Toʻgʻri javobni belgilang.
 ```
 
 MIT. Honest quality bar: **much more natural**. Heavy slang / legal / medical still needs a native pass.
@@ -27,7 +27,7 @@ Or the branded CLI:
 git clone https://github.com/xusnitdinov/uzbek-humanizer.git
 cd uzbek-humanizer/cli
 npm install -g .
-uzcopy init --ai all --global
+uzhumanizer init --ai all --global
 ```
 
 | Flag | Meaning |
@@ -43,12 +43,12 @@ More detail: [INSTALL.md](./INSTALL.md)
 
 | Piece | Job |
 |---|---|
-| `skills/uzbek-copy/SKILL.md` | Lean agent brain - triggers, workflow, gotchas, output template |
+| `skills/uzbek-humanizer/SKILL.md` | Lean agent brain - triggers, workflow, gotchas, output template |
 | `references/` | On-demand packs: orthography, morphology, UI, quiz, bank SMS, slang… |
 | `scripts/` | Apostrophe normalize + banned-calque lint |
 | `examples/` | Product UI, quiz, marketing rewrites |
 | `eval/` | Quality cases + skill-trigger queries |
-| `cli/` | `uzcopy` multi-agent installer |
+| `cli/` | `uzhumanizer` multi-agent installer |
 
 Progressive disclosure (Agent Skills spec):
 
@@ -75,9 +75,13 @@ Notoʻgʻri parol
 
 **Ask**
 
-> Humanize: Bu feature portladi, vibe check qilaylik
+> Humanize this Uzbek: Siz eshikni yopishga qarshi emasmisiz? Keyinroq urinib ko'ring.
 
-**Expect** change list + final matn without `feature` / `portladi` / `vibe`.
+**Expect**
+
+```text
+Iltimos, eshikni yopib qoʻying. Keyinroq qayta urinib koʻring.
+```
 
 Output contract:
 
@@ -114,13 +118,13 @@ Grounded in published LLM Uzbek error research (morphology ~35% of failures) plu
 
 ```text
 uzbek-humanizer/
-├── skills/uzbek-copy/     ← the skill
+├── skills/uzbek-humanizer/   ← the skill
 │   ├── SKILL.md
 │   ├── references/
 │   ├── examples/
 │   ├── eval/
 │   └── scripts/
-├── cli/                   ← uzcopy installer
+├── cli/                      ← uzhumanizer installer
 ├── INSTALL.md
 └── README.md
 ```

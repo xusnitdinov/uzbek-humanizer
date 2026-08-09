@@ -5,15 +5,15 @@ const args = process.argv.slice(2);
 const cmd = args[0];
 
 function help() {
-  console.log(`uzcopy - install uzbek-copy Agent Skill
+  console.log(`uzhumanizer - install uzbek-humanizer Agent Skill
 
 Usage:
-  uzcopy init --ai <cursor|claude|codex|copilot|all> [--global]
-  uzcopy --help
+  uzhumanizer init --ai <cursor|claude|codex|copilot|all> [--global]
+  uzhumanizer --help
 
 Examples:
-  uzcopy init --ai cursor
-  uzcopy init --ai all --global
+  uzhumanizer init --ai cursor
+  uzhumanizer init --ai all --global
 `);
 }
 

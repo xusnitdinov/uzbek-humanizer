@@ -21,6 +21,6 @@ See `particles.md`. Useful: `xoʻp`, `baribir`, `shunchaki`, `endi`, `mayli`.
 
 | Do | Don't |
 |---|---|
-| `Bu imkoniyat chiqmadi` | `Bu feature portladi` |
+| `Bu ilova menga juda yoqadi` | `Men haqiqatan ham bu ilovani yoqtiraman` |
 | `Iltimos, qayta urinib koʻring` | `Please try again later` pasted raw |
-| `Doʻstim, topshiramiz` | `Teammate, let's ship` |
+| `Toʻgʻri javobni belgilang` | `Select the correct answer below` |

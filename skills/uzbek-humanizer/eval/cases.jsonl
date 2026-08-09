@@ -4,9 +4,9 @@
 {"id":"ui-password","type":"localize","input":"Invalid password","expect_contains":["Notoʻgʻri parol","Noto'g'ri parol"],"bucket":"lexicon"}
 {"id":"quiz-select","type":"localize","input":"Select the correct answer","expect_contains":["Toʻgʻri javobni belgilang","To'g'ri javobni belgilang"],"bucket":"quiz"}
 {"id":"quiz-wrong","type":"localize","input":"Find the incorrect sentence","expect_contains":["Notoʻgʻri jumlani toping","Noto'g'ri jumlani toping"],"bucket":"quiz"}
-{"id":"calque-portladi","type":"rewrite","input":"Bu feature portladi","expect_contains":["chiqmadi"],"expect_not":["portladi","feature"],"bucket":"calque"}
-{"id":"calque-ship","type":"rewrite","input":"Keling ship qilaylik","expect_not":["ship"],"bucket":"calque"}
-{"id":"calque-teammate","type":"rewrite","input":"Teammate yordam berdi","expect_not":["Teammate","teammate"],"bucket":"calque"}
+{"id":"stiff-like","type":"rewrite","input":"Men haqiqatan ham bu ilovani yoqtiraman","expect_contains":["yoqadi"],"bucket":"lexicon"}
+{"id":"stiff-select","type":"rewrite","input":"To'g'ri javobni select qiling","expect_contains":["belgilang"],"expect_not":["select"],"bucket":"calque"}
+{"id":"stiff-mind","type":"rewrite","input":"Siz eshikni yopishga qarshi emasmisiz?","expect_contains":["yopib qoʻying","yopib qo'ying","Iltimos"],"bucket":"pragmatic"}
 {"id":"morph-berdimga","type":"rewrite","input":"Men kitobni doʻstimga berdimga","expect_contains":["berdim"],"expect_not":["berdimga"],"bucket":"morphology"}
 {"id":"morph-harmony","type":"rewrite","input":"kitoblerimiz","expect_contains":["kitoblarimiz"],"bucket":"morphology"}
 {"id":"syntax-sov","type":"rewrite","input":"U oʻqidi kitobni kecha kutubxonada","expect_contains":["kitobni oʻqidi","kitobni o'qidi"],"bucket":"syntax"}
@@ -33,7 +33,8 @@
 {"id":"ui-required","type":"localize","input":"This field is required","expect_contains":["shart","majburiy"],"bucket":"microcopy"}
 {"id":"ecommerce-cart","type":"localize","input":"Add to cart","expect_contains":["Savat"],"bucket":"lexicon"}
 {"id":"systems-brain","type":"rewrite","input":"Systems brain activated","expect_not":["Systems brain"],"bucket":"calque"}
-{"id":"vibe","type":"rewrite","input":"Need a vibe check","expect_not":["vibe"],"bucket":"calque"}
+{"id":"en-ship","type":"rewrite","input":"Keling ship qilaylik","expect_not":["ship"],"bucket":"calque"}
+{"id":"en-vibe","type":"rewrite","input":"Need a vibe check","expect_not":["vibe"],"bucket":"calque"}
 {"id":"soft-disagree","type":"rewrite","input":"You are wrong, professor","expect_contains":["qoʻshilmayman","qo'shilmayman"],"expect_not":["notoʻgʻrisiz","noto'g'risiz"],"bucket":"pragmatic"}
 {"id":"telecom-balance","type":"localize","input":"Check balance","expect_contains":["Balans"],"bucket":"lexicon"}
 {"id":"quiz-row","type":"localize","input":"Choose the correct row","expect_contains":["qator"],"bucket":"quiz"}
