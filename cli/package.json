@@ -1,0 +1,29 @@
+{
+  "name": "uzbek-copy-cli",
+  "version": "1.0.0",
+  "description": "Install the uzbek-copy Agent Skill into Cursor, Claude, Codex, and more",
+  "bin": {
+    "uzcopy": "./bin/uzcopy.js"
+  },
+  "type": "module",
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "keywords": [
+    "uzbek",
+    "agent-skills",
+    "cursor",
+    "claude",
+    "humanizer",
+    "i18n"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xusnitdinov/uzbek-humanizer"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
