@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/uzbek-humanizer-cli?style=flat-square&color=cb3837)](https://www.npmjs.com/package/uzbek-humanizer-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-111111?style=flat-square)](https://agentskills.io)
-[![eval](https://img.shields.io/badge/eval-53%2F53%20goldens-2ea44f?style=flat-square)](./skills/uzbek-humanizer/eval/)
+[![eval](https://img.shields.io/badge/eval-62%2F62%20goldens-2ea44f?style=flat-square)](./skills/uzbek-humanizer/eval/)
 
 > AI is fluent. Latin Uzbek from models is still weirdly stiff - wrong apostrophes, English word order, broken suffixes, `Siz` mixed with `-san`, and calques nobody in Toshkent says.
 
@@ -211,8 +211,8 @@ final | draft/native_review_required
 | `references/` | On-demand packs under the main skill |
 | `scripts/` | Apostrophe normalize, banned + stiff linters, eval runner |
 | `examples/` | Product UI, quiz, marketing rewrites |
-| `eval/` | 53 golden cases, trigger queries, native bakeoff rubric |
-| `cli/` | `uzhumanizer` multi-agent installer (skill bundled) |
+| `eval/` | 62 golden cases, trigger queries, native bakeoff rubric |
+| `cli/` | `uzhumanizer` multi-agent installer (both skills bundled) |
 
 Progressive disclosure ([Agent Skills](https://agentskills.io) style):
 
@@ -279,15 +279,18 @@ uzhumanizer uninstall --ai cursor --global
 
 # Option C - manual
 #   .cursor/skills/uzbek-humanizer
+#   .cursor/skills/uzbek-humanize
 #   .claude/skills/uzbek-humanizer
+#   .claude/skills/uzbek-humanize
 #   .agents/skills/uzbek-humanizer
+#   .agents/skills/uzbek-humanize
 ```
 
 ### Skill installed but agent ignores Uzbek requests
 
 1. Open a **new** agent chat (skills are often loaded at session start)
-2. Confirm the folder exists: `.cursor/skills/uzbek-humanizer/SKILL.md` (or your agent’s path)
-3. Ask with a clear trigger: `Humanize this Uzbek: …` / `matnni tabiiylashtirish`
+2. Confirm folders exist: `.cursor/skills/uzbek-humanizer/SKILL.md` and `.cursor/skills/uzbek-humanize/SKILL.md` (or your agent’s paths)
+3. Ask with a clear trigger: `Humanize this Uzbek: …` / `matnni tabiiylashtirish` / `/uzbek-humanize …`
 4. Refresh files after upgrading the npm package: `uzhumanizer update --ai cursor`
 
 ### `npm publish` / install from GitHub Packages fails auth
@@ -303,18 +306,8 @@ Use **npmjs** for normal installs. GitHub Packages needs a token with `read:pack
 | **npmjs** `uzbek-humanizer-cli` | Live - preferred install |
 | **GitHub Packages** `@xusnitdinov/uzbek-humanizer-cli` | Live mirror |
 | **`npx skills add`** | Live - Agent Skills discovery |
-| **Claude Code plugin marketplace** | Manifest ready (`.claude-plugin/plugin.json`). Not in the community catalog yet - validate + submit (see below). |
+| **Claude Code plugin marketplace** | Not submitted (skipped for now). Manifest file exists if you ever want it later. |
 | **Cursor “marketplace”** | No public Cursor Skills store like Claude’s plugin directory. Distribution is GitHub + `npx skills` + this CLI. |
-
-### Submit to Claude community marketplace
-
-1. Repo is public (it is) and has `.claude-plugin/plugin.json` + `skills/*/SKILL.md`.
-2. Locally: `claude plugin validate .` (same check the review pipeline runs).
-3. Submit the GitHub URL via one of:
-   - Console (individuals): https://platform.claude.com/plugins/submit
-   - claude.ai Team/Enterprise: https://claude.ai/admin-settings/directory/submissions/plugins/new
-4. After approval, CI pins the plugin in [`anthropics/claude-plugins-community`](https://github.com/anthropics/claude-plugins-community). Updates follow git pushes (bump `version` in `plugin.json` when you want pinned releases).
-5. Note: marketplace install namespaces skills as `uzbek-humanizer:…`. Agent-skills install via `uzhumanizer init` still uses plain `/uzbek-humanize`.
 
 ---
 
@@ -322,7 +315,6 @@ Use **npmjs** for normal installs. GitHub Packages needs a token with `read:pack
 
 ```text
 uzbek-humanizer/
-├── .claude-plugin/plugin.json
 ├── skills/
 │   ├── uzbek-humanizer/      ← main skill (auto + /uzbek-humanizer)
 │   └── uzbek-humanize/       ← slash companion (/uzbek-humanize …)

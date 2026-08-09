@@ -1,25 +1,26 @@
 #!/usr/bin/env node
-import { init, uninstall, update, versions, TARGETS, ALIASES } from "../lib/init.js";
+import { init, uninstall, update, versions } from "../lib/init.js";
 
 const args = process.argv.slice(2);
 const cmd = args[0];
-const aiKeys = ["all", ...Object.keys(TARGETS), ...Object.keys(ALIASES)];
-const aiList = aiKeys.join("|");
 
 function help() {
-  console.log(`uzhumanizer - install / refresh / remove uzbek-humanizer Agent Skill
+  console.log(`uzhumanizer - install both Agent Skills (uzbek-humanizer + /uzbek-humanize)
 
 Usage:
-  uzhumanizer init --ai <${aiList}> [--global]
-  uzhumanizer update --ai <${aiList}> [--global]
-  uzhumanizer uninstall --ai <${aiList}> [--global]
+  uzhumanizer init --ai <name> [--global]
+  uzhumanizer update --ai <name> [--global]
+  uzhumanizer uninstall --ai <name> [--global]
   uzhumanizer versions
   uzhumanizer --help
 
+--ai: cursor | claude | windsurf | agents | all | …
+      (also: codex, copilot, cline, roo, amp, goose, trae, kilo,
+       opencode, continue, gemini-cli, antigravity + aliases)
+
 Examples:
   uzhumanizer init --ai cursor
-  uzhumanizer init --ai claude
-  uzhumanizer init --ai windsurf --global
+  uzhumanizer init --ai claude --global
   uzhumanizer init --ai all --global
   uzhumanizer update --ai cursor
   uzhumanizer uninstall --ai cursor
