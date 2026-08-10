@@ -13,5 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Run structural eval + example lints
-        run: npm run test:eval
+      - name: Run normalize self-test + eval
+        run: |
+          npm run test:normalize
+          npm run test:eval

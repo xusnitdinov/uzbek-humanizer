@@ -60,3 +60,8 @@
 {"id":"web-keep-keys","type":"rewrite","input":"Localize JSON values only, keep keys: {\"save\":\"Save\",\"cancel\":\"Cancel\"}","expect_contains_all":["Saqlash","Bekor qilish"],"bucket":"web-i18n"}
 {"id":"web-plural-count","type":"localize","input":"{count} results found (keep {count} placeholder)","expect_contains_all":["{count}"],"expect_contains_any":["natija","ta"],"bucket":"web-i18n"}
 {"id":"web-latin-only","type":"localize","input":"Welcome to settings","expect_contains":["Sozlamalar"],"expect_not":["Хуш","Созламалар"],"bucket":"web-i18n"}
+{"id":"oria-group-oxshamadi","type":"localize","input":"Group project blows up. What do you do first?","expect_contains_all":["oʻxshamadi","qilasiz"],"expect_not":["chiqmadi","qilasan","portladi"],"bucket":"oria"}
+{"id":"oria-quiz-siz","type":"rewrite","input":"Avval nima qilasan? Qayerga kirasan?","expect_contains_all":["qilasiz","kirasiz"],"expect_not":["qilasan","kirasan"],"bucket":"oria"}
+{"id":"oria-stress-dost","type":"localize","input":"I check on my stressed friend","expect_contains_any":["Stressdagi","stressdagi","tashvishdagi"],"expect_not":["Asabiylashgan doʻstim holidan"],"bucket":"oria"}
+{"id":"oria-chiqmadi-group","type":"rewrite","input":"Guruh ishi chiqmadi - nima qilasan?","expect_contains_all":["oʻxshamadi","qilasiz"],"expect_not":["chiqmadi","qilasan"],"bucket":"oria"}
+{"id":"register-product-san","type":"rewrite","input":"Toʻgʻri javobni belgilang. Nima deb oʻylaysan?","expect_contains_any":["oʻylaysiz","oʻylaysiz?"],"expect_not":["oʻylaysan"],"bucket":"pragmatic"}

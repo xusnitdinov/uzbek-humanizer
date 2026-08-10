@@ -69,6 +69,42 @@ Training pairs for agents. Prefer the Good column.
 | Time is money (UI banner) | Vaqtingiz qimmat - qisqa qiling |
 | Early bird special | Erta band qilganlarga chegirma |
 
+## Oria / career quiz (native taste)
+
+| Bad | Good |
+|---|---|
+| Guruh ishi chiqmadi | Guruh ishi oʻxshamadi |
+| Guruh ishi portladi | Guruh ishi oʻxshamadi |
+| Avval nima qilasan? | Avval nima qilasiz? |
+| Qayerga kirasan? | Qayerga kirasiz? |
+| Yordam soʻraysanmi? | Yordam soʻraysizmi? |
+| Asabiylashgan doʻstim holidan xabar olaman | Stressdagi doʻstim holidan xabar olaman |
+| Nervniy doʻstimga qoʻngʻiroq qilaman | Stressdagi doʻstimga qoʻngʻiroq qilaman |
+| Loyiha blow up boʻldi | Loyiha oʻxshamadi |
+| Team vibe yoʻq | Jamoa bilan til topisha olmadik |
+| Men ship qilaman | Men vazifani topshiraman |
+| Figure it out qilaman | Yoʻl topaman / uddalayman |
+| Reach out qilaman | Bogʻlanaman / yozib qoʻyaman |
+| Take a break qil | Dam oling / tanaffus qiling |
+| Speak up qil | Fikringizni ayting |
+| Own the mistake | Xatoni tan oling |
+| Ask for help | Yordam soʻrang |
+| Prioritize qil | Muhimini ajrating |
+| Brainstorm qilamiz | Fikr almashamiz / variantlar yozamiz |
+| Follow up qilaman | Keyinroq soʻrab koʻraman |
+| Wrap up qilamiz | Yakunlaymiz |
+| Hand off qilaman | Vazifani topshiraman |
+| Unblock qil | Toʻsiqni olib tashlang / yordam soʻrang |
+| Crush it! | Zoʻr uddalang! / Yaxshi bajaring! |
+| Deal with it | Hal qiling / yechim toping |
+| Step back | Biroz orqaga suriling / kutib turing |
+| Push through | Davom eting / bardosh bering |
+| Imtihon chiqmadi (didn't go well) | Imtihon yaxshi oʻtmadi |
+| Reja chiqmadi (didn't pan out) | Reja oʻxshamadi |
+| Kel, yoz | Keling, yozing |
+| Nima deb oʻylaysan? | Nima deb oʻylaysiz? |
+| Doʻstingni check qil | Doʻstingiz holidan xabar oling |
+
 ## Orthography
 
 | Bad | Good |

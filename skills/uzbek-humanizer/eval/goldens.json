@@ -60,5 +60,10 @@
   "web-required-field": "Bu maydon toʻldirilishi shart",
   "web-keep-keys": "{\"save\":\"Saqlash\",\"cancel\":\"Bekor qilish\"}",
   "web-plural-count": "{count} ta natija topildi",
-  "web-latin-only": "Sozlamalarga xush kelibsiz"
+  "web-latin-only": "Sozlamalarga xush kelibsiz",
+  "oria-group-oxshamadi": "Guruh ishi oʻxshamadi. Avval nima qilasiz?\n\n## Holat\ndraft/native_review_required",
+  "oria-quiz-siz": "Avval nima qilasiz? Qayerga kirasiz?",
+  "oria-stress-dost": "Stressdagi doʻstim holidan xabar olaman",
+  "oria-chiqmadi-group": "Guruh ishi oʻxshamadi - nima qilasiz?",
+  "register-product-san": "Toʻgʻri javobni belgilang. Nima deb oʻylaysiz?"
 }

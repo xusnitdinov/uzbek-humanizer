@@ -1,6 +1,6 @@
 {
   "name": "uzbek-humanizer-cli",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Install uzbek-humanizer (+ /uzbek-humanize slash) Agent Skills into Cursor, Claude, Codex, and more",
   "bin": {
     "uzhumanizer": "bin/uzhumanizer.js"

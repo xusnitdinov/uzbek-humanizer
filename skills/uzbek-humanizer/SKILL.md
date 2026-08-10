@@ -1,118 +1,137 @@
 ---
 name: uzbek-humanizer
 description: >-
-  Use when writing, rewriting, reviewing, or localizing Uzbek Latin copy
-  (UI, product, quiz, marketing, chat, bank/OTP, consent/ToS, symptom/health).
-  Fixes AI-sounding Uzbek, English calques, morphology, oʻ/gʻ orthography,
-  and Siz/sen register. Trigger for o'zbekcha, o‘zbek, Uzbek copy, humanize
-  Uzbek, matnni tabiiylashtirish, uzbek-humanizer, bank OTP SMS, rozilik /
-  shartlar / ToS, alomat / sogʻliq / symptom, kirill / Cyrillic, DTM / quiz,
-  Telegram / yoshlarcha, even if the user does not say the skill name.
+  Use when writing, rewriting, reviewing, or localizing Uzbek Latin *copy*
+  (UI strings, quiz stems, marketing, chat, bank/OTP, consent, health soft UI).
+  Owns natural-Uzbek rewrite quality: calques, soft synonyms, Siz register,
+  oʻ/gʻ orthography. Trigger for o'zbekcha, humanize Uzbek, matnni
+  tabiiylashtirish, uzbek-humanizer, DTM/quiz, bank OTP, ToS draft, Cyrillic
+  ask. For wiring site i18n files / next-intl / en.json→uz.json use sister
+  slash skill uzbek-humanize (/uzbek-humanize) instead.
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.3.2"
+  version: "1.3.3"
 ---
 
 # uzbek-humanizer
 
 Make AI-written Uzbek sound like a real person wrote it - clear spoken Latin product/student Uzbek by default.
 
-Honest claim: much more natural. Heavy slang, invented idioms, legal/medical = draft + native review.
+**Honest claim:** calque-safe, register-safe **draft**. Still not automatic native taste - product quiz / marketing needs synonym judgment (`soft-synonyms.md`) and often `draft/native_review_required` for high-stakes lines. Heavy slang / legal / medical = always draft + native review.
+
+## Sister skill boundary (do not confuse)
+
+| Skill | Owns |
+|---|---|
+| **`uzbek-humanizer` (this)** | Rewrite / review **Uzbek text quality** - Matn, glossaries, orthography, Siz, soft synonyms |
+| **`uzbek-humanize` (slash)** | **Wire project i18n** - locale files, keys stable, next-intl / switcher / `/uz` routing. User types `/uzbek-humanize` |
+
+If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, prefer **`uzbek-humanize`**. If they paste stiff Uzbek / ask to humanize lines, stay **here**. When slash is missing, this skill may still rewrite values but should not invent a second i18n framework unprompted.
+
+## Top 10 hard rules (always, before Router)
+
+1. **Product / UI / quiz = `Siz` only** - `qilasiz`, `Keling`. Never `qilasan` / bare `Kel` unless user explicitly asked for sen/youth.
+2. **No EN cool slang in UZ** - `ship`, `vibe`, `teammate`, `portladi`, `Systems brain`.
+3. **Situation-natural verbs** - not only anti-English. `Guruh ishi oʻxshamadi` not `chiqmadi` when it means "didn't work out."
+4. **Orthography** - oʻ/gʻ = `ʻ` (U+02BB); tutuq = `ʼ` (U+02BC). Never rewrite digraphs into tutuq.
+5. **No invented idioms / maqollar.**
+6. **One address lane** - never `Siz` + `-san` on the same surface.
+7. **No literal idiom calques** (`chelakni tepdi`).
+8. **Place names in UZ:** `Toshkent` not Tashkent.
+9. **Legal / medical / youth-heavy** → `Holat: draft/native_review_required`.
+10. **Always emit** Matn (or change summary) + Oʻzgarishlar + Holat in chat - even when editing project files.
 
 ## When to use
 
 - Write or rewrite Uzbek Latin UI / product / quiz / marketing / assistant replies
-- Fix stiff MT or LLM Uzbek (calques, wrong suffixes, missing oʻ/gʻ)
-- Localize EN (or other) into natural Uzbek
+- Fix stiff MT or LLM Uzbek (calques, wrong soft synonyms, wrong suffixes, missing oʻ/gʻ)
+- Localize EN strings into natural Uzbek (values) when not doing full site wiring
 - Review existing Uzbek copy for AI tells
-- Bank / OTP / SMS security copy
-- Legal soft UI (consent, ToS, disclaimers) - draft + native review
-- Medical soft UI (appointment, symptom prompts) - draft; never diagnose
-- Cyrillic output when the user explicitly asks for кирилл / Cyrillic
+- Bank / OTP / SMS, legal soft UI, medical soft UI, Cyrillic when asked
 
 ## When not to use
 
-- User wants Russian target copy (out of scope)
-- User wants Cyrillic-only output unless they ask
+- User wants Russian target copy
+- Site i18n wiring / locale file project work → sister `/uzbek-humanize`
 - Pure grammar-theory essay with no rewrite task
-- User style guide explicitly overrides this skill - follow the user
+- User style guide overrides this skill
 
 ## Router
 
 | Scenario | Trigger examples | Load |
 |---|---|---|
-| **Site / app i18n (slash)** | `/uzbek-humanize`, add Uzbek to Next/Vite, `en.json` → `uz.json`, language switcher | Prefer sister skill `uzbek-humanize` when installed; else this Router + `ui-glossary` / `microcopy` / `legal-copy` |
+| **Site / app i18n (slash)** | `/uzbek-humanize`, Next/Vite locale wiring | Hand off to `uzbek-humanize`; else `ui-glossary` + `microcopy` + `soft-synonyms` |
+| Synonym / native taste | "chiqmadi vs oʻxshamadi", career quiz tone | `references/soft-synonyms.md` + `references/before-after.md` |
 | Bad AI rewrite | stiff calques, EN order, broken suffixes | `references/banned-calques.md` + `references/before-after.md` + `references/ai-patterns.md` |
-| Marketing / landing | warm human tone, long paragraphs | `references/register.md` + `references/voice.md` + `references/marketing-long.md` + `examples/marketing.md` |
-| Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `references/microcopy.md` + `examples/product-ui.md` |
-| Quiz / test | DTM stems, "belgilang" | `references/quiz-glossary.md` + `examples/quiz.md` |
-| Youth chat | slang, Telegram vibe, yoshlarcha | `references/youth-slang.md` (draft label; only when asked) |
-| Bank / OTP / SMS | security copy, OTP, SMS | `references/bank-sms.md` + `references/politeness.md` |
-| Legal soft UI | ToS, consent, disclaimers | `references/legal-copy.md` (draft label) |
-| Medical soft UI | appointment, symptom prompts | `references/medical-copy.md` (draft label; never diagnose) |
-| Cyrillic ask | кирилл, Cyrillic output | `references/cyrillic.md` (Latin default otherwise) |
-| Orthography mess | apostrophes, oʻ/gʻ | `references/orthography.md` + run normalize script |
-| Literal idioms / MT mush | idiom calques, EN mush | `references/mt-failures.md` + `references/phraseology-rules.md` |
-| Stiff verbs / aspect | aspect, modality | `references/aspect-modality.md` + `references/auxiliaries.md` |
-| Spoken glue / particles | particles, voice | `references/particles.md` + `references/voice.md` |
-| Siz/sen / soft replies | address, politeness | `references/politeness.md` |
-| Money / dates / phones | soʻm, dates, +998 | `references/formatting.md` |
-| RU discourse / hybrids | rusizmlar, false friends | `references/rusizmlar.md` + `references/false-friends.md` |
-| Morphology weirdness | cases, plurals, harmony | `references/morphology-checks.md` |
-| Worked demos | examples beyond the row above | `examples/` |
-| Sources | citations / provenance | `references/sources.md` |
+| Marketing / landing | warm human tone | `references/register.md` + `references/voice.md` + `references/marketing-long.md` + `examples/marketing.md` |
+| Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `references/microcopy.md` + `examples/product-ui.md` + `soft-synonyms.md` |
+| Quiz / test | DTM stems, belgilang | `references/quiz-glossary.md` + `examples/quiz.md` + `politeness.md` + `soft-synonyms.md` |
+| Youth chat | slang, yoshlarcha | `references/youth-slang.md` (draft; only when asked) |
+| Bank / OTP / SMS | security copy | `references/bank-sms.md` + `references/politeness.md` |
+| Legal soft UI | ToS, consent | `references/legal-copy.md` (draft) |
+| Medical soft UI | appointment, symptoms | `references/medical-copy.md` (draft; never diagnose) |
+| Cyrillic ask | кирилл | `references/cyrillic.md` |
+| Orthography | apostrophes | `references/orthography.md` + normalize script |
+| Idioms / MT | literal idioms | `references/mt-failures.md` + `references/phraseology-rules.md` |
+| Aspect / auxiliaries | stiff verbs | `references/aspect-modality.md` + `references/auxiliaries.md` |
+| Particles / voice | spoken glue | `references/particles.md` + `references/voice.md` |
+| Siz/sen | address | `references/politeness.md` (**Siz hard for product**) |
+| Money / dates | soʻm, +998 | `references/formatting.md` |
+| RU hybrids | rusizmlar | `references/rusizmlar.md` + `references/false-friends.md` |
+| Morphology | cases, plurals | `references/morphology-checks.md` |
+| Demos | worked examples | `examples/` |
+| Sources | provenance | `references/sources.md` |
 
 ## Workflow
 
-1. **Detect task** - write / rewrite / review / localize. Default register: spoken clear product/student Latin Uzbek. If the user ran `/uzbek-humanize` or asked to wire site i18n, hand off to sister `uzbek-humanize` when present.
-2. **Respect user style** - if they give voice/glossary, it wins.
-3. **Load refs** - use the Router table. One hop only.
-4. **Rewrite** - natural UZ, not literal EN. Prefer real verbs and light auxiliaries over calques.
-5. **Validate** - run scripts when available:
-   - `node scripts/normalize-apostrophe.mjs <file>`
-   - `node scripts/lint-banned.mjs <file>`
-   - `node scripts/lint-stiff.mjs <file>` (AI-tell / stiff-copy patterns)
-6. **Fix lint findings then re-lint before final** - do not ship until lints are clean or residual issues are labeled in Holat.
-7. **Holat gate** - before output, if legal / medical / youth: set `Holat` to `draft/native_review_required`.
-8. **Checklist** - complete the post-rewrite checklist.
-9. **Output** - use the template. Do not overwrite project files unless the user asks (site i18n file edits belong to `/uzbek-humanize`).
+1. **Detect task** - write / rewrite / review / localize. Default: spoken clear product/student Latin Uzbek + **Siz**.
+2. **Sister check** - i18n wiring → `uzbek-humanize` when present.
+3. **Respect user style** - their glossary wins; sen/youth only if they asked.
+4. **Load refs** - Top 10 first, then one Router hop. Prefer `soft-synonyms` + `before-after` for quiz/product.
+5. **Rewrite** - natural UZ; situation verbs; Siz on product/quiz.
+6. **Validate** (when files available):
+   - `node scripts/normalize-apostrophe.mjs <file>` (safe on bilingual tx/JSON)
+   - `node scripts/lint-banned.mjs <file>` (Uzbek-only extract by default)
+   - `node scripts/lint-stiff.mjs <file>` (flags `-asan` on product; `--allow-sen` for youth)
+7. **Fix lint then re-lint** - or label residuals in Holat.
+8. **Holat gate** - legal / medical / youth / high-stakes marketing synonym doubt → `draft/native_review_required`.
+9. **Output** - template below. If you edited project files, still print short Oʻzgarishlar + Holat in chat.
 
 ## Gotchas
 
-1. Do not mix apostrophe characters - oʻ/gʻ use `ʻ` (U+02BB); tutuq uses `ʼ` (U+02BC). Ban ASCII `'` and `` ` `` in skill output.
-2. Do not paste EN cool slang into Uzbek (`ship`, `vibe`, `portladi`, `teammate`, `Systems brain`).
-3. Do not literalize idioms (`kick the bucket` ≠ `chelakni tepdi`).
-4. Do not mix `Siz` with `-san` / bare `Kel` on the same surface.
-5. Do not invent idioms or maqollar.
-6. Prefer auxiliaries (`yopib qoʻying`) and light particles over stiff textbook calques.
+1. oʻ/gʻ = `ʻ`; tutuq = `ʼ`. Digraphs must never become tutuq (`Toʼgʻri` is a bug).
+2. No EN cool slang in UZ output.
+3. Soft synonyms matter - `chiqmadi` ≠ always wrong, but "group project failed" → `oʻxshamadi`.
+4. Product/quiz: never `-san` unless asked.
+5. No invented maqollar.
+6. Prefer auxiliaries (`yopib qoʻying`) over stiff calques.
 7. Do not over-use `bir` as a fake English article.
-8. Place names in UZ text: `Toshkent`, `Samarqand`, `Buxoro`, `Fargʻona` - not Tashkent/Samarkand.
-9. Review ≠ overwrite files unless asked.
-10. Heavy slang / legal / medical = `draft/native_review_required`.
-11. Do not inject `karoche` / `normalni` / `kruto` to "sound local" unless youth mode was requested.
-12. Check morphology before shipping - suffix order and vowel harmony (`kitoblarimiz` not `kitoblerimiz`).
-13. Never diagnose or prescribe - medical soft UI is prompts and navigation only.
-14. Never invent binding legal fine print or statutes - legal soft UI stays draft.
-15. Cyrillic only when asked - Latin is the default.
-16. Invented bank / OTP / SMS copy = draft (`draft/native_review_required`).
+8. Place names: `Toshkent`, not Tashkent.
+9. Review ≠ overwrite files unless asked (slash owns bulk locale edits).
+10. Heavy slang / legal / medical = draft.
+11. No `karoche` / `normalni` / `kruto` unless youth mode.
+12. Morphology: `kitoblarimiz` not `kitoblerimiz`.
+13. Never diagnose or prescribe.
+14. Never invent binding legal statutes.
+15. Cyrillic only when asked.
+16. Invented bank SMS = draft.
+17. Do not normalize EN strings inside bilingual files (`Who's`, `I'm`).
 
 ## Post-rewrite checklist
 
-- [ ] Orthography: oʻ/gʻ/ʼ correct; no ASCII apostrophe spam
-- [ ] Morphology: no broken cases/plurals/possessives
-- [ ] Syntax: natural SOV; no EN word-order mush
-- [ ] Lexicon: no banned EN calques; idioms remapped or plain; no invented maqol
-- [ ] Pragmatics: one address lane (Siz or sen); register matches task
-- [ ] Formatting: soʻm / dates / +998 if relevant
-- [ ] Cyrillic digraph check when Cyrillic is used
-- [ ] Honesty: legal / medical / slang-heavy / invented bank SMS → `draft/native_review_required`
+- [ ] Top 10 hard rules satisfied
+- [ ] Orthography: digraphs TURNED; tutuq correct; EN untouched in bilingual files
+- [ ] Soft synonyms: situation-natural verbs
+- [ ] Product/quiz: zero `-san` / bare `Kel`
+- [ ] No banned EN calques; no invented maqol
+- [ ] Holat honest (draft if synonym-doubt on product quiz/marketing)
 
 ## Output template
 
 ```
 ## Matn
-[final Uzbek]
+[final Uzbek — or "see file edits" plus 2–5 sample lines]
 
 ## Oʻzgarishlar
 - ...
@@ -124,23 +143,26 @@ final | draft/native_review_required
 
 ## Defaults
 
-- Script: Latin; Cyrillic only when asked
+- Script: Latin
 - Register: spoken clear product/student
-- Address: `Siz` for UI / strangers / elders; `sen` only for peer/friend when context is clear
-- Prefer clean standard Uzbek over code-switch
+- Address: **`Siz` hard** for UI / quiz / product; `sen` only when explicitly requested
 - Particles: OK in chat; almost never in product UI
-- Allowed sparingly: Wi-Fi (ASCII hyphen), foto, laptop, gadjet, parol, kod, brand names
 
-## Seed rewrite (always remember)
+## Seed rewrite
 
-Bad: `Men haqiqatan ham bu ilovani yoqtiraman. To'g'ri javobni select qiling.`
+Bad: `Men haqiqatan ham bu ilovani yoqtiraman. To'g'ri javobni select qiling. Guruh ishi chiqmadi - nima qilasan?`
 
-Good: `Bu ilova menga juda yoqadi. Toʻgʻri javobni belgilang.`
+Good: `Bu ilova menga juda yoqadi. Toʻgʻri javobni belgilang. Guruh ishi oʻxshamadi - nima qilasiz?`
+
+## Install note (agents)
+
+- Project: `uzhumanizer init --ai cursor` → `.cursor/skills/`
+- Global (all repos): `uzhumanizer init --ai cursor --global` → `~/.cursor/skills/`
+- Source of truth: https://github.com/xusnitdinov/uzbek-humanizer - sync local patches back to the repo
 
 ## Maintainer / self-test
 
-For skill maintainers only (not part of per-draft validate):
-
-- `eval/cases.jsonl`
-- `eval/bakeoff-rubric.md`
-- `eval/trigger-queries.json`
+```bash
+npm run test:eval
+node skills/uzbek-humanizer/scripts/normalize-apostrophe.mjs --self-test
+```

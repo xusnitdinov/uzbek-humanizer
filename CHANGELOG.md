@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.3
+
+- Oria production fixes: soft synonyms (`oʻxshamadi` vs `chiqmadi`), hard Siz for product/quiz
+- Fix `normalize-apostrophe.mjs` digraph→tutuq bug; protect EN / tx() bilingual segments; `--self-test`
+- Linters extract Uzbek-only text by default (no EN `ship`/`vibe` false positives); product `-asan` lint
+- Top 10 hard rules + clearer sister-skill boundary; honesty: calque-safe draft, native synonym review still needed
+- Eval/bakeoff cases from real Oria failures; install note for project vs global Cursor skills
+
 ## 1.3.2
 
 - Enforce both skill packs on install; uninstall also cleans legacy agent paths

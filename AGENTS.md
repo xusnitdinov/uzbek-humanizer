@@ -24,6 +24,7 @@ Instructions for AI coding agents working **in this repository** (not end-user i
 ```bash
 # from repo root - CI gate
 npm run test:eval
+npm run test:normalize
 
 # try installer against a project cwd
 node cli/bin/uzhumanizer.js init --ai cursor
@@ -42,12 +43,15 @@ Node 18+. No app build step.
 
 1. **Both packs** - install/uninstall/publish must keep `uzbek-humanizer` **and** `uzbek-humanize`
 2. **Eval sync** - new/changed case `id` in `cases.jsonl` needs the same key in `goldens.json`; run `npm run test:eval`
-3. **Orthography in goldens/Matn** - oʻ/gʻ → `ʻ` (U+02BB); tutuq → `ʼ` (U+02BC); do not accept ASCII `'` twins as valid expects
-4. **Router** - keep `SKILL.md` short; put domain detail in `references/`; one hop
-5. **Honesty** - legal / medical / heavy youth = `draft/native_review_required`; no fake statutes, no diagnoses
-6. **Place names** in Uzbek text: `Toshkent`, not Tashkent
-7. **Sister contract** - slash may edit locale files when asked; main skill defaults to Matn/Holat unless user asked for file edits
-8. **Versions** - bump `cli/package.json` + both `skills/*/SKILL.md` `metadata.version` + `CHANGELOG.md` together when cutting a release (maintainers)
+3. **Orthography in goldens/Matn** - oʻ/gʻ → `ʻ` (U+02BB); tutuq → `ʼ` (U+02BC); do not accept ASCII `'` twins as valid expects; never rewrite digraphs into tutuq
+4. **Product/quiz = Siz** - no `qilasan` / bare `Kel` unless user asked for sen/youth
+5. **Soft synonyms** - situation-natural verbs (`oʻxshamadi` not `chiqmadi` for "didn't work out"); see `references/soft-synonyms.md`
+6. **Router** - keep `SKILL.md` short; Top 10 hard rules first; put domain detail in `references/`; one hop
+7. **Honesty** - calque-safe draft; legal / medical / heavy youth / high-stakes synonym doubt = `draft/native_review_required`
+8. **Place names** in Uzbek text: `Toshkent`, not Tashkent
+9. **Sister contract** - `uzbek-humanizer` = text quality; `uzbek-humanize` = i18n file wiring
+10. **Versions** - bump `cli/package.json` + both `skills/*/SKILL.md` `metadata.version` + `CHANGELOG.md` together when cutting a release (maintainers)
+11. **Normalize bilingual safely** - `npm run test:normalize`; EN `Who's` / tx() EN args must not change
 
 ## Good changes vs noise
 

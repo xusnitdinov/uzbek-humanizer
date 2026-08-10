@@ -24,6 +24,17 @@ Never paste these English "cool" patterns into Uzbek product/student copy.
 | Would you mind… calques | Iltimos, …-ib qoʻying |
 | Select the correct answer below | Toʻgʻri javobni belgilang |
 
+## Soft-wrong (grammatical but not native)
+
+| Bad | Prefer |
+|---|---|
+| Guruh ishi chiqmadi | Guruh ishi oʻxshamadi |
+| Loyiha portladi | Loyiha oʻxshamadi |
+| qilasan / kirasan (product/quiz) | qilasiz / kirasiz |
+| Asabiylashgan doʻstim… (casual) | Stressdagi doʻstim… |
+
+See `soft-synonyms.md` for the full situation bank.
+
 ## Allowed sparingly
 
 Wi‑Fi, foto, laptop, gadjet, parol, kod, OTP, PIN, brand names (Payme, Uzum, HUMO).

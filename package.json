@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test:eval": "node skills/uzbek-humanizer/scripts/run-eval.mjs",
+    "test:normalize": "node skills/uzbek-humanizer/scripts/normalize-apostrophe.mjs --self-test",
     "lint:examples": "node skills/uzbek-humanizer/scripts/run-eval.mjs"
   },
 

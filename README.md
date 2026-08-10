@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/uzbek-humanizer-cli?style=flat-square&color=cb3837)](https://www.npmjs.com/package/uzbek-humanizer-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-111111?style=flat-square)](https://agentskills.io)
-[![eval](https://img.shields.io/badge/eval-62%2F62%20goldens-2ea44f?style=flat-square)](./skills/uzbek-humanizer/eval/)
+[![eval](https://img.shields.io/badge/eval-67%2F67%20goldens-2ea44f?style=flat-square)](./skills/uzbek-humanizer/eval/)
 
 > AI is fluent. Latin Uzbek from models is still weirdly stiff - wrong apostrophes, English word order, broken suffixes, `Siz` mixed with `-san`, and calques nobody in Toshkent says.
 
@@ -20,7 +20,7 @@ To'g'ri javobni select
 qiling.
 ```
 
-Honest bar: **much more natural**. Heavy slang / legal / medical still needs a native pass.
+Honest bar: **calque-safe, more natural drafts**. Product quiz / marketing still need synonym taste + often a native pass. Heavy slang / legal / medical = draft.
 
 ---
 
@@ -66,11 +66,13 @@ uzhumanizer init --ai all           # every supported target
 #### Global install (available for all projects)
 
 ```bash
+uzhumanizer init --ai cursor --global     # ~/.cursor/skills/ (all Cursor projects)
 uzhumanizer init --ai claude --global     # ~/.claude/skills/
-uzhumanizer init --ai cursor --global     # ~/.cursor/skills/
 uzhumanizer init --ai agents --global     # XDG agents/skills (universal)
 uzhumanizer init --ai all --global        # all supported agents
 ```
+
+Project install only affects the current folder. Use `--global` so other repos (e.g. Oria) see the skill without re-init.
 
 #### Other CLI commands
 
@@ -211,7 +213,7 @@ final | draft/native_review_required
 | `references/` | On-demand packs under the main skill |
 | `scripts/` | Apostrophe normalize, banned + stiff linters, eval runner |
 | `examples/` | Product UI, quiz, marketing rewrites |
-| `eval/` | 62 golden cases, trigger queries, native bakeoff rubric |
+| `eval/` | 67 golden cases, trigger queries, native bakeoff rubric |
 | `cli/` | `uzhumanizer` multi-agent installer (both skills bundled) |
 
 Progressive disclosure ([Agent Skills](https://agentskills.io) style):

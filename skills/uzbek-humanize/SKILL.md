@@ -9,13 +9,30 @@ description: >-
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.3.2"
+  version: "1.3.3"
 disable-model-invocation: true
 ---
 
 # /uzbek-humanize
 
-Slash workflow for **adding natural Latin Uzbek** to a project that is already in English (or another language) - websites, apps, UI strings, landing copy, emails, SMS.
+Slash workflow for **wiring websites/apps into Latin Uzbek** (i18n files, locale config, switcher) with natural copy.
+
+## Sister skill boundary
+
+| Skill | Owns |
+|---|---|
+| **`uzbek-humanize` (this slash)** | Project i18n: locale JSON, keep keys, next-intl / routing / switcher, edit files when asked |
+| **`uzbek-humanizer` (sister)** | Uzbek **text quality**: Siz, soft synonyms, calques, orthography. Load its refs while translating values |
+
+User must type `/uzbek-humanize`. Do not confuse with auto `uzbek-humanizer`.
+
+## Hard product rules (from sister)
+
+1. Locale **values** for UI/quiz = **Siz** only (`qilasiz`, not `qilasan`)
+2. Situation-natural verbs (`Guruh ishi oʻxshamadi` not `chiqmadi` for "didn't work out")
+3. Orthography ʻ/ʼ - run sister normalize on **Uzbek** values only; never corrupt `Who's` / EN locale
+4. After file edits, still print Matn samples + Oʻzgarishlar + Holat in chat
+5. Calque-safe draft - high-stakes quiz/marketing → `draft/native_review_required` until native pass
 
 ## How the user invokes it
 
@@ -53,9 +70,9 @@ Ship **spoken clear product/student Latin Uzbek** that a real user in Toshkent w
 7. **Output** - make the code/file changes the user asked for. Also summarize:
 
 ```markdown
-## Matn / o‘zgarishlar
+## Matn / Oʻzgarishlar
 - which files / keys changed
-- sample before → after strings
+- sample before → after strings (Siz, soft synonyms)
 
 ## Holat
 final | draft/native_review_required

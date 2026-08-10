@@ -1,12 +1,21 @@
 #!/usr/bin/env node
 /**
- * Lint banned EN calques / discourse RU in Uzbek copy drafts.
+ * Lint banned EN calques / discourse RU / soft-wrong synonyms in Uzbek drafts.
+ *
+ * By default extracts Uzbek-facing text (tx first arg, "uz": values, ## Matn)
+ * so English locale strings do not false-positive.
  *
  * Usage:
  *   node lint-banned.mjs <file>
- *   node lint-banned.mjs --matn-only <file>   # only ## Matn blocks
+ *   node lint-banned.mjs --matn-only <file>
+ *   node lint-banned.mjs --whole-file <file>   # skip Uzbek extraction
  */
 import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { extractUzbekForLint } from "./extract-uzbek.mjs";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** Meta English in teaching docs - not UZ cool-slang hits */
 const SHIP_META =
@@ -19,7 +28,10 @@ const BANNED = [
     skip: (text, m) => {
       const i = text.indexOf(m);
       const window = text.slice(Math.max(0, i - 24), i + m.length);
-      return SHIP_META.test(window) || /\bship\s+(?:order|date|hygiene)\b/i.test(window);
+      return (
+        SHIP_META.test(window) ||
+        /\bship\s+(?:order|date|hygiene)\b/i.test(window)
+      );
     },
   },
   {
@@ -47,6 +59,12 @@ const BANNED = [
   { id: "chelakni-tepdi", re: /\bchelakni\s+tepdi\b/i },
   { id: "hurmatli", re: /\bHurmatli\s+foydalanuvchi\b/i },
   { id: "place-en", re: /\b(Tashkent|Samarkand|Bukhara|Fergana)\b/i },
+  // Soft-wrong: "failed/didn't work out" as chiqmadi when oʻxshamadi fits
+  {
+    id: "soft-chiqmadi-group",
+    re: /\b(?:Guruh|Loyiha|Ish)\s+\w*\s*chiqmadi\b/i,
+  },
+  { id: "soft-chiqmadi-ishi", re: /\bishi\s+chiqmadi\b/i },
 ];
 
 function extractMatn(text) {
@@ -62,22 +80,40 @@ function extractMatn(text) {
 
 const args = process.argv.slice(2);
 let matnOnly = false;
+let wholeFile = false;
 const files = [];
 for (const a of args) {
   if (a === "--matn-only") matnOnly = true;
+  else if (a === "--whole-file") wholeFile = true;
   else if (a.startsWith("-")) {
-    console.error("Usage: node lint-banned.mjs [--matn-only] <file>");
+    console.error(
+      "Usage: node lint-banned.mjs [--matn-only|--whole-file] <file>"
+    );
     process.exit(1);
   } else files.push(a);
 }
 
 const file = files[0];
 if (!file) {
-  console.error("Usage: node lint-banned.mjs [--matn-only] <file>");
+  console.error(
+    "Usage: node lint-banned.mjs [--matn-only|--whole-file] <file>"
+  );
   process.exit(1);
 }
+
 let text = fs.readFileSync(file, "utf8");
-if (matnOnly) text = extractMatn(text);
+if (matnOnly) {
+  text = extractMatn(text);
+} else if (!wholeFile) {
+  const { text: uz, skipped } = extractUzbekForLint(text, {
+    filePath: path.resolve(file),
+  });
+  if (skipped === "en-locale-path") {
+    console.log(`Skip EN locale path: ${file}`);
+    process.exit(0);
+  }
+  text = uz;
+}
 
 const hits = [];
 for (const rule of BANNED) {

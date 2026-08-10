@@ -4,46 +4,118 @@
  * oʻ/gʻ → U+02BB (ʻ)
  * tutuq → U+02BC (ʼ)
  *
+ * Digraphs are protected before tutuq passes so `toʻgʻri` never becomes `toʼgʻri`.
+ * English contractions and common bilingual tx()/locale EN segments are protected.
+ *
  * Usage:
  *   node normalize-apostrophe.mjs <file>
- *   node normalize-apostrophe.mjs --check <file>   # exit 2 if would change
- *   node normalize-apostrophe.mjs --dry-run <file> # print only
+ *   node normalize-apostrophe.mjs --check <file>
+ *   node normalize-apostrophe.mjs --dry-run <file>
  *   node normalize-apostrophe.mjs --stdout <file>
+ *   node normalize-apostrophe.mjs --self-test
  */
 import fs from "node:fs";
 
-const TURNED = "\u02BB"; // ʻ
-const TUTUQ = "\u02BC"; // ʼ
+export const TURNED = "\u02BB"; // ʻ
+export const TUTUQ = "\u02BC"; // ʼ
 const MARK = `['\`\u2018\u2019\u02BB\u02BC]`;
+const DIGRAPH_PH = "\u0000DG\u0000";
 
-/** EN contractions / names we must not rewrite */
-const EN_SKIP =
-  /\b(?:[Ii]'m|[Ww]e'd|[Yy]ou're|[Tt]hey're|[Ww]on't|[Cc]an't|[Ii]sn't|[Aa]ren't|[Hh]aven't|[Hh]asn't|[Dd]oesn't|[Dd]idn't|[Ss]houldn't|[Ww]ouldn't|[Cc]ouldn't|[Oo]'[Bb]rien|[Oo]'[Cc]onnor)\b/g;
+/** EN contractions / names we must not rewrite (no /g - rebuild when testing) */
+const EN_SKIP_SRC =
+  String.raw`\b(?:[Ii]'m|[Ww]e'd|[Yy]ou're|[Tt]hey're|[Ww]ho's|[Ww]hat's|[Ii]t's|[Tt]hat's|[Tt]here's|[Hh]ere's|[Ll]et's|[Ww]on't|[Cc]an't|[Ii]sn't|[Aa]ren't|[Hh]aven't|[Hh]asn't|[Dd]oesn't|[Dd]idn't|[Ss]houldn't|[Ww]ouldn't|[Cc]ouldn't|[Oo]'[Bb]rien|[Oo]'[Cc]onnor)\b`;
 
-function protectEn(text) {
+/**
+ * Protect bilingual / English segments that must not be rewritten.
+ * Order: stash whole EN segments first, then leftover contractions.
+ */
+function protectForeign(text) {
   const saved = [];
-  const out = text.replace(EN_SKIP, (m) => {
+  const stash = (m) => {
     saved.push(m);
-    return `\u0000EN${saved.length - 1}\u0000`;
+    return `\u0000P${saved.length - 1}\u0000`;
+  };
+
+  let out = text;
+
+  // 1) Protect 2nd+ quoted args inside tx(…) / t(…) / i18n.t(…)
+  out = out.replace(/\b(?:tx|t|i18n\.t)\(([^)]*)\)/g, (full, inner) => {
+    const argRe = /(["'`])((?:\\.|(?!\1).)*)\1/g;
+    const pieces = [];
+    let am;
+    while ((am = argRe.exec(inner))) {
+      pieces.push({
+        start: am.index,
+        end: am.index + am[0].length,
+        raw: am[0],
+      });
+    }
+    if (pieces.length < 2) return full;
+    let rebuilt = inner;
+    for (let p = pieces.length - 1; p >= 1; p--) {
+      const piece = pieces[p];
+      rebuilt =
+        rebuilt.slice(0, piece.start) +
+        stash(piece.raw) +
+        rebuilt.slice(piece.end);
+    }
+    return full.slice(0, full.indexOf("(") + 1) + rebuilt + ")";
+  });
+
+  // 2) JSON-ish "en" / "ru" values
+  out = out.replace(
+    /(["'])(?:en|en-US|en-GB|ru|ru-RU)\1\s*:\s*(["'])(?:\\.|(?!\2).)*\2/gi,
+    stash
+  );
+
+  // 3) Remaining EN contractions in Uzbek/host text
+  out = out.replace(new RegExp(EN_SKIP_SRC, "gi"), stash);
+
+  return { out, saved };
+}
+
+function restorePlaceholders(text, saved) {
+  return text.replace(/\u0000P(\d+)\u0000/g, (_, i) => saved[Number(i)]);
+}
+
+function protectDigraphs(text) {
+  const saved = [];
+  const out = text.replace(new RegExp(`([OoGg])${TURNED}`, "g"), (m) => {
+    saved.push(m);
+    return `${DIGRAPH_PH}${saved.length - 1}${DIGRAPH_PH}`;
   });
   return { out, saved };
 }
 
-function restoreEn(text, saved) {
-  return text.replace(/\u0000EN(\d+)\u0000/g, (_, i) => saved[Number(i)]);
+function restoreDigraphs(text, saved) {
+  return text.replace(
+    new RegExp(`${DIGRAPH_PH}(\\d+)${DIGRAPH_PH}`, "g"),
+    (_, i) => saved[Number(i)]
+  );
 }
 
-function normalize(text) {
-  const { out: protectedText, saved } = protectEn(text);
-  let out = protectedText;
-  // o'/g' digraphs (ASCII, curly, or mixed)
+/**
+ * @param {string} text
+ * @returns {string}
+ */
+export function normalize(text) {
+  const { out: foreignOut, saved: foreignSaved } = protectForeign(text);
+  let out = foreignOut;
+
+  // 1) o'/g' digraphs → TURNED (ASCII, curly, or mixed)
   out = out.replace(new RegExp(`([OoGg])${MARK}`, "g"), `$1${TURNED}`);
-  // tutuq: vowel + mark + letter (ma'no, a'lo)
+
+  // 2) Freeze digraphs so tutuq never rewrites oʻ / gʻ
+  const { out: digOut, saved: digSaved } = protectDigraphs(out);
+  out = digOut;
+
+  // 3) tutuq: vowel + mark + letter (ma'no, a'lo) — vowels only, never TURNED-as-vowel
   out = out.replace(
-    new RegExp(`([AaEeIiOoUuOo${TURNED}])${MARK}([A-Za-zÀ-ÿ${TURNED}${TUTUQ}])`, "g"),
+    new RegExp(`([AaEeIiOoUu])${MARK}([A-Za-zÀ-ÿ${TURNED}${TUTUQ}])`, "g"),
     (_, a, b) => `${a}${TUTUQ}${b}`
   );
-  // consonant tutuq sites: san'at, mas'ul, qat'iy, jam'i, a'zo
+
+  // 4) consonant tutuq sites: san'at, mas'ul, qat'iy, jam'i, …
   out = out.replace(
     new RegExp(
       `\\b([Ss]an|[Mm]as|[Qq]at|[Jj]am|[Aa]'?z|[Mm]ehn|[Ii]nsho)${MARK}([A-Za-z${TURNED}${TUTUQ}])`,
@@ -51,32 +123,93 @@ function normalize(text) {
     ),
     (_, stem, rest) => `${stem.replace(/'/g, "")}${TUTUQ}${rest}`
   );
-  // simpler pass for san'at-style remaining
+
+  // 5) remaining consonant + mark + vowel
   out = out.replace(
-    new RegExp(`([NnMmLlRrTtDdSsZzKkQqGgHhPpBbVvYyJjXxCcFfWw])${MARK}([AaEeIiOoUu])`, "g"),
+    new RegExp(
+      `([NnMmLlRrTtDdSsZzKkQqGgHhPpBbVvYyJjXxCcFfWw])${MARK}([AaEeIiOoUu])`,
+      "g"
+    ),
     (_, c, v) => `${c}${TUTUQ}${v}`
   );
-  return restoreEn(out, saved);
+
+  out = restoreDigraphs(out, digSaved);
+  out = restorePlaceholders(out, foreignSaved);
+  return out;
 }
 
-function lintReport(text) {
+export function lintReport(text) {
   const issues = [];
-  // Fresh RegExp each call - /g on EN_SKIP must not leak lastIndex across tests
-  const residual = text.replace(new RegExp(EN_SKIP.source, "gi"), "");
+  const residual = text.replace(new RegExp(EN_SKIP_SRC, "gi"), "");
   if (/[A-Za-z]'[A-Za-z]/.test(residual)) {
     issues.push("ASCII apostrophe ' found in a word");
   }
   if (/[`\u2018\u2019]/.test(text)) issues.push("curly/grave quote mark found");
+  // Digraph must stay TURNED, not TUTUQ
+  if (/[OoGg]\u02BC/.test(text)) {
+    issues.push("o/g digraph uses tutuq ʼ — should be ʻ (U+02BB)");
+  }
   return issues;
+}
+
+function selfTest() {
+  const cases = [
+    ["to'g'ri", `to${TURNED}g${TURNED}ri`],
+    [`to${TURNED}g${TURNED}ri`, `to${TURNED}g${TURNED}ri`],
+    ["do'stim", `do${TURNED}stim`],
+    [`do${TURNED}stim`, `do${TURNED}stim`],
+    ["ma'no", `ma${TUTUQ}no`],
+    [`ma${TUTUQ}no`, `ma${TUTUQ}no`],
+    ["va'da", `va${TUTUQ}da`],
+    ["Who's there?", "Who's there?"],
+    ["I'm fine", "I'm fine"],
+    ["What's up", "What's up"],
+    [
+      `tx("Guruh ishi chiqmadi", "Group project blows up", "Группа")`,
+      `tx("Guruh ishi chiqmadi", "Group project blows up", "Группа")`,
+    ],
+    [
+      `tx("to'g'ri", "Who's right?", "ok")`,
+      `tx("to${TURNED}g${TURNED}ri", "Who's right?", "ok")`,
+    ],
+    [
+      `{"uz":"to'g'ri","en":"Who's there?"}`,
+      `{"uz":"to${TURNED}g${TURNED}ri","en":"Who's there?"}`,
+    ],
+  ];
+  let failed = 0;
+  for (const [input, expect] of cases) {
+    const got = normalize(input);
+    if (got !== expect) {
+      console.error("FAIL", JSON.stringify(input), "→", JSON.stringify(got), "want", JSON.stringify(expect));
+      failed += 1;
+    }
+  }
+  // Extra: never produce oʼ digraph
+  const bad = normalize("to'g'ri do'st");
+  if (/[OoGg]\u02BC/.test(bad)) {
+    console.error("FAIL digraph used tutuq:", bad);
+    failed += 1;
+  }
+  if (failed) {
+    console.error(`self-test: ${failed} failed`);
+    process.exit(2);
+  }
+  console.log(`self-test: ${cases.length + 1} ok`);
 }
 
 function usage() {
   console.error(
-    "Usage: node normalize-apostrophe.mjs [--check|--dry-run|--stdout] <file>"
+    "Usage: node normalize-apostrophe.mjs [--check|--dry-run|--stdout|--self-test] [<file>]"
   );
 }
 
 const args = process.argv.slice(2);
+if (args.includes("--self-test")) {
+  selfTest();
+  process.exit(0);
+}
+
 let mode = "write";
 const files = [];
 for (const a of args) {
