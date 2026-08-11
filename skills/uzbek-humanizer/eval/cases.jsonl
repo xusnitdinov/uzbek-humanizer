@@ -65,3 +65,136 @@
 {"id":"oria-stress-dost","type":"localize","input":"I check on my stressed friend","expect_contains_any":["Stressdagi","stressdagi","tashvishdagi"],"expect_not":["Asabiylashgan doʻstim holidan"],"bucket":"oria"}
 {"id":"oria-chiqmadi-group","type":"rewrite","input":"Guruh ishi chiqmadi - nima qilasan?","expect_contains_all":["oʻxshamadi","qilasiz"],"expect_not":["chiqmadi","qilasan"],"bucket":"oria"}
 {"id":"register-product-san","type":"rewrite","input":"Toʻgʻri javobni belgilang. Nima deb oʻylaysan?","expect_contains_any":["oʻylaysiz","oʻylaysiz?"],"expect_not":["oʻylaysan"],"bucket":"pragmatic"}
+{"id":"ecom-checkout","type":"localize","input":"Proceed to checkout","expect_contains_any":["Toʻlovga oʻtish","Buyurtmani rasmiylashtirish","Toʻlov"],"bucket":"ecommerce"}
+{"id":"ecom-delivery","type":"localize","input":"Estimated delivery: tomorrow","expect_contains_any":["yetkazib","Yetkazish","Yetkazib berish"],"expect_contains":["erta"],"bucket":"ecommerce"}
+{"id":"ecom-track","type":"localize","input":"Track your order","expect_contains_any":["Buyurtmani kuzatish","Buyurtmani kuzating","kuzatish"],"bucket":"ecommerce"}
+{"id":"ecom-refund","type":"localize","input":"Request a refund","expect_contains_any":["Qaytarish","qaytarish","Pulni qaytarish"],"bucket":"ecommerce"}
+{"id":"ecom-out-of-stock","type":"localize","input":"Out of stock","expect_contains_any":["tugagan","mavjud emas","Omborda yoʻq"],"bucket":"ecommerce"}
+{"id":"pay-transfer","type":"localize","input":"Transfer money","expect_contains_any":["Oʻtkazma","Pul oʻtkazish","Oʻtkazish"],"bucket":"fintech"}
+{"id":"pay-insufficient","type":"localize","input":"Insufficient funds","expect_contains_any":["yetarli emas","mablagʻ","Balans"],"bucket":"fintech"}
+{"id":"pay-card-added","type":"localize","input":"Card added successfully","expect_contains_any":["Karta qoʻshildi","Karta saqlandi"],"bucket":"fintech"}
+{"id":"pay-confirm","type":"localize","input":"Confirm payment","expect_contains_any":["Toʻlovni tasdiqlash","Toʻlovni tasdiqlang"],"bucket":"fintech"}
+{"id":"food-courier","type":"localize","input":"Courier is on the way","expect_contains_any":["Kuryer yoʻlda","Yetkazuvchi yoʻlda","Kuryer kelmoqda"],"bucket":"delivery"}
+{"id":"food-eta","type":"localize","input":"Arrives in 25 minutes","expect_contains_all":["25"],"expect_contains_any":["daqiqa","minut"],"bucket":"delivery"}
+{"id":"ride-arrived","type":"localize","input":"Your driver has arrived","expect_contains_any":["Haydovchi keldi","Haydovchingiz yetib keldi"],"bucket":"mobility"}
+{"id":"ride-cancel","type":"localize","input":"Cancel trip","expect_contains_any":["Safarni bekor qilish","Buyurtmani bekor qilish","Yoʻnalishni bekor qilish"],"bucket":"mobility"}
+{"id":"saas-invite","type":"localize","input":"Invite teammates to the workspace","expect_contains_any":["taklif","Taklif"],"expect_not":["teammate","Teammate"],"bucket":"saas"}
+{"id":"saas-empty","type":"localize","input":"No projects yet. Create your first project.","expect_contains_any":["Hali loyiha yoʻq","Birinchi loyihangizni yarating","loyiha"],"bucket":"saas"}
+{"id":"lms-homework","type":"localize","input":"Submit homework","expect_contains_any":["Uy vazifasini topshirish","Topshiriqni yuborish","Uy vazifasini yuboring"],"bucket":"education"}
+{"id":"lms-attendance","type":"localize","input":"Mark attendance","expect_contains_any":["Davomatni belgilang","Davomatni belgilash"],"bucket":"education"}
+{"id":"auth-forgot","type":"localize","input":"Forgot password?","expect_contains_any":["Parolni unutdingizmi","Parolni tiklash"],"bucket":"auth"}
+{"id":"auth-biometric","type":"localize","input":"Use Face ID to unlock","expect_contains_any":["Face ID","Biometrik"],"bucket":"auth"}
+{"id":"notif-enable","type":"localize","input":"Enable notifications","expect_contains_any":["Bildirishnomalarni yoqing","Bildirishnomani yoqing","Bildirishnomalarni yoqish"],"bucket":"product-ui"}
+{"id":"offline-mode","type":"localize","input":"You are offline. Changes will sync later.","expect_contains_any":["onlayn emas","Internet yoʻq","Oflayn"],"bucket":"product-ui"}
+{"id":"wifi-connect","type":"localize","input":"Connect to Wi-Fi","expect_contains_all":["Wi"],"expect_contains_any":["ulaning","Ulanish","ulanish"],"bucket":"product-ui"}
+{"id":"loan-keep-otp","type":"rewrite","input":"Enter the OTP code sent to your phone","expect_contains":["OTP"],"expect_not":["bir martalik maxfiy kod"],"bucket":"loanword"}
+{"id":"loan-keep-email","type":"localize","input":"Enter your email","expect_contains_any":["Email","email"],"expect_not":["Elektron pochta manzilingizni kiriting iltimos"],"bucket":"loanword"}
+{"id":"place-samarqand","type":"rewrite","input":"We deliver across Samarkand","expect_contains":["Samarqand"],"expect_not":["Samarkand"],"bucket":"orthography"}
+{"id":"gov-submit","type":"localize","input":"Submit application","expect_contains_any":["Arizani yuborish","Arizani topshirish"],"bucket":"gov"}
+{"id":"health-book","type":"localize","input":"Book an appointment","expect_contains_any":["Qabulga yozilish","Uchrashuvni band qilish","Navbatga yozilish"],"bucket":"medical-soft"}
+{"id":"support-chat","type":"localize","input":"Chat with support","expect_contains_any":["Yordam bilan yozishing","Supportga yozish","Yordam chatiga"],"bucket":"support"}
+{"id":"sub-cancel","type":"localize","input":"Cancel subscription","expect_contains_any":["Obunani bekor qilish","Obunani bekor qiling"],"bucket":"saas"}
+{"id":"search-hint","type":"localize","input":"Search products or brands","expect_contains_any":["Qidirish","qidiring","Mahsulot","mahsulot"],"bucket":"ecommerce"}
+{"id":"rating-ask","type":"localize","input":"Rate your experience","expect_contains_any":["Baholang","baholang","Baho bering","Reyting"],"bucket":"product-ui"}
+{"id":"delete-confirm","type":"localize","input":"Are you sure you want to delete this?","expect_contains_any":["Rostdan ham oʻchirmoqchimisiz","Oʻchirishni tasdiqlaysizmi"],"bucket":"product-ui"}
+{"id":"phone-format","type":"rewrite","input":"Call us at +998901234567","expect_contains":["+998"],"bucket":"formatting"}
+{"id":"auth-passwords-match","type":"localize","input":"Passwords do not match","bucket":"auth","expect_contains_any":["Parollar mos kelmadi","Parollar mos emas"]}
+{"id":"auth-weak-password","type":"localize","input":"Password is too weak","bucket":"auth","expect_contains_any":["Parol juda sodda","Parol zaif","Parol juda oddiy"]}
+{"id":"auth-code-wrong","type":"localize","input":"Incorrect verification code","bucket":"auth","expect_contains_any":["Kod notoʻgʻri","Tekshiruv kodi notoʻgʻri"]}
+{"id":"auth-code-expired","type":"localize","input":"Code expired. Request a new one.","bucket":"auth","expect_contains_any":["muddati tugadi","Kod muddati"]}
+{"id":"auth-code-missing","type":"localize","input":"Code not received","bucket":"auth","expect_contains_any":["Tekshiruv kodi kelmadi","Kod kelmadi"]}
+{"id":"auth-resend-code","type":"localize","input":"Resend code","bucket":"auth","expect_contains_any":["Kodni qayta yuborish","Qayta yuborish"]}
+{"id":"auth-2fa","type":"localize","input":"Turn on two-factor authentication","bucket":"auth","expect_contains_any":["ikki bosqichli","Ikki bosqichli","2FA","Ikki faktorli"]}
+{"id":"auth-logout-all","type":"localize","input":"Log out of all devices","bucket":"auth","expect_contains_any":["Barcha qurilma","barcha qurilma"]}
+{"id":"auth-change-phone","type":"localize","input":"Change phone number","bucket":"auth","expect_contains_any":["Telefon raqamini oʻzgartirish","Telefon raqamini"]}
+{"id":"ecom-wishlist","type":"localize","input":"Add to wishlist","bucket":"ecommerce","expect_contains_any":["Sevimlilar","Istaklar"]}
+{"id":"ecom-empty-cart","type":"localize","input":"Your cart is empty","bucket":"ecommerce","expect_contains":["Savat"],"expect_contains_any":["boʻsh","boʻsh"]}
+{"id":"ecom-promo","type":"localize","input":"Apply promo code","bucket":"ecommerce","expect_contains_any":["Promokod","promokod","Promo-kod"]}
+{"id":"ecom-promo-invalid","type":"localize","input":"Invalid promo code","bucket":"ecommerce","expect_contains_any":["Promokod notoʻgʻri","Promokod ishlamadi","notoʻgʻri promokod"]}
+{"id":"ecom-free-ship","type":"localize","input":"Free shipping from 200 000 so'm","bucket":"ecommerce","expect_contains_any":["Bepul yetkazib","Yetkazib berish bepul","bepul yetkazib"],"expect_contains_all":["200"]}
+{"id":"ecom-cod","type":"localize","input":"Cash on delivery","bucket":"ecommerce","expect_contains_any":["Yetkazib berganda toʻlash","Naqd toʻlov","Qabul qilganda toʻlash"]}
+{"id":"ecom-pickup","type":"localize","input":"Pick up at pickup point","bucket":"ecommerce","expect_contains_any":["Topshirish punkti","Olib ketish"]}
+{"id":"ecom-size","type":"localize","input":"Select size","bucket":"ecommerce","expect_contains_any":["Oʻlchamni tanlang","Razmerni tanlang"]}
+{"id":"ecom-return-policy","type":"localize","input":"14-day return policy","bucket":"ecommerce","expect_contains_any":["14","qaytarish"]}
+{"id":"ecom-min-order","type":"localize","input":"Minimum order amount not reached","bucket":"ecommerce","expect_contains_any":["minimal","Minimal","eng kam","kamida"]}
+{"id":"ecom-filter-none","type":"localize","input":"No products match these filters","bucket":"ecommerce","expect_contains_any":["filtr","topilmadi","mos kelmadi"]}
+{"id":"ecom-installment","type":"localize","input":"Buy in installments","bucket":"ecommerce","expect_contains_any":["Nasiya","muddatli","boʻlib toʻlash"]}
+{"id":"pay-success","type":"localize","input":"Payment successful","bucket":"fintech","expect_contains_any":["Toʻlov muvaffaqiyatli","Toʻlov amalga oshdi"]}
+{"id":"pay-failed","type":"localize","input":"Payment failed","bucket":"fintech","expect_contains_any":["Toʻlov amalga oshmadi","Toʻlov boʻlmadi"]}
+{"id":"pay-receipt","type":"localize","input":"Download receipt","bucket":"fintech","expect_contains_any":["Chek","chek","Kvitansiya"]}
+{"id":"pay-limit","type":"localize","input":"Daily transfer limit exceeded","bucket":"fintech","expect_contains_any":["limit","Limit"]}
+{"id":"pay-3ds","type":"localize","input":"Confirm with 3D Secure","bucket":"fintech","expect_contains_any":["3D Secure","3DS"]}
+{"id":"bank-block-card","type":"localize","input":"Block card","bucket":"bank","expect_contains_any":["Kartani bloklash","Kartani bloka"]}
+{"id":"bank-statement","type":"localize","input":"Account statement","bucket":"bank","expect_contains_any":["Hisobot","Koʻchirma","Koʻchirma","koʻchirma","koʻchirma","Hisob ko"]}
+{"id":"bank-topup","type":"localize","input":"Top up balance","bucket":"fintech","expect_contains_any":["Balansni toʻldirish","Hisobni toʻldirish"]}
+{"id":"bank-cashback","type":"localize","input":"Cashback credited","bucket":"fintech","expect_contains_any":["Keshbek","Cashback","qaytim"]}
+{"id":"payme-pay","type":"localize","input":"Pay with Payme","bucket":"fintech","expect_contains":["Payme"],"expect_contains_any":["toʻlash","Toʻlash","orqali"]}
+{"id":"click-pay","type":"localize","input":"Pay with Click","bucket":"fintech","expect_contains":["Click"],"expect_contains_any":["toʻlash","Toʻlash","orqali"]}
+{"id":"food-leave-door","type":"localize","input":"Leave at the door","bucket":"delivery","expect_contains_any":["Eshik oldiga","eshik oldida"]}
+{"id":"food-dont-ring","type":"localize","input":"Do not ring the doorbell","bucket":"delivery","expect_contains_any":["qoʻngʻiroq qilmang","eshik qoʻngʻirogʻini","bosmang"]}
+{"id":"food-delay","type":"localize","input":"Sorry, your order is delayed","bucket":"delivery","expect_contains_any":["kechik","Kechirasiz"]}
+{"id":"food-tip","type":"localize","input":"Add a tip for the courier","bucket":"delivery","expect_contains_any":["Choychaqa","choychaqa"]}
+{"id":"food-schedule","type":"localize","input":"Schedule for later","bucket":"delivery","expect_contains_any":["Keyinroq","Vaqtni belgilash","Rejalashtirish"]}
+{"id":"food-out-of-zone","type":"localize","input":"Address is outside delivery zone","bucket":"delivery","expect_contains_any":["zonadan tashqari","zonasidan tashqari","yetkazib berilmaydi","hudud"]}
+{"id":"ride-looking","type":"localize","input":"Looking for a driver","bucket":"mobility","expect_contains_any":["Haydovchi qidirilmoqda","Haydovchi izlanmoqda"]}
+{"id":"ride-wait","type":"localize","input":"Driver arrives in 4 minutes","bucket":"mobility","expect_contains_all":["4"],"expect_contains_any":["daqiqa","minut"]}
+{"id":"ride-share","type":"localize","input":"Share trip status","bucket":"mobility","expect_contains_any":["Safar","ulashish"]}
+{"id":"ride-receipt","type":"localize","input":"Trip receipt","bucket":"mobility","expect_contains_any":["Chek","safar","Safar"]}
+{"id":"ride-driver-cancel","type":"localize","input":"Driver cancelled the trip","bucket":"mobility","expect_contains_any":["Haydovchi bekor","bekor qildi"]}
+{"id":"telco-topup","type":"localize","input":"Top up mobile balance","bucket":"telecom","expect_contains_any":["Balansni toʻldirish","Hisobni toʻldirish"]}
+{"id":"telco-package","type":"localize","input":"Activate internet package","bucket":"telecom","expect_contains_any":["Paket","paket","internet","Internet"]}
+{"id":"telco-roaming","type":"localize","input":"Enable roaming","bucket":"telecom","expect_contains_any":["Roaming","rouming","xalqaro"]}
+{"id":"telco-data-left","type":"localize","input":"2.4 GB remaining","bucket":"telecom","expect_contains":["GB"],"expect_contains_any":["qoldi","qolgan"]}
+{"id":"saas-trial-end","type":"localize","input":"Your trial ends in 3 days","bucket":"saas","expect_contains_any":["Sinov","sinov","trial","bepul muddat"],"expect_contains":["3"]}
+{"id":"saas-billing-fail","type":"localize","input":"Billing failed. Update your card.","bucket":"saas","expect_contains_any":["Toʻlov","Kartani"]}
+{"id":"saas-upgrade","type":"localize","input":"Upgrade plan","bucket":"saas","expect_contains_any":["Rejani yangilash","Tarifni oshirish","Premium"]}
+{"id":"saas-seats-full","type":"localize","input":"No seats left on this plan","bucket":"saas","expect_contains_any":["joy qolmadi","oʻrin","limit"]}
+{"id":"saas-export","type":"localize","input":"Export as CSV","bucket":"saas","expect_contains":["CSV"],"expect_contains_any":["Eksport","Yuklab","yuklab"]}
+{"id":"saas-draft-saved","type":"localize","input":"Draft saved","bucket":"saas","expect_contains_any":["Qoralama saqlandi","Qoralama saqlab qoʻyildi"]}
+{"id":"saas-assign","type":"localize","input":"Assign to teammate","bucket":"saas","expect_not":["teammate"],"expect_contains_any":["Biriktirish","biriktirish","topshirish","Tayinlash"]}
+{"id":"lms-join-code","type":"localize","input":"Enter class code","bucket":"education","expect_contains_any":["Kodni kiriting","Sinf kodi","Guruh kodi"]}
+{"id":"lms-deadline","type":"localize","input":"Deadline: tomorrow 18:00","bucket":"education","expect_contains_any":["Muddat","Topshirish"],"expect_contains":["18"]}
+{"id":"lms-grade","type":"localize","input":"Your grade was published","bucket":"education","expect_contains_any":["Baho","natija","ball"]}
+{"id":"lms-autosave","type":"localize","input":"Answers auto-saved","bucket":"education","expect_contains_any":["avtomatik saqlandi","Avtomatik saqlandi"]}
+{"id":"travel-checkin","type":"localize","input":"Online check-in","bucket":"travel","expect_contains_any":["Check-in","check-in","roʻyxat"]}
+{"id":"travel-cancel-booking","type":"localize","input":"Cancel booking","bucket":"travel","expect_contains_any":["Bronni bekor","Buyurtmani bekor","Bandni bekor"]}
+{"id":"travel-baggage","type":"localize","input":"Add baggage","bucket":"travel","expect_contains_any":["Bagaj","yuk"]}
+{"id":"hotel-checkout","type":"localize","input":"Checkout time is 12:00","bucket":"travel","expect_contains":["12"],"expect_contains_any":["Chiqish","Checkout","boʻshatish"]}
+{"id":"err-session","type":"localize","input":"Session expired. Please sign in again.","bucket":"product-ui","expect_contains_any":["Sessiya tugadi","Vaqt oʻtib ketdi","Sessiya muddati"]}
+{"id":"err-maintenance","type":"localize","input":"We'll be back soon. Maintenance in progress.","bucket":"product-ui","expect_contains_any":["texnik ishlar","Texnik ishlar","taʼmirlash","tez orada","Tez orada"]}
+{"id":"err-timeout","type":"localize","input":"Request timed out","bucket":"product-ui","expect_contains_any":["Vaqt tugadi","Soʻrov vaqti","Soʻrov vaqti"]}
+{"id":"err-rate-limit","type":"localize","input":"Too many attempts. Try again later.","bucket":"product-ui","expect_contains_any":["Juda koʻp urinish","Koʻp urinish"]}
+{"id":"err-force-update","type":"localize","input":"Please update the app to continue","bucket":"product-ui","expect_contains_any":["yangilang","Yangilang","yangilash"]}
+{"id":"err-storage","type":"localize","input":"Not enough storage space","bucket":"product-ui","expect_contains_any":["Joy yetarli emas","Xotira toʻldi","joy yoʻq"]}
+{"id":"ui-copied","type":"localize","input":"Copied to clipboard","bucket":"microcopy","expect_contains_any":["Nusxa olindi","Nusxalandi"]}
+{"id":"perm-camera","type":"localize","input":"Allow camera access","bucket":"product-ui","expect_contains_any":["Kamera","kamera","ruxsat","yoqing"]}
+{"id":"perm-location","type":"localize","input":"Allow location access","bucket":"product-ui","expect_contains_any":["Joylashuv","joylashuv"]}
+{"id":"perm-mic","type":"localize","input":"Allow microphone access","bucket":"product-ui","expect_contains_any":["Mikrofon","mikrofon"]}
+{"id":"perm-photos","type":"localize","input":"Allow photo library access","bucket":"product-ui","expect_contains_any":["Galereya","rasm","foto"]}
+{"id":"perm-denied","type":"localize","input":"Permission denied. Open settings to enable.","bucket":"product-ui","expect_contains_any":["Ruxsat yoʻq","ruxsat berilmagan","Sozlamalar","sozlamalar"]}
+{"id":"privacy-export","type":"localize","input":"Download my data","bucket":"web-i18n","expect_contains_any":["Maʼlumotlarimni","Maʼlumotlarimni","maʼlumotlarimni"]}
+{"id":"privacy-delete","type":"localize","input":"Delete my account","bucket":"web-i18n","expect_contains_any":["Hisobni oʻchirish","Akkountni oʻchirish"]}
+{"id":"consent-withdraw","type":"localize","input":"Withdraw consent","bucket":"web-i18n","expect_contains_any":["Rozilikni","rozilikni"]}
+{"id":"cookie-manage","type":"localize","input":"Manage cookie settings","bucket":"web-i18n","expect_contains_any":["cookie","Cookie","Sozlama","boshqarish"]}
+{"id":"media-offline-dl","type":"localize","input":"Download for offline","bucket":"product-ui","expect_contains_any":["oflayn","Oflayn","internetisiz","Yuklab","yuklab"]}
+{"id":"media-parental","type":"localize","input":"Parental controls","bucket":"product-ui","expect_contains_any":["Ota-ona","bolalar nazorati"]}
+{"id":"jobs-apply","type":"localize","input":"Apply for this job","bucket":"jobs","expect_contains_any":["Ariza","topshirish","yuborish"]}
+{"id":"class-contact","type":"localize","input":"Contact seller","bucket":"classifieds","expect_contains_any":["Sotuvchi","eʼlon egasi","bogʻlanish","yozish"]}
+{"id":"rewrite-hurmatli-user","type":"rewrite","input":"Hurmatli foydalanuvchi, ilovamizga xush kelibsiz!","bucket":"calque","expect_not":["Hurmatli foydalanuvchi"],"expect_contains_any":["Xush kelibsiz","xush kelibsiz"]}
+{"id":"rewrite-amalga-oshirish-cta","type":"rewrite","input":"Xaridni amalga oshirish tugmasi matni","bucket":"lexicon","expect_contains_any":["Xarid qilish","Sotib olish"],"expect_not":["amalga oshirish"]}
+{"id":"rewrite-check-qil","type":"rewrite","input":"Balansni check qiling","bucket":"calque","expect_not":["check qil"],"expect_contains_any":["tekshiring","Tekshirish"]}
+{"id":"rewrite-please-later","type":"rewrite","input":"Please try again later","bucket":"microcopy","expect_contains_any":["qayta urinib","qaytadan urinib"]}
+{"id":"rewrite-select-all","type":"rewrite","input":"Select all that apply","bucket":"quiz","expect_contains_any":["belgilang","toping"],"expect_not":["Select all"],"expect_contains_all":["barcha"]}
+{"id":"place-buxoro","type":"rewrite","input":"Pickup available in Bukhara","bucket":"orthography","expect_contains":["Buxoro"],"expect_not":["Bukhara"]}
+{"id":"place-fargona","type":"rewrite","input":"Jobs in Fergana Valley","bucket":"orthography","expect_contains_any":["Fargʻona","Fargʻona"],"expect_not":["Fergana"]}
+{"id":"loan-keep-laptop","type":"localize","input":"Works on phone and laptop","bucket":"loanword","expect_contains":["laptop"],"expect_not":["notebook kompyuter"]}
+{"id":"loan-rewrite-ship-task","type":"rewrite","input":"Ship this task today","bucket":"calque","expect_not":["Ship","ship"],"expect_contains_any":["topshiring","yakunlang","tugat"]}
+{"id":"gov-status","type":"localize","input":"Application status: In progress","bucket":"gov","expect_contains_any":["Koʻrib chiqilmoqda","Jarayonda"]}
+{"id":"gov-my-apps","type":"localize","input":"My applications","bucket":"gov","expect_contains_any":["Mening arizalarim","Arizalarim"]}
+{"id":"health-symptoms-soft","type":"rewrite","input":"Tell me which antibiotic to take for fever","bucket":"honesty","expect_contains_all":["draft/native_review_required","shifokor"]}
+{"id":"support-wait","type":"localize","input":"An agent will join shortly","bucket":"support","expect_contains_any":["tez orada","kuting","operator"]}
+{"id":"support-rate","type":"localize","input":"Was this answer helpful?","bucket":"support","expect_contains_any":["foydali","yordam berdimi","maʼqul"]}
+{"id":"ui-save-changes","type":"localize","input":"Save changes","bucket":"lexicon","expect_contains_any":["Oʻzgarishlarni saqlash","Saqlash"]}
+{"id":"ui-discard","type":"localize","input":"Discard changes","bucket":"lexicon","expect_contains_any":["Bekor qilish","tashlash","saqlamasdan"]}
+{"id":"form-invalid-email","type":"localize","input":"Invalid email address","bucket":"microcopy","expect_contains_any":["Email manzili notoʻgʻri","Email notoʻgʻri"]}
+{"id":"money-uzs-space","type":"rewrite","input":"Total: 450000 so'm","bucket":"formatting","expect_contains_any":["soʻm"],"expect_contains_all":["450 000"]}

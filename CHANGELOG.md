@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.1
+
+- Expand eval goldens to **200/200** across real product domains: ecommerce, fintech/Payme/Click, delivery, mobility, telecom, SaaS, LMS, travel, auth, gov, support, permissions, privacy soft, plus anti-calque rewrites
+- Earlier pass also added the first 33 product cases (100/100)
+
 ## 1.5.0
 
 - S++ program (honest): audited preference bank (`native_verified` / `draft` / `reject`), live bakeoff + pairwise gates, collocations + loanword policy + Oria career-quiz pack
