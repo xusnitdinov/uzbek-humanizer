@@ -1,0 +1,10 @@
+{"id":"adv-calque-01","input":"Keling ship qilaylik","trap":"EN cool slang in Uzbek","expect":"no_ship"}
+{"id":"adv-calque-02","input":"Need vibe check","trap":"EN phrase pasted","expect":"no_vibe"}
+{"id":"adv-calque-03","input":"Systems brain activated","trap":"cosplay phrase","expect":"no_systems_brain"}
+{"id":"adv-calque-04","input":"Hard mode yoqildi","trap":"literal EN mode","expect":"native_mode"}
+{"id":"adv-calque-05","input":"Select the correct answer below","trap":"EN quiz stem","expect":"belgilang"}
+{"id":"adv-calque-06","input":"Would you mind closing the door?","trap":"literal politeness","expect":"Iltimos_variant"}
+{"id":"adv-calque-07","input":"This is not rocket science","trap":"idiom shadow","expect":"plain_meaning"}
+{"id":"adv-calque-08","input":"He kicked the bucket","trap":"idiom literalization","expect":"vafot"}
+{"id":"adv-calque-09","input":"Unlock your future success journey","trap":"brochure EN rhythm","expect":"plain_warm"}
+{"id":"adv-calque-10","input":"Figure it out and follow up","trap":"hybrid verbs","expect":"native_verbs"}

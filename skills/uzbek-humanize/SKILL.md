@@ -9,7 +9,7 @@ description: >-
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.3.3"
+  version: "1.4.0"
 disable-model-invocation: true
 ---
 

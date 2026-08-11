@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0
+
+- A- → S+ program: added `native-preference-bank.md` (200+ context pairs), `context-synonyms.md`, `register-presets.md`, and `oria-goldens.md` (50 anchors)
+- Added cadence and literalness linters: `lint-cadence.mjs`, `lint-literalness.mjs`; wired into eval lint pass
+- Hardened apostrophe safety: protects placeholders, URLs, code blocks, and mixed bilingual segments; added `tests/normalize-apostrophe.test.mjs`
+- Expanded eval: `human-likeness.jsonl` with gate (avg >= 4.6 and native yes-rate >= 95%) + adversarial trap sets
+- Added native reviewer fallback checklist and updated main skill with preset selector + anti-overcorrection boundaries
+- Version sync to `1.4.0` (`cli`, both skills, plugin manifest)
+
 ## 1.3.3
 
 - Oria production fixes: soft synonyms (`oʻxshamadi` vs `chiqmadi`), hard Siz for product/quiz

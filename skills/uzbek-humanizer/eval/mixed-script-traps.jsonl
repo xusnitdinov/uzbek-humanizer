@@ -1,0 +1,10 @@
+{"id":"adv-mix-01","input":"tx(\"to'g'ri\", \"Who's right?\", \"Кто?\")","trap":"normalize must not touch EN/RU args","expect":"only_uz_arg_changes"}
+{"id":"adv-mix-02","input":"{\"uz\":\"to'g'ri\",\"en\":\"Who's there?\"}","trap":"EN locale mutation","expect":"en_untouched"}
+{"id":"adv-mix-03","input":"`who's` in code block + Uzbek text","trap":"code block mutation","expect":"code_untouched"}
+{"id":"adv-mix-04","input":"URL https://foo.bar/who's + Uzbek","trap":"URL mutation","expect":"url_untouched"}
+{"id":"adv-mix-05","input":"placeholder {count} + Uzbek","trap":"placeholder mutation","expect":"placeholder_untouched"}
+{"id":"adv-mix-06","input":"en.json file with ship/vibe words","trap":"false-positive lints","expect":"skip_en_locale"}
+{"id":"adv-mix-07","input":"Markdown with ## Matn and EN appendix","trap":"lint should target Uzbek block","expect":"matn_only"}
+{"id":"adv-mix-08","input":"Cyrillic requested output","trap":"Latin force-overwrite","expect":"respect_script_request"}
+{"id":"adv-mix-09","input":"JSON keys with apostrophes","trap":"key corruption","expect":"keys_untouched"}
+{"id":"adv-mix-10","input":"tx(\"uz\", \"en\", \"ru\") in one line","trap":"argument bleed","expect":"segment_safe"}

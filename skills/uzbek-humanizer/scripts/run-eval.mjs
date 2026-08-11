@@ -25,9 +25,18 @@ const CASES_PATH = path.join(EVAL_DIR, "cases.jsonl");
 const GOLDENS_PATH = path.join(EVAL_DIR, "goldens.json");
 const TRIGGER_PATH = path.join(EVAL_DIR, "trigger-queries.json");
 const BAKEOFF_PATH = path.join(EVAL_DIR, "bakeoff-items.jsonl");
+const HUMAN_LIKENESS_PATH = path.join(EVAL_DIR, "human-likeness.jsonl");
+const ADVERSARIAL_PATHS = [
+  path.join(EVAL_DIR, "adversarial-calques.jsonl"),
+  path.join(EVAL_DIR, "register-traps.jsonl"),
+  path.join(EVAL_DIR, "synonym-traps.jsonl"),
+  path.join(EVAL_DIR, "mixed-script-traps.jsonl"),
+];
 const EXAMPLES_DIR = path.join(SKILL_ROOT, "examples");
 const LINT_BANNED = path.join(__dirname, "lint-banned.mjs");
 const LINT_STIFF = path.join(__dirname, "lint-stiff.mjs");
+const LINT_CADENCE = path.join(__dirname, "lint-cadence.mjs");
+const LINT_LITERALNESS = path.join(__dirname, "lint-literalness.mjs");
 
 const REQUIRED = ["id", "type", "input", "bucket"];
 
@@ -273,6 +282,62 @@ function validateBakeoffItems(filePath) {
   return { issues, total: rows.length };
 }
 
+function validateSimpleJsonlSet(filePath) {
+  const issues = [];
+  if (!fs.existsSync(filePath)) return { issues: [`missing file: ${filePath}`], total: 0 };
+  const { rows, errors } = loadJsonl(filePath);
+  for (const e of errors) issues.push(`line ${e.lineNo}: ${e.message}`);
+  const seen = new Set();
+  for (const { lineNo, case: c } of rows) {
+    if (c === null || typeof c !== "object" || Array.isArray(c)) {
+      issues.push(`line ${lineNo}: must be an object`);
+      continue;
+    }
+    if (typeof c.id !== "string" || !c.id) issues.push(`line ${lineNo}: missing id`);
+    else if (seen.has(c.id)) issues.push(`line ${lineNo}: duplicate id "${c.id}"`);
+    else seen.add(c.id);
+    if (typeof c.input !== "string" || !c.input) issues.push(`line ${lineNo} id=${c.id ?? "?"}: missing input`);
+    if (typeof c.trap !== "string" || !c.trap) issues.push(`line ${lineNo} id=${c.id ?? "?"}: missing trap`);
+  }
+  return { issues, total: rows.length };
+}
+
+function validateHumanLikeness(filePath) {
+  const issues = [];
+  if (!fs.existsSync(filePath)) return { issues: [`missing file: ${filePath}`], total: 0, avg: 0, yesRate: 0 };
+  const { rows, errors } = loadJsonl(filePath);
+  for (const e of errors) issues.push(`line ${e.lineNo}: ${e.message}`);
+  let total = 0;
+  let yes = 0;
+  let scoreSum = 0;
+  let scoreCount = 0;
+  for (const { lineNo, case: c } of rows) {
+    if (c === null || typeof c !== "object" || Array.isArray(c)) {
+      issues.push(`line ${lineNo}: must be an object`);
+      continue;
+    }
+    for (const k of ["id", "surface", "prompt", "output"]) {
+      if (typeof c[k] !== "string" || !c[k]) issues.push(`line ${lineNo}: missing "${k}"`);
+    }
+    for (const k of ["naturalness", "context_fit", "register_fidelity", "ui_brevity"]) {
+      if (typeof c[k] !== "number" || c[k] < 1 || c[k] > 5) {
+        issues.push(`line ${lineNo} id=${c.id ?? "?"}: ${k} must be number 1..5`);
+      } else {
+        scoreSum += c[k];
+        scoreCount += 1;
+      }
+    }
+    if (typeof c.native_yes !== "boolean") issues.push(`line ${lineNo} id=${c.id ?? "?"}: native_yes must be boolean`);
+    total += 1;
+    if (c.native_yes === true) yes += 1;
+  }
+  const avg = scoreCount ? scoreSum / scoreCount : 0;
+  const yesRate = total ? (yes / total) * 100 : 0;
+  if (avg < 4.6) issues.push(`human-likeness avg ${avg.toFixed(2)} < 4.60`);
+  if (yesRate < 95) issues.push(`native yes-rate ${yesRate.toFixed(1)}% < 95.0%`);
+  return { issues, total, avg, yesRate };
+}
+
 function exampleLintTargets(filePath) {
   const raw = fs.readFileSync(filePath, "utf8");
   const matn = raw.match(/## Matn\s*\n([\s\S]*?)(?=\n## |\s*$)/);
@@ -299,6 +364,8 @@ function lintExamples() {
       for (const [label, script] of [
         ["lint-banned", LINT_BANNED],
         ["lint-stiff", LINT_STIFF],
+        ["lint-cadence", LINT_CADENCE],
+        ["lint-literalness", LINT_LITERALNESS],
       ]) {
         const r = spawnSync(process.execPath, [script, target], {
           encoding: "utf8",
@@ -473,6 +540,31 @@ function main() {
   }
   console.log("");
 
+  console.log("Human-likeness eval:");
+  const human = validateHumanLikeness(HUMAN_LIKENESS_PATH);
+  console.log(`  total=${human.total} avg=${human.avg.toFixed(2)} native_yes_rate=${human.yesRate.toFixed(1)}%`);
+  if (human.issues.length) {
+    for (const issue of human.issues) console.log(`  FAIL ${issue}`);
+  } else {
+    console.log("  ok gate (avg>=4.6, yes-rate>=95%)");
+  }
+  console.log("");
+
+  console.log("Adversarial eval sets:");
+  let adversarialIssueCount = 0;
+  for (const file of ADVERSARIAL_PATHS) {
+    const v = validateSimpleJsonlSet(file);
+    adversarialIssueCount += v.issues.length;
+    const short = path.relative(EVAL_DIR, file);
+    if (v.issues.length) {
+      console.log(`  FAIL ${short} total=${v.total}`);
+      for (const issue of v.issues) console.log(`       ${issue}`);
+    } else {
+      console.log(`  ok  ${short} total=${v.total}`);
+    }
+  }
+  console.log("");
+
   console.log("Lint example Matn (lint-banned + lint-stiff):");
   const lintResults = lintExamples();
   let lintFail = 0;
@@ -499,6 +591,8 @@ function main() {
   console.log(`  schema/parse issues: ${schemaFail}`);
   console.log(`  trigger schema issues: ${trigger.issues.length}`);
   console.log(`  bakeoff schema issues: ${bakeoff.issues.length}`);
+  console.log(`  human-likeness issues: ${human.issues.length}`);
+  console.log(`  adversarial schema issues: ${adversarialIssueCount}`);
   console.log(`  lint example failures: ${lintFail}`);
   console.log(`  buckets: ${buckets.length}`);
 
@@ -508,7 +602,9 @@ function main() {
     lintFail > 0 ||
     parseErrors.length > 0 ||
     trigger.issues.length > 0 ||
-    bakeoff.issues.length > 0;
+    bakeoff.issues.length > 0 ||
+    human.issues.length > 0 ||
+    adversarialIssueCount > 0;
   process.exit(exitFail ? 1 : 0);
 }
 

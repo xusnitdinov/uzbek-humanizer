@@ -1,0 +1,10 @@
+{"id":"adv-syn-01","input":"Group project didn't work out","trap":"chiqmadi overuse","expect":"oʻxshamadi"}
+{"id":"adv-syn-02","input":"Plan didn't happen","trap":"single fail verb default","expect":"amalga_oshmadi"}
+{"id":"adv-syn-03","input":"Feature didn't work","trap":"social verb in technical context","expect":"ishlamadi_or_chiqmadi"}
+{"id":"adv-syn-04","input":"Conversation didn't go well","trap":"technical fail verb","expect":"oʻxshamadi"}
+{"id":"adv-syn-05","input":"Exam went badly","trap":"generic fail verb","expect":"yaxshi_oʻtmadi"}
+{"id":"adv-syn-06","input":"Stressed friend","trap":"asabiylashgan default","expect":"stressdagi_or_tashvishdagi"}
+{"id":"adv-syn-07","input":"Need to reach out","trap":"literal EN sequence","expect":"bogʻlanmoq"}
+{"id":"adv-syn-08","input":"Need to own the mistake","trap":"literal corporate phrase","expect":"xatoni_tan_olmoq"}
+{"id":"adv-syn-09","input":"Let's push through","trap":"over-literal motivation phrase","expect":"davom_etmoq"}
+{"id":"adv-syn-10","input":"Take a break","trap":"hybrid phrasing","expect":"dam_olmoq"}

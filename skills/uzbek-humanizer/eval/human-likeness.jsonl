@@ -1,0 +1,20 @@
+{"id":"hl-ui-save","surface":"product-ui","prompt":"Save","output":"Saqlash","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-quiz-stem","surface":"quiz","prompt":"Select the correct answer","output":"Toʻgʻri javobni belgilang","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-group-fail","surface":"career-quiz","prompt":"Group project failed","output":"Guruh ishi oʻxshamadi","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-siz-default","surface":"quiz","prompt":"What do you do first?","output":"Avval nima qilasiz?","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-stress-friend","surface":"career-quiz","prompt":"I check on my stressed friend","output":"Stressdagi doʻstim holidan xabar olaman","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":4,"native_yes":true}
+{"id":"hl-ui-retry","surface":"product-ui","prompt":"Please try again","output":"Iltimos, qaytadan urinib koʻring","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":4,"native_yes":true}
+{"id":"hl-no-results","surface":"product-ui","prompt":"No results found","output":"Soʻrovingiz boʻyicha hech narsa topilmadi","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":4,"native_yes":true}
+{"id":"hl-otp-warning","surface":"bank-sms","prompt":"Don't share your OTP","output":"OTP-kodni hech kimga bermang","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-privacy-link","surface":"web-i18n","prompt":"Privacy policy","output":"Maxfiylik siyosati","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-page-404","surface":"web-i18n","prompt":"Page not found","output":"Sahifa topilmadi","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-soft-disagree","surface":"assistant","prompt":"You are wrong, professor","output":"Fikringizga qoʻshilmayman","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-keys-stable","surface":"i18n-json","prompt":"{\"save\":\"Save\"}","output":"{\"save\":\"Saqlash\"}","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-empty-list","surface":"product-ui","prompt":"No data yet","output":"Hali maʼlumot yoʻq","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-password","surface":"product-ui","prompt":"Invalid password","output":"Notoʻgʻri parol","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-lang-switcher","surface":"web-i18n","prompt":"Uzbek","output":"Oʻzbekcha","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-home-nav","surface":"web-i18n","prompt":"Home","output":"Bosh sahifa","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-form-required","surface":"web-i18n","prompt":"This field is required","output":"Bu maydon toʻldirilishi shart","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":4,"native_yes":true}
+{"id":"hl-friendly-open","surface":"assistant","prompt":"Let's check together","output":"Keling, birga tekshirib chiqamiz","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":4,"native_yes":true}
+{"id":"hl-marketing-short","surface":"marketing","prompt":"Start today","output":"Bugun boshlang","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}
+{"id":"hl-marketing-warm","surface":"marketing","prompt":"Simplify your workflow","output":"Ish jarayonini soddalashtiring","naturalness":5,"context_fit":5,"register_fidelity":5,"ui_brevity":5,"native_yes":true}

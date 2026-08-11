@@ -12,10 +12,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
 import { extractUzbekForLint } from "./extract-uzbek.mjs";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** Meta English in teaching docs - not UZ cool-slang hits */
 const SHIP_META =

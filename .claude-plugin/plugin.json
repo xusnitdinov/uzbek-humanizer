@@ -1,6 +1,6 @@
 {
   "name": "uzbek-humanizer",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "Natural Latin Uzbek copy + /uzbek-humanize slash for website/app i18n. Fixes AI calques, oʻ/gʻ orthography, and stiff MT.",
   "author": {
     "name": "Xusnitdinov Azizbek",

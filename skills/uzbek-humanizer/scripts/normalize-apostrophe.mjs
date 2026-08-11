@@ -15,6 +15,7 @@
  *   node normalize-apostrophe.mjs --self-test
  */
 import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 
 export const TURNED = "\u02BB"; // ʻ
 export const TUTUQ = "\u02BC"; // ʼ
@@ -37,6 +38,15 @@ function protectForeign(text) {
   };
 
   let out = text;
+
+  // 0) Protect zones that should never be normalized
+  out = out.replace(/```[\s\S]*?```/g, stash); // fenced code
+  out = out.replace(/`[^`\n]+`/g, stash); // inline code
+  out = out.replace(/\bhttps?:\/\/[^\s)]+/gi, stash); // URLs
+  out = out.replace(/\b[a-z][a-z0-9+.-]*:\/\/[^\s)]+/gi, stash); // scheme URLs
+  out = out.replace(/\{[A-Za-z0-9_.:-]+\}/g, stash); // placeholders {count}
+  out = out.replace(/%\([A-Za-z0-9_.:-]+\)s/g, stash); // python-style placeholder
+  out = out.replace(/%[sdif]/g, stash); // printf placeholders
 
   // 1) Protect 2nd+ quoted args inside tx(…) / t(…) / i18n.t(…)
   out = out.replace(/\b(?:tx|t|i18n\.t)\(([^)]*)\)/g, (full, inner) => {
@@ -204,60 +214,68 @@ function usage() {
   );
 }
 
-const args = process.argv.slice(2);
-if (args.includes("--self-test")) {
-  selfTest();
-  process.exit(0);
-}
+const SCRIPT_PATH = fileURLToPath(import.meta.url);
+const isMain =
+  process.argv[1] &&
+  fs.existsSync(process.argv[1]) &&
+  fs.realpathSync(process.argv[1]) === fs.realpathSync(SCRIPT_PATH);
 
-let mode = "write";
-const files = [];
-for (const a of args) {
-  if (a === "--check") mode = "check";
-  else if (a === "--dry-run") mode = "dry-run";
-  else if (a === "--stdout") mode = "stdout";
-  else if (a.startsWith("-")) {
+if (isMain) {
+  const args = process.argv.slice(2);
+  if (args.includes("--self-test")) {
+    selfTest();
+    process.exit(0);
+  }
+
+  let mode = "write";
+  const files = [];
+  for (const a of args) {
+    if (a === "--check") mode = "check";
+    else if (a === "--dry-run") mode = "dry-run";
+    else if (a === "--stdout") mode = "stdout";
+    else if (a.startsWith("-")) {
+      usage();
+      process.exit(1);
+    } else files.push(a);
+  }
+
+  if (files.length !== 1) {
     usage();
     process.exit(1);
-  } else files.push(a);
-}
-
-if (files.length !== 1) {
-  usage();
-  process.exit(1);
-}
-
-const file = files[0];
-if (!fs.existsSync(file)) {
-  console.error(`File not found: ${file}`);
-  process.exit(1);
-}
-
-const raw = fs.readFileSync(file, "utf8");
-const next = normalize(raw);
-
-if (mode === "stdout" || mode === "dry-run") {
-  process.stdout.write(next);
-  if (mode === "dry-run" && next !== raw) {
-    console.error("\n(would modify file)");
   }
-  process.exit(next === raw ? 0 : mode === "check" ? 2 : 0);
-}
 
-if (mode === "check") {
-  if (next !== raw) {
-    console.error(`Would normalize: ${file}`);
+  const file = files[0];
+  if (!fs.existsSync(file)) {
+    console.error(`File not found: ${file}`);
+    process.exit(1);
+  }
+
+  const raw = fs.readFileSync(file, "utf8");
+  const next = normalize(raw);
+
+  if (mode === "stdout" || mode === "dry-run") {
+    process.stdout.write(next);
+    if (mode === "dry-run" && next !== raw) {
+      console.error("\n(would modify file)");
+    }
+    process.exit(next === raw ? 0 : mode === "check" ? 2 : 0);
+  }
+
+  if (mode === "check") {
+    if (next !== raw) {
+      console.error(`Would normalize: ${file}`);
+      process.exit(2);
+    }
+    console.log(`Check ok: ${file}`);
+    process.exit(0);
+  }
+
+  fs.writeFileSync(file, next);
+  const issues = lintReport(next);
+  if (issues.length) {
+    console.error("Normalized with remaining issues:");
+    for (const i of issues) console.error("-", i);
     process.exit(2);
   }
-  console.log(`Check ok: ${file}`);
-  process.exit(0);
+  console.log(`Normalized ${file}`);
 }
-
-fs.writeFileSync(file, next);
-const issues = lintReport(next);
-if (issues.length) {
-  console.error("Normalized with remaining issues:");
-  for (const i of issues) console.error("-", i);
-  process.exit(2);
-}
-console.log(`Normalized ${file}`);

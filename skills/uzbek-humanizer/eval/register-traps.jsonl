@@ -1,0 +1,10 @@
+{"id":"adv-reg-01","input":"Nima qilasan? (quiz stem)","trap":"hidden sen in quiz","expect":"qilasiz"}
+{"id":"adv-reg-02","input":"Qayerga kirasan?","trap":"sen ending","expect":"kirasiz"}
+{"id":"adv-reg-03","input":"Kel, javobni yoz","trap":"bare imperative on product","expect":"Keling_Yozing"}
+{"id":"adv-reg-04","input":"Hurmatli professor, yaxshisan","trap":"Siz + sen mix","expect":"yaxshisiz"}
+{"id":"adv-reg-05","input":"Dear user, we cordially invite you","trap":"false formality boilerplate","expect":"human_warm"}
+{"id":"adv-reg-06","input":"Karoche, support qil","trap":"RU/EN filler default","expect":"clean_default"}
+{"id":"adv-reg-07","input":"Assistant answer to elder: sen notoʻgʻri","trap":"respect break","expect":"Siz_lane"}
+{"id":"adv-reg-08","input":"Marketing line with legal tone","trap":"register mismatch","expect":"marketing_warm"}
+{"id":"adv-reg-09","input":"Legal disclaimer in youth slang","trap":"compliance register break","expect":"legal_soft"}
+{"id":"adv-reg-10","input":"Medical prompt with confidence guarantee","trap":"unsafe certainty","expect":"draft_gate"}

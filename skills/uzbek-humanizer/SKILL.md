@@ -11,14 +11,14 @@ description: >-
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.3.3"
+  version: "1.4.0"
 ---
 
 # uzbek-humanizer
 
 Make AI-written Uzbek sound like a real person wrote it - clear spoken Latin product/student Uzbek by default.
 
-**Honest claim:** calque-safe, register-safe **draft**. Still not automatic native taste - product quiz / marketing needs synonym judgment (`soft-synonyms.md`) and often `draft/native_review_required` for high-stakes lines. Heavy slang / legal / medical = always draft + native review.
+**Honest claim:** calque-safe, register-safe draft with stronger native routing. Still requires native review for legal/medical/high-stakes marketing.
 
 ## Sister skill boundary (do not confuse)
 
@@ -42,6 +42,17 @@ If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, 
 9. **Legal / medical / youth-heavy** → `Holat: draft/native_review_required`.
 10. **Always emit** Matn (or change summary) + Oʻzgarishlar + Holat in chat - even when editing project files.
 
+## Preset selector (required before rewrite)
+
+- `product-default` → UI/buttons/errors (Siz, short)
+- `quiz-formal` → quiz stems and tests (Siz + stem rhythm)
+- `assistant-friendly` → conversational support/help
+- `youth-chat` → only on explicit request
+- `marketing-warm` → landing/promo without brochure tone
+- `legal-soft-draft` / `medical-soft-draft` → always draft gate
+
+Source: `references/register-presets.md`.
+
 ## When to use
 
 - Write or rewrite Uzbek Latin UI / product / quiz / marketing / assistant replies
@@ -62,7 +73,7 @@ If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, 
 | Scenario | Trigger examples | Load |
 |---|---|---|
 | **Site / app i18n (slash)** | `/uzbek-humanize`, Next/Vite locale wiring | Hand off to `uzbek-humanize`; else `ui-glossary` + `microcopy` + `soft-synonyms` |
-| Synonym / native taste | "chiqmadi vs oʻxshamadi", career quiz tone | `references/soft-synonyms.md` + `references/before-after.md` |
+| Synonym / native taste | "chiqmadi vs oʻxshamadi", career quiz tone | `references/context-synonyms.md` + `references/native-preference-bank.md` + `references/oria-goldens.md` |
 | Bad AI rewrite | stiff calques, EN order, broken suffixes | `references/banned-calques.md` + `references/before-after.md` + `references/ai-patterns.md` |
 | Marketing / landing | warm human tone | `references/register.md` + `references/voice.md` + `references/marketing-long.md` + `examples/marketing.md` |
 | Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `references/microcopy.md` + `examples/product-ui.md` + `soft-synonyms.md` |
@@ -94,6 +105,8 @@ If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, 
    - `node scripts/normalize-apostrophe.mjs <file>` (safe on bilingual tx/JSON)
    - `node scripts/lint-banned.mjs <file>` (Uzbek-only extract by default)
    - `node scripts/lint-stiff.mjs <file>` (flags `-asan` on product; `--allow-sen` for youth)
+   - `node scripts/lint-cadence.mjs <file>` (rhythm monotony / template repetition)
+   - `node scripts/lint-literalness.mjs <file>` (translation-smell syntax)
 7. **Fix lint then re-lint** - or label residuals in Holat.
 8. **Holat gate** - legal / medical / youth / high-stakes marketing synonym doubt → `draft/native_review_required`.
 9. **Output** - template below. If you edited project files, still print short Oʻzgarishlar + Holat in chat.
@@ -117,6 +130,8 @@ If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, 
 15. Cyrillic only when asked.
 16. Invented bank SMS = draft.
 17. Do not normalize EN strings inside bilingual files (`Who's`, `I'm`).
+18. Anti-overcorrection: no archaic textbook words unless requested.
+19. Anti-overcorrection: no RU slang fillers unless youth mode explicitly requested.
 
 ## Post-rewrite checklist
 
