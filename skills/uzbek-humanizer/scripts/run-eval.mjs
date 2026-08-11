@@ -37,6 +37,9 @@ const LINT_BANNED = path.join(__dirname, "lint-banned.mjs");
 const LINT_STIFF = path.join(__dirname, "lint-stiff.mjs");
 const LINT_CADENCE = path.join(__dirname, "lint-cadence.mjs");
 const LINT_LITERALNESS = path.join(__dirname, "lint-literalness.mjs");
+const LINT_SCREEN = path.join(__dirname, "lint-screen-consistency.mjs");
+const LIVE_BAKEOFF = path.join(__dirname, "run-live-bakeoff.mjs");
+const PAIRWISE = path.join(__dirname, "run-pairwise.mjs");
 
 const REQUIRED = ["id", "type", "input", "bucket"];
 
@@ -366,6 +369,7 @@ function lintExamples() {
         ["lint-stiff", LINT_STIFF],
         ["lint-cadence", LINT_CADENCE],
         ["lint-literalness", LINT_LITERALNESS],
+        ["lint-screen-consistency", LINT_SCREEN],
       ]) {
         const r = spawnSync(process.execPath, [script, target], {
           encoding: "utf8",
@@ -565,6 +569,32 @@ function main() {
   }
   console.log("");
 
+  console.log("Live bakeoff gate:");
+  const live = spawnSync(process.execPath, [LIVE_BAKEOFF], { encoding: "utf8" });
+  const liveOk = live.status === 0;
+  if (liveOk) {
+    console.log("  ok");
+    if (live.stdout) console.log(`  ${(live.stdout || "").trim().split(/\r?\n/).join("\n  ")}`);
+  } else {
+    console.log("  FAIL");
+    if (live.stderr) console.log(`  ${(live.stderr || "").trim().split(/\r?\n/).join("\n  ")}`);
+    if (live.stdout) console.log(`  ${(live.stdout || "").trim().split(/\r?\n/).join("\n  ")}`);
+  }
+  console.log("");
+
+  console.log("Pairwise gate:");
+  const pair = spawnSync(process.execPath, [PAIRWISE], { encoding: "utf8" });
+  const pairOk = pair.status === 0;
+  if (pairOk) {
+    console.log("  ok");
+    if (pair.stdout) console.log(`  ${(pair.stdout || "").trim().split(/\r?\n/).join("\n  ")}`);
+  } else {
+    console.log("  FAIL");
+    if (pair.stderr) console.log(`  ${(pair.stderr || "").trim().split(/\r?\n/).join("\n  ")}`);
+    if (pair.stdout) console.log(`  ${(pair.stdout || "").trim().split(/\r?\n/).join("\n  ")}`);
+  }
+  console.log("");
+
   console.log("Lint example Matn (lint-banned + lint-stiff):");
   const lintResults = lintExamples();
   let lintFail = 0;
@@ -593,6 +623,8 @@ function main() {
   console.log(`  bakeoff schema issues: ${bakeoff.issues.length}`);
   console.log(`  human-likeness issues: ${human.issues.length}`);
   console.log(`  adversarial schema issues: ${adversarialIssueCount}`);
+  console.log(`  live-bakeoff fail: ${liveOk ? 0 : 1}`);
+  console.log(`  pairwise fail: ${pairOk ? 0 : 1}`);
   console.log(`  lint example failures: ${lintFail}`);
   console.log(`  buckets: ${buckets.length}`);
 
@@ -604,7 +636,9 @@ function main() {
     trigger.issues.length > 0 ||
     bakeoff.issues.length > 0 ||
     human.issues.length > 0 ||
-    adversarialIssueCount > 0;
+    adversarialIssueCount > 0 ||
+    !liveOk ||
+    !pairOk;
   process.exit(exitFail ? 1 : 0);
 }
 

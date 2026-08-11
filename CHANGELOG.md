@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+
+- S++ program (honest): audited preference bank (`native_verified` / `draft` / `reject`), live bakeoff + pairwise gates, collocations + loanword policy + Oria career-quiz pack
+- Added `lint-screen-consistency.mjs`; expanded bilingual normalize regression tests
+- Added `eval/native-review-protocol.md` - S++ marketing claim requires a real native pass (or stay labeled draft/unverified)
+- **Verified in CI:** existing goldens, live-bakeoff thresholds, pairwise spoken win-rate, normalize bilingual fixtures
+- **Still draft / not auto-proven:** live human native taste for every new line; self-scored human-likeness is schema+fixture quality, not a substitute for native review
+
 ## 1.4.0
 
 - A- → S+ program: added `native-preference-bank.md` (200+ context pairs), `context-synonyms.md`, `register-presets.md`, and `oria-goldens.md` (50 anchors)

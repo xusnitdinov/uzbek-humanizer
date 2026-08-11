@@ -1,0 +1,40 @@
+{"id":"lb-01","preset":"product-default","input":"Your draft was saved, but you are offline. We will sync it when you reconnect.","domain":"product status"}
+{"id":"lb-02","preset":"quiz-formal","input":"Siz yangi jamoaga tushdingiz, lekin hamma bir-birini yaxshi taniydi. Suhbatga qanday qoʻshilasiz?","domain":"Oria career quiz"}
+{"id":"lb-03","preset":"assistant-friendly","input":"I didn't understand the error message. Can you tell me what to try first?","domain":"assistant support"}
+{"id":"lb-04","preset":"marketing-warm","input":"Make room for the work that matters. Start your week with a calmer plan.","domain":"product marketing"}
+{"id":"lb-05","preset":"product-default","input":"Bu amalni hozir bajarib boʻlmaydi, chunki profilingiz tekshiruvda turibdi.","domain":"account verification"}
+{"id":"lb-06","preset":"quiz-formal","input":"A teammate presents an idea you disagree with. What do you say?","domain":"Oria career quiz"}
+{"id":"lb-07","preset":"assistant-friendly","input":"Menga fayl yuklanmadi degan javob chiqdi. Nima qilishim kerak?","domain":"file upload support"}
+{"id":"lb-08","preset":"marketing-warm","input":"A small habit can make a busy day feel less heavy.","domain":"wellbeing marketing"}
+{"id":"lb-09","preset":"product-default","input":"Choose a recovery email you can access right now.","domain":"security setup"}
+{"id":"lb-10","preset":"quiz-formal","input":"Suhbatda sizdan kutilmagan savol soʻrashdi. Javobni darrov bilmaysiz. Nima qilasiz?","domain":"Oria interview quiz"}
+{"id":"lb-11","preset":"assistant-friendly","input":"Can I change my delivery address after placing the order?","domain":"shopping support"}
+{"id":"lb-12","preset":"marketing-warm","input":"Your next opportunity may start with one honest answer.","domain":"career quiz marketing"}
+{"id":"lb-13","preset":"product-default","input":"To continue, review the changes in your subscription.","domain":"billing"}
+{"id":"lb-14","preset":"quiz-formal","input":"You have two deadlines on the same day. How do you decide what to do first?","domain":"Oria career quiz"}
+{"id":"lb-15","preset":"assistant-friendly","input":"Bu yerda qaysi hujjatni yuborish kerakligini aniqroq ayta olasizmi?","domain":"document support"}
+{"id":"lb-16","preset":"marketing-warm","input":"No perfect answers here—just a clearer picture of how you work.","domain":"career quiz marketing"}
+{"id":"lb-17","preset":"product-default","input":"Payment is being confirmed. Do not close this page yet.","domain":"payment status"}
+{"id":"lb-18","preset":"quiz-formal","input":"Guruhdagi ish kutilgandek ketmayapti. Vaziyatni qanday yumshatasiz?","domain":"Oria teamwork quiz"}
+{"id":"lb-19","preset":"assistant-friendly","input":"I forgot which phone number I used for my account.","domain":"account recovery"}
+{"id":"lb-20","preset":"marketing-warm","input":"See the strengths you already bring to a team.","domain":"career quiz marketing"}
+{"id":"lb-21","preset":"product-default","input":"Sizning soʻrovingiz qabul qilindi. Natija tayyor boʻlganda xabar beramiz.","domain":"service request"}
+{"id":"lb-22","preset":"quiz-formal","input":"A manager gives you feedback that feels unfair. What is your first response?","domain":"Oria feedback quiz"}
+{"id":"lb-23","preset":"assistant-friendly","input":"Nega kodim kelmayapti? Ikki marta soʻradim.","domain":"OTP support"}
+{"id":"lb-24","preset":"marketing-warm","input":"Take ten minutes to learn what kind of work gives you energy.","domain":"career quiz marketing"}
+{"id":"lb-25","preset":"product-default","input":"You have unsaved edits. Leave without saving?","domain":"editor confirmation"}
+{"id":"lb-26","preset":"quiz-formal","input":"Siz yangi vazifani oldingiz, ammo talablar noaniq. Qanday yoʻl tutasiz?","domain":"Oria workstyle quiz"}
+{"id":"lb-27","preset":"assistant-friendly","input":"Could you help me find the receipt for last month's payment?","domain":"billing support"}
+{"id":"lb-28","preset":"marketing-warm","input":"A better career conversation can begin with a simple question.","domain":"career quiz marketing"}
+{"id":"lb-29","preset":"product-default","input":"Bu havola 15 daqiqadan keyin ishlamay qoladi.","domain":"security link"}
+{"id":"lb-30","preset":"quiz-formal","input":"Hamkasbingiz yordam soʻradi, lekin sizning ham vaqtingiz qisqa. Nima qilasiz?","domain":"Oria collaboration quiz"}
+{"id":"lb-31","preset":"assistant-friendly","input":"The app keeps signing me out. Is there a safe way to fix it?","domain":"session support"}
+{"id":"lb-32","preset":"marketing-warm","input":"You do not need to have it all figured out to take the next step.","domain":"career quiz marketing"}
+{"id":"lb-33","preset":"product-default","input":"Kontaktlaringizga kirish ruxsatini keyinroq ham berishingiz mumkin.","domain":"permissions"}
+{"id":"lb-34","preset":"quiz-formal","input":"Sizning fikringiz boshqalarnikidan farq qiladi. Uni qanday tushuntirasiz?","domain":"Oria communication quiz"}
+{"id":"lb-35","preset":"assistant-friendly","input":"Buyurtmam kechikyapti, lekin bekor qilmoqchi emasman.","domain":"delivery support"}
+{"id":"lb-36","preset":"marketing-warm","input":"Find a work rhythm that leaves room for your life, too.","domain":"wellbeing marketing"}
+{"id":"lb-37","preset":"product-default","input":"We could not verify your card. Check the details and try again.","domain":"payment error"}
+{"id":"lb-38","preset":"quiz-formal","input":"Jamoa qarori sizga maʼqul emas, lekin muddat yaqin. Qanday harakat qilasiz?","domain":"Oria decision quiz"}
+{"id":"lb-39","preset":"assistant-friendly","input":"I accidentally deleted a note. Is there any way to get it back?","domain":"product support"}
+{"id":"lb-40","preset":"marketing-warm","input":"Discover the patterns behind the choices you make at work.","domain":"career quiz marketing"}

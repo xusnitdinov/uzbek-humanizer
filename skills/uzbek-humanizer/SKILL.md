@@ -11,14 +11,14 @@ description: >-
 license: MIT
 metadata:
   author: xusnitdinov
-  version: "1.4.0"
+  version: "1.5.0"
 ---
 
 # uzbek-humanizer
 
 Make AI-written Uzbek sound like a real person wrote it - clear spoken Latin product/student Uzbek by default.
 
-**Honest claim:** calque-safe, register-safe draft with stronger native routing. Still requires native review for legal/medical/high-stakes marketing.
+**Honest claim (1.5.0):** S++ is **aspirational** until a live native pass is recorded per `eval/native-review-protocol.md`. Automated gates (live bakeoff + pairwise + audited bank) are green; self-scored goldens alone do **not** prove native taste. Legal/medical/high-stakes marketing still `draft/native_review_required`.
 
 ## Sister skill boundary (do not confuse)
 
@@ -29,18 +29,19 @@ Make AI-written Uzbek sound like a real person wrote it - clear spoken Latin pro
 
 If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, prefer **`uzbek-humanize`**. If they paste stiff Uzbek / ask to humanize lines, stay **here**. When slash is missing, this skill may still rewrite values but should not invent a second i18n framework unprompted.
 
-## Top 10 hard rules (always, before Router)
+## Top hard rules (always, before Router)
 
-1. **Product / UI / quiz = `Siz` only** - `qilasiz`, `Keling`. Never `qilasan` / bare `Kel` unless user explicitly asked for sen/youth.
-2. **No EN cool slang in UZ** - `ship`, `vibe`, `teammate`, `portladi`, `Systems brain`.
-3. **Situation-natural verbs** - not only anti-English. `Guruh ishi oʻxshamadi` not `chiqmadi` when it means "didn't work out."
-4. **Orthography** - oʻ/gʻ = `ʻ` (U+02BB); tutuq = `ʼ` (U+02BC). Never rewrite digraphs into tutuq.
-5. **No invented idioms / maqollar.**
-6. **One address lane** - never `Siz` + `-san` on the same surface.
-7. **No literal idiom calques** (`chelakni tepdi`).
-8. **Place names in UZ:** `Toshkent` not Tashkent.
-9. **Legal / medical / youth-heavy** → `Holat: draft/native_review_required`.
-10. **Always emit** Matn (or change summary) + Oʻzgarishlar + Holat in chat - even when editing project files.
+1. **Prefer spoken fit over formal correctness** - if grammar is fine but a Toshkent/Fargʻona urban speaker would rewrite it, rewrite it.
+2. **No fake particles** - do not stuff `xoʻp` / `mayli` / `endi` to “sound human.” Particles only when they help.
+3. **Product / UI / quiz = `Siz` only** - `qilasiz`, `Keling`. Never `qilasan` / bare `Kel` unless user explicitly asked for sen/youth.
+4. **No EN cool slang in UZ** - `ship`, `vibe`, `teammate`, `portladi`, `Systems brain` (see `loanword-policy.md` for KEEP vs REWRITE).
+5. **Situation-natural verbs / collocations** - `Guruh ishi oʻxshamadi` not `chiqmadi`; load `context-synonyms.md` + `collocations.md`.
+6. **Orthography** - oʻ/gʻ = `ʻ` (U+02BB); tutuq = `ʼ` (U+02BC). Never rewrite digraphs into tutuq.
+7. **No invented maqollar** / no poetic UI buttons / no lengthening short labels “to sound natural.”
+8. **One address lane** - never `Siz` + `-san` on the same surface; no literary+chatty mix on one screen.
+9. **Do not over-Uzbekify** accepted tech loans (`Wi‑Fi`, `OTP`, `email`, brands) into fake-literary purity.
+10. **Legal / medical / youth-heavy / unverified high-stakes** → `Holat: draft/native_review_required`.
+11. **Always emit** Matn (or change summary) + Oʻzgarishlar + Holat in chat - even when editing project files.
 
 ## Preset selector (required before rewrite)
 
@@ -73,7 +74,9 @@ Source: `references/register-presets.md`.
 | Scenario | Trigger examples | Load |
 |---|---|---|
 | **Site / app i18n (slash)** | `/uzbek-humanize`, Next/Vite locale wiring | Hand off to `uzbek-humanize`; else `ui-glossary` + `microcopy` + `soft-synonyms` |
-| Synonym / native taste | "chiqmadi vs oʻxshamadi", career quiz tone | `references/context-synonyms.md` + `references/native-preference-bank.md` + `references/oria-goldens.md` |
+| Synonym / native taste | "chiqmadi vs oʻxshamadi", career quiz tone | `references/context-synonyms.md` + `references/native-preference-bank.md` + `references/oria-career-quiz.md` + `references/oria-goldens.md` |
+| Collocations / aspect | stiff verbs, wrong pairs | `references/collocations.md` + `references/aspect-modality.md` + `references/auxiliaries.md` |
+| Loanwords | Wi‑Fi vs ship/vibe | `references/loanword-policy.md` |
 | Bad AI rewrite | stiff calques, EN order, broken suffixes | `references/banned-calques.md` + `references/before-after.md` + `references/ai-patterns.md` |
 | Marketing / landing | warm human tone | `references/register.md` + `references/voice.md` + `references/marketing-long.md` + `examples/marketing.md` |
 | Product UI | buttons, errors, empty states | `references/ui-glossary.md` + `references/microcopy.md` + `examples/product-ui.md` + `soft-synonyms.md` |
@@ -107,6 +110,7 @@ Source: `references/register-presets.md`.
    - `node scripts/lint-stiff.mjs <file>` (flags `-asan` on product; `--allow-sen` for youth)
    - `node scripts/lint-cadence.mjs <file>` (rhythm monotony / template repetition)
    - `node scripts/lint-literalness.mjs <file>` (translation-smell syntax)
+   - `node scripts/lint-screen-consistency.mjs <file>` (one-surface mix: Siz/sen, jumla/gap, literary+chatty)
 7. **Fix lint then re-lint** - or label residuals in Holat.
 8. **Holat gate** - legal / medical / youth / high-stakes marketing synonym doubt → `draft/native_review_required`.
 9. **Output** - template below. If you edited project files, still print short Oʻzgarishlar + Holat in chat.
@@ -178,6 +182,6 @@ Good: `Bu ilova menga juda yoqadi. Toʻgʻri javobni belgilang. Guruh ishi oʻxs
 ## Maintainer / self-test
 
 ```bash
-npm run test:eval
-node skills/uzbek-humanizer/scripts/normalize-apostrophe.mjs --self-test
+npm run test:splusplus
+# or: npm run test:eval && npm run test:normalize && npm run test:live-bakeoff && npm run test:pairwise
 ```

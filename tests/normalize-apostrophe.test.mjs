@@ -38,3 +38,36 @@ test("protects placeholders, urls and code blocks", () => {
   assert.match(out, /https:\/\/foo\.bar\/who's/);
   assert.match(out, /```js[\s\S]*who's[\s\S]*```/);
 });
+
+test("tx three-arg bilingual: only first Uzbek arg normalizes", () => {
+  const input = `tx("do'stim", "Who's my friend?", "Кто это?")`;
+  const out = normalize(input);
+  assert.equal(
+    out,
+    `tx("do${TURNED}stim", "Who's my friend?", "Кто это?")`
+  );
+});
+
+test("keeps printf and ICU-ish placeholders", () => {
+  const input = "Natija: %s / %d / %(name)s / {count, plural, one {# ta} other {# ta}}";
+  const out = normalize(input);
+  assert.match(out, /%s/);
+  assert.match(out, /%d/);
+  assert.match(out, /%\(\s*name\)s|%\(name\)s/);
+  assert.match(out, /\{count,/);
+});
+
+test("inline backticks stay untouched", () => {
+  const input = "Kod: `who's` va matn: to'g'ri";
+  const out = normalize(input);
+  assert.match(out, /`who's`/);
+  assert.equal(out.includes(`to${TURNED}g${TURNED}ri`), true);
+});
+
+test("JSON keys are not rewritten into tutuq digraphs", () => {
+  const input = `{"save":"Saqlash","o'zbek":"to'g'ri"}`;
+  const out = normalize(input);
+  // value normalizes; do not invent oʼ digraph
+  assert.equal(/[OoGg]\u02BC/.test(out), false);
+  assert.match(out, new RegExp(`to${TURNED}g${TURNED}ri`));
+});

@@ -17,7 +17,7 @@ npx skills add xusnitdinov/uzbek-humanizer --skill uzbek-humanizer --skill uzbek
 ## Option B - branded installer (npmjs) - preferred
 
 ```bash
-npm i -g uzbek-humanizer-cli@1.4.0
+npm i -g uzbek-humanizer-cli@1.5.0
 uzhumanizer init --ai cursor
 uzhumanizer init --ai all --global
 ```
@@ -43,7 +43,7 @@ npm uninstall -g uzbek-humanizer-cli
 Scoped package `@xusnitdinov/uzbek-humanizer-cli`. Needs a GitHub token with `read:packages`. CI publishes this too so the repo Packages sidebar stays filled.
 
 ```bash
-npm i -g @xusnitdinov/uzbek-humanizer-cli@1.4.0 --registry=https://npm.pkg.github.com
+npm i -g @xusnitdinov/uzbek-humanizer-cli@1.5.0 --registry=https://npm.pkg.github.com
 uzhumanizer init --ai all --global
 ```
 

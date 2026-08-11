@@ -6,6 +6,9 @@
   "scripts": {
     "test:eval": "node skills/uzbek-humanizer/scripts/run-eval.mjs",
     "test:normalize": "node --test tests/normalize-apostrophe.test.mjs && node skills/uzbek-humanizer/scripts/normalize-apostrophe.mjs --self-test",
+    "test:live-bakeoff": "node skills/uzbek-humanizer/scripts/run-live-bakeoff.mjs",
+    "test:pairwise": "node skills/uzbek-humanizer/scripts/run-pairwise.mjs",
+    "test:splusplus": "npm run test:normalize && npm run test:eval && npm run test:live-bakeoff && npm run test:pairwise",
     "lint:examples": "node skills/uzbek-humanizer/scripts/run-eval.mjs"
   },
 
