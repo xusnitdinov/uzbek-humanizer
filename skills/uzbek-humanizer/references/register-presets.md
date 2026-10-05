@@ -183,3 +183,25 @@ Use these presets explicitly before rewriting.
   18. Muammo davom etsa, klinikaga boring.
   19. Holatni kuzatib boring.
   20. Holat: draft/native_review_required.
+
+## 8) `support-reply`
+
+Assembled from brand replies [GP-HAMBI][GP-CLICK]. Holat: `draft/native_review_required` until a native pass.
+
+- Opens with "Assalomu alaykum!" (860 of 1,138 unique company replies). Not "Hurmatli foydalanuvchi".
+- Sentence-final `-sangiz.` as the request: "batafsil yozib yuborsangiz."
+- Service auxiliary `-ib oʻtmoq`: "yozib oʻtsangiz", "tekshirib oʻtamiz". See `auxiliaries.md`.
+- Names the plain state. Not "cheklovlar kuzatilmoqda".
+- Sample shape: "Assalomu alaykum! Ilova ochilmayotganidan afsusdamiz. Holatni Telegram-botimizga batafsil yozib yuborsangiz, tekshirib, yordam beramiz."
+
+## 9) `user-voice`
+
+Persona text, sample reviews, testimonials. Not product UI.
+
+- Plural address to a team is normal: "qoʻyinglar", "qoʻshinglar" [GP-PAYME]. Do not flatten to singular `-ing`.
+- Praise: "zoʻr", "gap yoʻq", "qulay", "ajoyib … ekan". Not "tajriba" for UX.
+- Keep sen inside a quoted review. FAQ rewrite uses Siz or impersonal. See `politeness.md`.
+
+## 10) `news-headline`
+
+Shape from kun.uz / daryo / qalampir: a short fact, then "— tafsilotlar" or a question. Attested: "Buxoroda “Karvon” bozori yonib ketdi — tafsilotlar" [DARYO]. Not "batafsil maʼlumotlar quyida". Place names in Uzbek: Buxoro, not Bukhara. New headline goldens stay `draft/native_review_required`.

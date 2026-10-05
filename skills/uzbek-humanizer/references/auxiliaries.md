@@ -10,6 +10,7 @@ Spoken Uzbek often uses converb + auxiliary. AI underuses these and sounds textb
 | `-ib ketmoq` | sudden start / go off | `kulib yubordi` context; `ketib qoldi` |
 | `-ib turmoq` / `-ib oʻtirmoq` | ongoing | `kutib turibdi` |
 | `-ib boʻlmoq` | completed | `yozib boʻldim` |
+| `-ib oʻtmoq` | service auxiliary in support | `yozib oʻtsangiz`, `tekshirib oʻtamiz`, `yordam berib oʻtamiz` [GP-HAMBI][GP-TBC] |
 
 ## Compound helpers
 

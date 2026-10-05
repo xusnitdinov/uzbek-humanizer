@@ -4,7 +4,9 @@ Maqsad “sof” koʻrinish emas. Odamlar ishlatadigan, maʼnosi ravshan soʻzni
 
 ## KEEP
 
-Quyidagilar odatiy product va kundalik matnda qolsin: **Wi‑Fi, foto, OTP, laptop, brand, cookie, email, PIN, Google, Telegram, Instagram, online, offline, link, chat, QR-kod, video, bonus, promo-kod, profil, test**.
+Quyidagilar odatiy product va kundalik matnda qolsin: **Wi‑Fi, foto, OTP, laptop, brand, cookie, email, PIN, Google, Telegram, Instagram, onlayn, oflayn, link, chat, QR-kod, video, bonus, promokod, keshbek, skrinshot, Telegram-bot, profil, test**.
+
+Rasmiy UZ nusxada oʻzlashgan shakl yoziladi, ingliz imlosi emas: "onlayn hamda oflayn tarzda" [GP-NASIYA], "Promokod: PRO199" [TG-XB], "Telegram-bot", "skrinshot", "lokatsiya" [GP-HAMBI][GP-OLX]. Support javoblarida onlayn bor, online yoʻq; promokod bor, promo-kod yoʻq. "elektron pochta manzili" support matnida tabiiy; faqat "elektron pochta xati" soxta poklik.
 
 | Soʻz | Tabiiy ishlatish |
 |---|---|
@@ -19,7 +21,9 @@ Quyidagilar odatiy product va kundalik matnda qolsin: **Wi‑Fi, foto, OTP, lapt
 
 ## KEEP — youth-only
 
-Bular faqat foydalanuvchi aynan yoshlarcha, norasmiy ohang soʻrasa va auditoriya mos bo‘lsa: **story, post, reel, like, follow, DM, podcast, stream, vlog, meme**.
+Bular faqat foydalanuvchi aynan yoshlarcha, norasmiy ohang soʻrasa va auditoriya mos bo‘lsa: **story, post, reel, like, follow, DM, podcast, stream, vlog, meme, donat, crack, apk**.
+
+`donat` / `crack` / `apk` user ovozida uchraydi ("Pubgga donat qilmoqmiman", "apkni crack qilaman" [GP-PAYME]). Product/FAQ da chiqarmang. Youth mode da ham `draft/native_review_required`.
 
 Product/quiz defaultida: `DMʼga yozing` emas, `Xabar yozing`; `like bosing` emas, `Yoqdi deb belgilang` yoki platforma nomi zarur bo‘lsa aynan platforma tilini saqlang.
 

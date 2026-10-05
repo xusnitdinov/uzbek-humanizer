@@ -23,6 +23,8 @@ Models often sound fluent while failing:
 | Empty intensifiers | Prefer concrete verbs |
 | RU discourse particles for "local flavor" | Remove unless youth mode requested |
 | Over-explaining UI buttons | Short verb labels: `Saqlash`, `Bekor qilish` |
+| UX "experience" → tajriba | qulay / yoqdi. Attested stiff: "foydalanuvchi tajribasini yanada yaxshilashga qaratilgan" [GP-PAYME] |
+| Sizning … bizning + -ga | Drop the ghost possessive (pref-bank #3). "bizning … -ga" is a case error; the attested fix is "bizni" [GP-YANDEX]. Draft until native review |
 
 ## Rewrite priorities
 

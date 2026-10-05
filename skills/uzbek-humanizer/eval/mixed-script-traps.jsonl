@@ -8,3 +8,5 @@
 {"id":"adv-mix-08","input":"Cyrillic requested output","trap":"Latin force-overwrite","expect":"respect_script_request"}
 {"id":"adv-mix-09","input":"JSON keys with apostrophes","trap":"key corruption","expect":"keys_untouched"}
 {"id":"adv-mix-10","input":"tx(\"uz\", \"en\", \"ru\") in one line","trap":"argument bleed","expect":"segment_safe"}
+{"id":"adv-mix-11","input":"Payme Go'da / PUBG'ga","trap":"brand or ALL-CAPS + suffix must stay tutuq, not an o/g digraph","expect":"tutuq_before_suffix"}
+{"id":"adv-mix-12","input":"Cyrillic body plus Latin labels RASMIY | LIVE | SPORT","trap":"convert the Cyrillic body only; keep Latin labels","expect":"body_only"}

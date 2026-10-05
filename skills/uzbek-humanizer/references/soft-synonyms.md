@@ -64,3 +64,19 @@ Load with `before-after.md` for product / quiz / career copy.
 ## Rule
 
 If a synonym is grammatical but a native would never say it in that quiz/UI line, it is still wrong. Prefer `references/before-after.md` Oria pairs.
+
+## Tech failure / money: user voice
+
+From Play reviews. Product error copy should name this plain state, not "nosozlik yuz berdi" or "cheklovlar kuzatilmoqda". Lines below are `draft/native_review_required` when used as goldens.
+
+| Situation | Native | Stiff |
+|---|---|---|
+| app freezes | qotyapti (20): "juda yomon qotyabdi" [GP-PAYME] | "texnik nosozlik yuz berdi" |
+| can't log in | kirib boʻlmayapti; "payme ga kirolmayapman" [GP-PAYME] | "Tizimga kirishda xatolik yuzaga keldi" |
+| code not arriving | "kod kelmayapti" [GP-ONEID] | "Tasdiqlash kodi yetkazib berilmadi" |
+| money debited | "har oy kartamdan pul yechib olyapti" [GP-PAYME] | "Hisobingizdan mablagʻ chiqarildi" |
+| money not credited | "qaytib kartamga tushmayapti" [GP-PAYME] | "Mablagʻ kelib tushmadi" |
+| payment stuck | "toʻlov aylanib qolyapti" [GP-PAYME] | "Tranzaksiya qayta ishlanmoqda" |
+| update made it worse | "yangi versiya umuman yoqmadi" [GP-PAYME] | "foydalanuvchi tajribasini yomonlashtirdi" |
+| recommend | "siz ham sinab koʻring" [GP-OLX]; "sizlarga xam tavsiya qilaman" [GP-TEZKOR] | "qatʼiy tavsiya etaman" |
+| doesn't work at all | umuman (103) over vapshe (20): "umuman ishlamayapti" [GP-HEMIS] | "mutlaqo ishlamayapti" / "aslo faoliyat koʻrsatmayapti" |

@@ -2,7 +2,7 @@
 /**
  * Screen-level consistency lint for a single surface / Matn block.
  * Flags mixed address lanes, jumla/gap mixing, literary+chatty clash,
- * and repeated template stems.
+ * repeated template stems, the SIz typo, and Cyrillic leaks in UZ text.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -95,6 +95,17 @@ if (stems.length >= 5) {
   for (const [k, n] of counts) {
     if (n >= 4) findings.push(`Repeated template stem "${k}" x${n}`);
   }
+}
+
+if (/\bSIz\b/.test(text)) {
+  findings.push("Inconsistent address casing: SIz");
+}
+
+const cyrillic = text.match(/[А-Яа-яЁё]{2,}/g);
+if (cyrillic) {
+  findings.push(
+    `Cyrillic/RU leak in UZ text: ${[...new Set(cyrillic)].slice(0, 3).join(", ")}`
+  );
 }
 
 if (findings.length) {

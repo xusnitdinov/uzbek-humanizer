@@ -17,6 +17,9 @@ Empty states, errors, loading, validation - keep short and human.
 | Copied | `Nusxa olindi` |
 | Feedback | `Sahifadagi kontent sizga maʼqul keldimi?` |
 | Generic retry | `Qaytadan urinib koʻring` |
+| App outage | `Ilova hozir ishlamayapti` / `ochilmayapti` / `qotyapti` |
+
+Outage copy names the plain state users actually type. "cheklovlar kuzatilmoqda" is a support euphemism (53 replies, 0 users) [GP-HAMBI], not an error string.
 
 ## Tone
 

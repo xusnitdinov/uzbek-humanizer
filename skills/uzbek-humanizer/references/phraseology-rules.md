@@ -29,3 +29,11 @@
 ## Product UI
 
 Prefer plain clarity over proverb flex unless the brand voice asks for it.
+
+## Attested in the wild
+
+Real use is short, situational, and not decorative. One idiom at most, only in casual or opinion text. Never invent one.
+
+- "Qichimagan joyni qashima" (a whole comment on the alphabet reform) [YT-KUN]
+- "nur ustiga nur boʻladi" [W-TAKLIF]
+- "ogʻzingdan bol tomib gaplashishing kerak" [DARYO]

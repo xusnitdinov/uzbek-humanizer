@@ -102,7 +102,7 @@ Format: `ID. Context | Avoid | Prefer | Why | Confidence | Status`
 87. Chat thanks | Murojaatingiz uchun rahmat | Rahmat | Tabiiy qisqalik | high | native_verified
 88. Chat follow-up | Qoʻshimcha savolingiz bormi? | Yana nimadir kerakmi? | Spoken | high | native_verified
 89. Chat attachment | Faylni biriktiring | Faylni yuboring | Chat amali | high | native_verified
-90. Chat apology | Noqulaylik uchun uzr soʻraymiz | Uzr, noqulay boʻldi | Insoniyroq | high | native_verified
+90. Chat apology | Noqulaylik uchun uzr soʻraymiz | Uzr, noqulay boʻldi | Insoniyroq. Attested stiff formula to avoid: "Keltirilgan noqulayliklar uchun uzr soʻraymiz" [GP-OLX][GP-HAMBI] | high | native_verified
 
 ## Marketing
 91. Marketing promise | Hayotingizni transformatsiya qiling | Ishlaringizni yengillashtiring | Boʻrttirishsiz | high | native_verified
