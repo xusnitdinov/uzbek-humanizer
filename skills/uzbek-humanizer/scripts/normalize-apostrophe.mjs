@@ -6,6 +6,10 @@
  *
  * Digraphs are protected before tutuq passes so `toʻgʻri` never becomes `toʼgʻri`.
  * English contractions and common bilingual tx()/locale EN segments are protected.
+ * Inbound 2026-reform letters (ö/õ/ó/ò/ō, ğ, ş, ç) map to the current alphabet.
+ * This script never emits ö/ğ/ş/ç. Outbound reform is explicit-request only.
+ * Brand and ALL-CAPS tokens plus a case suffix stay tutuq (`Goʼda`, `PUBGʼga`),
+ * not oʻ/gʻ. A real digraph (`toʻgʻri`, `TOʻGʻRI`) is unchanged.
  *
  * Usage:
  *   node normalize-apostrophe.mjs <file>
@@ -19,8 +23,16 @@ import { fileURLToPath } from "node:url";
 
 export const TURNED = "\u02BB"; // ʻ
 export const TUTUQ = "\u02BC"; // ʼ
-const MARK = `['\`\u2018\u2019\u02BB\u02BC]`;
+const MARK = `['\`\u00B4\u2018\u2019\u02BB\u02BC]`;
 const DIGRAPH_PH = "\u0000DG\u0000";
+/** Longer suffixes first so `dagi` is not eaten as `da`. */
+const CASE_SUFFIX =
+  "dagi|dan|dek|day|ning|ni|lari|larini|larni|lar|cha|ga|ka|qa|mi|da";
+/**
+ * Brands whose final letter must not become oʻ/gʻ before a suffix.
+ * Brief P0: Go, PUBG, Uzum. ALL-CAPS tokens are handled separately.
+ */
+const BRAND_SRC = "Go|PUBG|Uzum";
 
 /** EN contractions / names we must not rewrite (no /g - rebuild when testing) */
 const EN_SKIP_SRC =
@@ -84,6 +96,45 @@ function protectForeign(text) {
   return { out, saved };
 }
 
+/**
+ * Inbound only. ö õ ó ò ō → oʻ, ğ → gʻ, ş → sh, ç → ch.
+ * Does not modernize output to the 2026 letters.
+ */
+function mapReformInbound(text) {
+  let out = text;
+  out = out.replace(/[ÖÕÓÒŌ]/g, `O${TURNED}`);
+  out = out.replace(/[öõóòō]/g, `o${TURNED}`);
+  out = out.replace(/Ğ/g, `G${TURNED}`);
+  out = out.replace(/ğ/g, `g${TURNED}`);
+  out = out.replace(/Ş/g, (m, i, s) => (/[A-Z]/.test(s[i + 1] || "") ? "SH" : "Sh"));
+  out = out.replace(/ş/g, "sh");
+  out = out.replace(/Ç/g, (m, i, s) => (/[A-Z]/.test(s[i + 1] || "") ? "CH" : "Ch"));
+  out = out.replace(/ç/g, "ch");
+  return out;
+}
+
+/**
+ * Apostrophe before a suffix on a brand or ALL-CAPS token is tutuq, not oʻ/gʻ.
+ * Lookbehind keeps the g in `to'g'ri` (a mark is not a letter, so \\b would match).
+ * Known suffix list keeps `TO'G'RI` a digraph: the next piece is not `ga`/`da`.
+ */
+function protectBrandSuffixes(text, saved) {
+  const stash = (m) => {
+    saved.push(m);
+    return `\u0000P${saved.length - 1}\u0000`;
+  };
+  const boundary = `(?<![A-Za-z\\u00B4'\`\u2018\u2019${TURNED}${TUTUQ}])`;
+  let out = text.replace(
+    new RegExp(`${boundary}(${BRAND_SRC})${MARK}(${CASE_SUFFIX})\\b`, "gi"),
+    (_, brand, suf) => stash(`${brand}${TUTUQ}${suf}`)
+  );
+  out = out.replace(
+    new RegExp(`${boundary}([A-Z]{2,})${MARK}(${CASE_SUFFIX})\\b`, "g"),
+    (_, token, suf) => stash(`${token}${TUTUQ}${suf}`)
+  );
+  return out;
+}
+
 function restorePlaceholders(text, saved) {
   return text.replace(/\u0000P(\d+)\u0000/g, (_, i) => saved[Number(i)]);
 }
@@ -110,9 +161,10 @@ function restoreDigraphs(text, saved) {
  */
 export function normalize(text) {
   const { out: foreignOut, saved: foreignSaved } = protectForeign(text);
-  let out = foreignOut;
+  let out = mapReformInbound(foreignOut);
+  out = protectBrandSuffixes(out, foreignSaved);
 
-  // 1) o'/g' digraphs → TURNED (ASCII, curly, or mixed)
+  // 1) o'/g' digraphs → TURNED (ASCII, curly, acute, or mixed)
   out = out.replace(new RegExp(`([OoGg])${MARK}`, "g"), `$1${TURNED}`);
 
   // 2) Freeze digraphs so tutuq never rewrites oʻ / gʻ
@@ -141,6 +193,14 @@ export function normalize(text) {
       "g"
     ),
     (_, c, v) => `${c}${TUTUQ}${v}`
+  );
+
+  // 6) leftover non-digraph mark before a case suffix: tool'da, edittools'da.
+  // TURNED is excluded so toʻda stays a digraph.
+  const RAW_MARK = `['\`\u00B4\u2018\u2019${TUTUQ}]`;
+  out = out.replace(
+    new RegExp(`([A-Za-z])${RAW_MARK}(${CASE_SUFFIX})\\b`, "g"),
+    (_, stem, suf) => `${stem}${TUTUQ}${suf}`
   );
 
   out = restoreDigraphs(out, digSaved);
@@ -186,6 +246,15 @@ function selfTest() {
       `{"uz":"to'g'ri","en":"Who's there?"}`,
       `{"uz":"to${TURNED}g${TURNED}ri","en":"Who's there?"}`,
     ],
+    ["o\u00B4g\u00B4ri", `o${TURNED}g${TURNED}ri`],
+    ["bo\u02BClmayapti", `bo${TURNED}lmayapti`],
+    ["q\u00F6\u015Filaman", `qo${TURNED}shilaman`],
+    ["\u00D5ZIDAN", `O${TURNED}ZIDAN`],
+    ["Payme Go'da", `Payme Go${TUTUQ}da`],
+    ["PUBG'ga", `PUBG${TUTUQ}ga`],
+    ["Uzum'da", `Uzum${TUTUQ}da`],
+    ["TO'G'RI", `TO${TURNED}G${TURNED}RI`],
+    ["tool'da", `tool${TUTUQ}da`],
   ];
   let failed = 0;
   for (const [input, expect] of cases) {
@@ -201,11 +270,21 @@ function selfTest() {
     console.error("FAIL digraph used tutuq:", bad);
     failed += 1;
   }
+  const reform = normalize("To\u011Fri q\u00F6\u015Filaman \u00D5ZIDAN");
+  if (/[ööğğşçõóòōÖĞŞÇÕÓÒŌ]/.test(reform)) {
+    console.error("FAIL reform letters left in output:", reform);
+    failed += 1;
+  }
+  const brand = normalize("Payme Go'da PUBG'ga");
+  if (/Go\u02BB|G\u02BBga/.test(brand)) {
+    console.error("FAIL brand suffix became a digraph:", brand);
+    failed += 1;
+  }
   if (failed) {
     console.error(`self-test: ${failed} failed`);
     process.exit(2);
   }
-  console.log(`self-test: ${cases.length + 1} ok`);
+  console.log(`self-test: ${cases.length + 3} ok`);
 }
 
 function usage() {

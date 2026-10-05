@@ -36,7 +36,7 @@ If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, 
 3. **Product / UI / quiz = `Siz` only** - `qilasiz`, `Keling`. Never `qilasan` / bare `Kel` unless user explicitly asked for sen/youth.
 4. **No EN cool slang in UZ** - `ship`, `vibe`, `teammate`, `portladi`, `Systems brain` (see `loanword-policy.md` for KEEP vs REWRITE).
 5. **Situation-natural verbs / collocations** - `Guruh ishi oʻxshamadi` not `chiqmadi`; load `context-synonyms.md` + `collocations.md`.
-6. **Orthography** - oʻ/gʻ = `ʻ` (U+02BB); tutuq = `ʼ` (U+02BC). Never rewrite digraphs into tutuq.
+6. **Orthography** - output stays on the current alphabet: oʻ/gʻ = `ʻ` (U+02BB); tutuq = `ʼ` (U+02BC). Inbound ö/õ/ó/ò/ō, ğ, ş, ç normalize to oʻ/gʻ/sh/ch. Do not emit ö/ğ unless the user explicitly asks, then `draft/native_review_required`. Brand or ALL-CAPS + suffix (`Goʼda`, `PUBGʼga`) stays tutuq. Never rewrite a real oʻ/gʻ digraph into tutuq.
 7. **No invented maqollar** / no poetic UI buttons / no lengthening short labels “to sound natural.”
 8. **One address lane** - never `Siz` + `-san` on the same surface; no literary+chatty mix on one screen.
 9. **Do not over-Uzbekify** accepted tech loans (`Wi‑Fi`, `OTP`, `email`, brands) into fake-literary purity.
@@ -51,6 +51,7 @@ If the user asks to add Uzbek to a Next/Vite app or edit `en.json`→`uz.json`, 
 - `youth-chat` → only on explicit request
 - `marketing-warm` → landing/promo without brochure tone
 - `legal-soft-draft` / `medical-soft-draft` → always draft gate
+- `support-reply` / `user-voice` / `news-headline` → `register-presets.md` (new lines stay draft until native review)
 
 Source: `references/register-presets.md`.
 

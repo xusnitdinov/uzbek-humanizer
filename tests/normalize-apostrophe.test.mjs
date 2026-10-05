@@ -64,6 +64,33 @@ test("inline backticks stay untouched", () => {
   assert.equal(out.includes(`to${TURNED}g${TURNED}ri`), true);
 });
 
+test("acute accent and wrong tutuq on o/g become the digraph mark", () => {
+  assert.equal(normalize("o\u00B4g\u00B4ri"), `o${TURNED}g${TURNED}ri`);
+  assert.equal(normalize("bo\u02BClmayapti"), `bo${TURNED}lmayapti`);
+});
+
+test("reform letters normalize inbound and are not emitted", () => {
+  assert.equal(normalize("q\u00F6\u015Filaman"), `qo${TURNED}shilaman`);
+  assert.equal(normalize("\u00E7unki"), "chunki");
+  assert.equal(normalize("\u00D5ZIDAN"), `O${TURNED}ZIDAN`);
+  assert.equal(normalize("juda z\u00F5r"), `juda zo${TURNED}r`);
+  assert.equal(normalize("gap y\u00F3"), `gap yo${TURNED}`);
+  const out = normalize("To\u011Fri q\u00F6\u015Filaman");
+  assert.equal(/[ööğğşçõóòō]/i.test(out), false);
+  assert.match(out, new RegExp(`g${TURNED}ri`));
+});
+
+test("brand and ALL-CAPS suffixes stay tutuq", () => {
+  assert.equal(normalize("Payme Go'da"), `Payme Go${TUTUQ}da`);
+  assert.equal(normalize("PUBG'ga"), `PUBG${TUTUQ}ga`);
+  assert.equal(normalize("Uzum'da"), `Uzum${TUTUQ}da`);
+  assert.equal(normalize("AIFU'da"), `AIFU${TUTUQ}da`);
+  assert.equal(normalize("tool'da"), `tool${TUTUQ}da`);
+  assert.equal(normalize("to'g'ri"), `to${TURNED}g${TURNED}ri`);
+  assert.equal(normalize("TO'G'RI"), `TO${TURNED}G${TURNED}RI`);
+  assert.equal(normalize("to'da"), `to${TURNED}da`);
+});
+
 test("JSON keys are not rewritten into tutuq digraphs", () => {
   const input = `{"save":"Saqlash","o'zbek":"to'g'ri"}`;
   const out = normalize(input);

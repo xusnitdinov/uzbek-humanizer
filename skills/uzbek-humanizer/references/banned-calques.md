@@ -32,6 +32,8 @@ Never paste these English "cool" patterns into Uzbek product/student copy.
 | Loyiha portladi | Loyiha oʻxshamadi |
 | qilasan / kirasan (product/quiz) | qilasiz / kirasiz |
 | Asabiylashgan doʻstim… (casual) | Stressdagi doʻstim… |
+| tajriba / tajribangiz (= UX "experience") | qulay / yoqdi / foydalanish. Reviews: zoʻr, gap yoʻq, qulay, ajoyib; tajriba 0 in the 3k sample. Corporate still writes "foydalanuvchi tajribasini yanada yaxshilashga" [GP-PAYME] | 
+| Qayta aloqa (RU обратная связь) | "Fikringiz uchun katta rahmat!" [GP-CLICK]; "Izohingiz uchun tashakkur" [GP-PAYME]. Not "Qayta aloqa uchun rahmat!" [GP-YANDEX] |
 
 See `soft-synonyms.md` for the full situation bank.
 

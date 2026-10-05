@@ -61,7 +61,7 @@ Ship **spoken clear product/student Latin Uzbek** that a real user in Toshkent w
 4. **Translate / humanize** - natural UZ (keep keys; translate values):
    - Buttons short (`Saqlash`, `Bekor qilish`, `Roʻyxatdan oʻtish`)
    - Errors soft and clear
-   - Orthography: oʻ/gʻ with `ʻ`, tutuq with `ʼ` - no ASCII `'`
+   - Orthography: current alphabet, oʻ/gʻ with `ʻ`, tutuq with `ʼ` - no ASCII `'`. Inbound ö/ğ/ş/ç normalize to oʻ/gʻ/sh/ch; do not emit ö/ğ unless the user asked, then draft
    - One address lane (`Siz` for product UI)
    - Ban EN cool calques (`select qil`, `ship`, `vibe`, stiff `haqiqatan ham`)
    - Latin default - do not ship Cyrillic in the Uzbek site locale unless the user asked

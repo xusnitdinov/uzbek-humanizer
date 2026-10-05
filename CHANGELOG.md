@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Orthography: inbound ö/õ/ó/ò/ō, ğ, ş, ç and acute ´ normalize to the current alphabet. Brand and ALL-CAPS suffixes (`Goʼda`, `PUBGʼga`) stay tutuq. Output does not switch to ö/ğ unless the user asks, and that line stays draft.
+- Loanword policy now matches real copy: onlayn, oflayn, promokod, plus keshbek, skrinshot, Telegram-bot.
+- Replaced weak goldens `rating-ask` and `support-chat`. Both stay `draft/native_review_required`.
+- Added 26 draft cases from the wild-copy research brief. `reform-out-request`, `wild-particle-hyphen`, and ironic Siz are documented and not goldened.
+
 ## 1.5.1
 
 - Expand eval goldens to **200/200** across real product domains: ecommerce, fintech/Payme/Click, delivery, mobility, telecom, SaaS, LMS, travel, auth, gov, support, permissions, privacy soft, plus anti-calque rewrites

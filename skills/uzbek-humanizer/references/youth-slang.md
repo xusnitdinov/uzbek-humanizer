@@ -69,15 +69,38 @@ Default clean mode bans these discourse RU items - see `rusizmlar.md`. Youth mix
 
 ## Chat abbreviations
 
-| Item | Sense |
-|---|---|
-| HZ | hozir |
-| KK | kerak |
-| NM | nima |
-| OK / ok | fine (universal) |
-| asap-ish | prefer `tezroq` / `hozir` over EN spam |
+Read and restore in clean copy. Never emit these outside youth mode.
+
+| Item | Sense | Attested |
+|---|---|---|
+| HZ | hozir | |
+| KK / kk / k/k / k-k | kerak | "qilish kk ekan" [GP-CLICK], "k-k" [YT-XAB] |
+| NM / nma | nima | "nma qilsam boladi" [GP-PAYME] |
+| b/n / bn | bilan | "operatorlar bn" [GP-PAYME]; paper also "bilan → b/n" [INACAD] |
+| qb | qilib | "mazza qb" [GP-PAYME] |
+| kere | kerak | [GP-PAYME] |
+| lekn | lekin | [GP-PAYME] |
+| db | deb | [GP-PAYME] |
+| un | uchun | [GP-PAYME] |
+| ketappan | ketyapman | paper [INACAD] |
+| OK / ok | fine (universal) | |
+| asap-ish | prefer `tezroq` / `hozir` over EN spam | |
 
 Peer chat only - never in bank / UI / medical.
+
+## Negative user tier
+
+Praise in reviews is `zoʻr`, `gap yoʻq`, `qulay`, `ajoyib`, not `tajriba` (0 hits in the 3k-review sample). Negative tier, still not product copy:
+
+| Item | Sense |
+|---|---|
+| rasvo | awful ("Beeline interneti juda rasvo" [GP-HAMBI]) |
+| gʻirt | intensifier ("g'irt musur" [GP-TEZKOR]) |
+| dabdala | wrecked ("Vapshe dabdala musr ilova") |
+| asabga tegadi | gets on one's nerves |
+| musur / musr | rough, from RU мусор; same warning as `zajeb` |
+
+`donat`, `crack`, `apk` are youth-only loans. See `loanword-policy.md`. Do not emit them in product copy.
 
 ## Before / after (peer)
 

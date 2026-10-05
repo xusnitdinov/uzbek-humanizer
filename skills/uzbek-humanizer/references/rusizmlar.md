@@ -6,6 +6,21 @@ Three layers - do not treat all RU/EN the same.
 
 `stol`, `bilet`, `protsent`, `tema`, `obʼekt` - take Uzbek morphology: `biletim`, `protsentlar`.
 
+## 1b. Colloquial RU nouns
+
+User voice may keep them. Product copy rewrites them. Attested in reviews [GP-TEZKOR][GP-PAYME][GP-NASIYA][GP-OLX]: zakaz/zakas, skidka, plastik, mashennik, nomer, pilesos, registratsiya.
+
+| User-voice OK | Product rewrite |
+|---|---|
+| zakaz / zakas | buyurtma |
+| skidka | chegirma |
+| plastik | karta |
+| mashennik | firibgar |
+| nomer | raqam |
+| udalit qilmoq | oʻchirmoq ("endi paymeni udalit qilamz" [GP-PAYME]) |
+
+A store listing can mention both for search ("zakaz qilish va … buyurtma qilish" [GP-TEZKOR]). Buttons and `uz.json` values use the product column. RU verb + `qilmoq` (`udalit qilmoq`) is not a kept loan.
+
 ## 2. Discourse RU (ban in default clean UZ)
 
 | Item | Prefer |

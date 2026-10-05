@@ -21,3 +21,9 @@ Light particles make prose human. Overuse makes it fake-chatty.
 ## Rule
 
 Product UI: almost no particles. Assistant chat: light. Youth chat: more OK if requested.
+
+## Hyphen on -ku / -da / -yu / -yov (not confirmed)
+
+Attested both ways. Glued: "yaxwi ediku", "bu qaroqchilikku" [GP-PAYME], "reklama qiladida" [YT-KUN]. Hyphenated: "boʻladi-yov" [YT-XAB]. This file already writes `emas-ku`.
+
+Do **not** treat "always restore the hyphen" as a hard rule, and do not add case `wild-particle-hyphen`, until an imlo source confirms it. P3.
