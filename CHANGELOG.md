@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.6.0 - 2026-10-06
+
 - Orthography: inbound ö/õ/ó/ò/ō, ğ, ş, ç and acute ´ normalize to the current alphabet. Brand and ALL-CAPS suffixes (`Goʼda`, `PUBGʼga`) stay tutuq. Output does not switch to ö/ğ unless the user asks, and that line stays draft.
 - Loanword policy now matches real copy: onlayn, oflayn, promokod, plus keshbek, skrinshot, Telegram-bot.
 - Replaced weak goldens `rating-ask` and `support-chat`. Both stay `draft/native_review_required`.
