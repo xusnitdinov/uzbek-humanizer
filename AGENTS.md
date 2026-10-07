@@ -65,3 +65,17 @@ Node 18+. No app build step.
 - If user-facing: note for `CHANGELOG.md`
 
 More human detail: [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+## Cursor Cloud specific instructions
+
+No lockfile and no npm dependencies. Do not run `npm ci` or `npm install`. Node 18+ is enough (CI uses 22). No dev server, database, or secrets.
+
+Use the commands in **Commands** above. For the installer, use a throwaway directory so `init` does not write into this repo, then uninstall. Both packs must show up:
+
+```bash
+mkdir -p /tmp/uz-smoke && cd /tmp/uz-smoke
+node /path/to/uzbek-humanizer/cli/bin/uzhumanizer.js init --ai cursor
+test -f .cursor/skills/uzbek-humanizer/SKILL.md
+test -f .cursor/skills/uzbek-humanize/SKILL.md
+node /path/to/uzbek-humanizer/cli/bin/uzhumanizer.js uninstall --ai cursor
+```
